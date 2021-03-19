@@ -13,7 +13,7 @@ OBJ_M		=	$(MAIN:.cpp=.o)
 SRC			=	$(addprefix $(SRC_D), $(SRC_F))
 OBJ			=	$(SRC:.cpp=.o)
 SRC_D		=	src/
-SRC_F		=
+SRC_F		=	DLLoader.cpp
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
@@ -39,6 +39,10 @@ $(NAME): $(OBJ_M) $(OBJ)
 
 debug: $(OBJ)
 	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
+
+doc: FORCE
+	doxygen Doxyfile
+FORCE:
 
 tests_run: clean $(OBJ) $(OBJ_UT)
 	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS_UT)
