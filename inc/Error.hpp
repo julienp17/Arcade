@@ -5,16 +5,16 @@
 ** ARCError
 */
 
-#ifndef INC_ARCERROR_HPP_
-#define INC_ARCERROR_HPP_
+#ifndef INC_ERROR_HPP_
+#define INC_ERROR_HPP_
 
 #include <exception>
 #include <string>
 
 namespace arc {
-class ARCError : public std::exception {
+class Error : public std::exception {
  public:
-    explicit ARCError(std::string const &message) : _message(message) {}
+    explicit Error(std::string const &message) : _message(message) {}
 
     inline virtual const char* what() const noexcept {
         return _message.c_str();
@@ -24,10 +24,10 @@ class ARCError : public std::exception {
     std::string _message;
 };
 
-class DLLError : public arc::ARCError {
+class DLLError : public Error {
  public:
-    explicit DLLError(std::string const &message) : ARCError(message) {}
+    explicit DLLError(std::string const &message) : Error(message) {}
 };
 }  // namespace arc
 
-#endif  // INC_ARCERROR_HPP_
+#endif  // INC_ERROR_HPP_
