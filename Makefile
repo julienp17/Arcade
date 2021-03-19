@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2021
-## Nano Tek Spice
+## Arcade
 ## File description:
 ## Makefile
 ##
@@ -22,15 +22,13 @@ SRC_UT_F	=
 
 INC			=	-I./inc -I./inc/components
 
-CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC) $(COVERAGE_FLAGS)
+CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC)
 
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 
-COVERAGE_FLAGS = --coverage -g -O0
-
 DBFLAGS		=	-g -g3 -ggdb
 
-NAME		=	nanotekspice
+NAME		=	arcade
 
 NAME_UT		=	unit_tests
 
@@ -48,9 +46,6 @@ tests_run: clean $(OBJ) $(OBJ_UT)
 
 coverage:
 	gcovr -s --exclude tests/
-
-coding-style:
-	cpplint --recursive --filter=-legal/copyright --verbose=3 .
 
 clean:
 	rm -f $(OBJ)
