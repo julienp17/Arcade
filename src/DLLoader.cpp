@@ -22,7 +22,7 @@ arc::DLLoader<T>::~DLLoader(void) {
 
 template <typename T>
 void arc::DLLoader<T>::load(const char *filename) {
-    //TODO:check if file ends with .so
+    // TODO:check if file ends with .so
     _handle = dlopen(filename, RTLD_LAZY);
     if (_handle == NULL)
         throw DLLError(dlerror());

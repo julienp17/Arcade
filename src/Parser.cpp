@@ -22,8 +22,7 @@ arc::Parser::Parser(const std::string &filename) {
     this->parseMap(lines);
 }
 
-std::vector<std::string> arc::Parser::readLines(std::ifstream &file)
-{
+std::vector<std::string> arc::Parser::readLines(std::ifstream &file) {
     std::string line;
     std::vector<std::string> lines;
 
@@ -32,8 +31,7 @@ std::vector<std::string> arc::Parser::readLines(std::ifstream &file)
     return lines;
 }
 
-void arc::Parser::parseMap(std::vector<std::string> lines)
-{
+void arc::Parser::parseMap(std::vector<std::string> lines) {
     std::vector<std::string> vectMap;
     size_t i = 0;
     char **map;
@@ -46,17 +44,16 @@ void arc::Parser::parseMap(std::vector<std::string> lines)
     if (file.is_open() == false)
         throw arc::ParseError("Cannot open " + lines.at(0));
     vectMap = this->readLines(file);
-    map = (char **) malloc(sizeof(char *) * (vectMap.size() + 1));
+    map = reinterpret_cast<char**>
+                            (malloc(sizeof(char *) * (vectMap.size() + 1)));
     for (i = 0; i < vectMap.size(); i++) {
-        //map[i] = (char *) malloc(sizeof(char) * vectMap.at(i).size());
         map[i] = strdup(vectMap.at(i).c_str());
     }
     map[i] = nullptr;
     this->_map = map;
 }
 
-void arc::Parser::parseItems(std::vector<std::string> &lines)
-{
+void arc::Parser::parseItems(std::vector<std::string> &lines) {
     if (lines.at(0).rfind("[items]", 0) != 0)
         throw ParseError("Missing [items] label");
     lines.erase(lines.begin());
@@ -66,8 +63,7 @@ void arc::Parser::parseItems(std::vector<std::string> &lines)
     }
 }
 
-arc::Parser::item arc::Parser::createItem(std::string line)
-{
+arc::Parser::item arc::Parser::createItem(std::string line) {
     std::vector<std::string> array;
     size_t pos = 0;
     std::string token;

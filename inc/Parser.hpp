@@ -5,8 +5,8 @@
 ** Parser
 */
 
-#ifndef PARSER_HPP_
-#define PARSER_HPP_
+#ifndef INC_PARSER_HPP_
+#define INC_PARSER_HPP_
 
 #include <string>
 #include <vector>
@@ -20,11 +20,11 @@ class Parser {
         char text;
         char mapRef;
     };
-    Parser(const std::string &filename);
+    explicit Parser(const std::string &filename);
     virtual ~Parser(void) {}
 
-    inline std::vector<item> getItems(void) const { return _items;};
-    inline char **getMap(void) const { return _map;};
+    inline std::vector<item> getItems(void) const { return _items;}
+    inline char **getMap(void) const { return _map;}
 
  private:
     std::vector<std::string> readLines(std::ifstream &file);
@@ -39,4 +39,4 @@ class Parser {
     char **_map;
 };
 }  // namespace arc
-#endif /* !PARSER_HPP_ */
+#endif /* !INC_PARSER_HPP_ */
