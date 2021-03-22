@@ -24,6 +24,12 @@ class Error : public std::exception {
     std::string _message;
 };
 
+class ParseError : public Error
+{
+public:
+    explicit ParseError(std::string const &message) : Error(message) {}
+};
+
 class DLLError : public Error {
  public:
     explicit DLLError(std::string const &message) : Error(message) {}
