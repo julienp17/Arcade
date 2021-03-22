@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 
+namespace arc {
 class Parser {
  public:
     struct item {
@@ -35,5 +36,5 @@ class Parser {
     std::vector<item> _items;
     char const **_map;
 };
-
+}  // namespace arc
 #endif /* !PARSER_HPP_ */

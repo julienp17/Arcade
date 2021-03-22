@@ -28,6 +28,12 @@ class DLLError : public arc::ARCError {
  public:
     explicit DLLError(std::string const &message) : ARCError(message) {}
 };
+
+class ParseError : public ARCError
+{
+public:
+    explicit ParseError(std::string const &message) : ARCError(message) {}
+};
 }  // namespace arc
 
 #endif  // INC_ARCERROR_HPP_

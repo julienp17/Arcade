@@ -8,7 +8,7 @@
 #include<cstdlib>
 #include <fstream>
 #include "Parser.hpp"
-#include "Error.hpp"
+#include "ARCError.hpp"
 
 Parser::Parser(const std::string &filename) {
     std::ifstream file(filename);
@@ -34,12 +34,12 @@ void Parser::parseMap(std::vector<std::string> lines) {
     std::vector<std::string> vectMap;
 
     if (lines.at(0).rfind("[maptiles]", 0) != 0)
-        throw ParseError("Missing [maptiles] label");
+        throw arc::ParseError("Missing [maptiles] label");
     lines.erase(lines.begin());
     lines.at(0).erase(0, lines.at(0).find('='));
     std::ifstream file(lines.at(0));
     if (file.is_open() == false)
-        throw ParseError("Cannot open map");
+        throw arc::ParseError("Cannot open map");
     vectMap = this->readLines(file);
     this->_map = new char *[vectMap.size()];
     for (size_t i = 0; i < vectMap.size(); i++) {
