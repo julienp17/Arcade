@@ -14,6 +14,7 @@
 
 namespace arc {
 enum Input {
+    NONE,
     LEFT,
     RIGHT,
     UP,
