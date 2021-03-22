@@ -5,8 +5,8 @@
 ** ARCError
 */
 
-#ifndef INC_ARCERROR_HPP_
-#define INC_ARCERROR_HPP_
+#ifndef INC_ERROR_HPP_
+#define INC_ERROR_HPP_
 
 #include <exception>
 #include <string>
@@ -24,16 +24,16 @@ class Error : public std::exception {
     std::string _message;
 };
 
-class DLLError : public arc::Error {
- public:
-    explicit DLLError(std::string const &message) : Error(message) {}
-};
-
 class ParseError : public Error
 {
 public:
     explicit ParseError(std::string const &message) : Error(message) {}
 };
+
+class DLLError : public Error {
+ public:
+    explicit DLLError(std::string const &message) : Error(message) {}
+};
 }  // namespace arc
 
-#endif  // INC_ARCERROR_HPP_
+#endif  // INC_ERROR_HPP_

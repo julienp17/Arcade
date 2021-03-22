@@ -5,8 +5,8 @@
 ** DLLoader
 */
 
-#ifndef INC_DLLOADER_HPP_
-#define INC_DLLOADER_HPP_
+#ifndef INC_CORE_DLLOADER_HPP_
+#define INC_CORE_DLLOADER_HPP_
 
 #include <string>
 
@@ -58,4 +58,4 @@ class DLLoader {
 }  // namespace arc
 
 
-#endif  // INC_DLLOADER_HPP_
+#endif  // INC_CORE_DLLOADER_HPP_

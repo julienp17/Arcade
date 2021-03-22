@@ -12,5 +12,13 @@
 #define USAGE \
 "Usage: arcade GRAPHIC_LIBRARY"
 
+namespace arc {
+enum Input {
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN
+};
+}  // namespace arc
 
 #endif  // INC_ARCADE_HPP_
