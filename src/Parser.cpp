@@ -8,7 +8,7 @@
 #include<cstdlib>
 #include <fstream>
 #include "Parser.hpp"
-#include "ARCError.hpp"
+#include "Error.hpp"
 
 arc::Parser::Parser(const std::string &filename) {
     std::ifstream file(filename);
