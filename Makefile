@@ -21,7 +21,7 @@ OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
 SRC_UT_F	=	parser/testParser.cpp	\
 
-INC			=	-I./inc -I./inc/components
+INC			=	-I./inc -I./inc/Core
 
 CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC)
 
