@@ -1,6 +1,6 @@
 # Arcade
 
-![Build](https://github.com/EpitechIT2020/B-OOP-400-RUN-4-1-tekspice-tristan.bourgeois/workflows/CI/badge.svg)
+![Build](https://github.com/EpitechIT2020/B-OOP-400-RUN-4-1-arcade-julien.pause/workflows/CI/badge.svg)
 
 Collaboration between :
 - [leader] Julien PAUSE julien.pause@epitech.eu
