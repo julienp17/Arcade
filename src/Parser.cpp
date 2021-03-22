@@ -10,7 +10,7 @@
 #include "Parser.hpp"
 #include "ARCError.hpp"
 
-Parser::Parser(const std::string &filename) {
+arc::Parser::Parser(const std::string &filename) {
     std::ifstream file(filename);
     std::vector<std::string> lines;
 
@@ -21,7 +21,8 @@ Parser::Parser(const std::string &filename) {
     this->parseMap(lines);
 }
 
-std::vector<std::string> Parser::readLines(std::ifstream &file) {
+std::vector<std::string> arc::Parser::readLines(std::ifstream &file)
+{
     std::string line;
     std::vector<std::string> lines;
 
@@ -30,7 +31,8 @@ std::vector<std::string> Parser::readLines(std::ifstream &file) {
     return lines;
 }
 
-void Parser::parseMap(std::vector<std::string> lines) {
+void arc::Parser::parseMap(std::vector<std::string> lines)
+{
     std::vector<std::string> vectMap;
 
     if (lines.at(0).rfind("[maptiles]", 0) != 0)
@@ -48,7 +50,7 @@ void Parser::parseMap(std::vector<std::string> lines) {
     }
 }
 
-    void Parser::parseItems(std::vector<std::string> &lines)
+void arc::Parser::parseItems(std::vector<std::string> &lines)
 {
     if (lines.at(0).rfind("[items]", 0) != 0)
         throw ParseError("Missing [items] label");
@@ -59,7 +61,8 @@ void Parser::parseMap(std::vector<std::string> lines) {
     }
 }
 
-Parser::item Parser::createItem(std::string line) {
+arc::Parser::item arc::Parser::createItem(std::string line)
+{
     std::vector<std::string> array;
     size_t pos = 0;
     std::string token;
