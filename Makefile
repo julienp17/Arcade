@@ -20,13 +20,19 @@ OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
 SRC_UT_F	=
 
-INC			=	-I./inc -I./inc/components
+INC			=	-I./inc \
+				-I./inc/Core \
+				-I./inc/Display
 
-CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC)
+WFLAGS		=	-W -Wall -Wextra -Werror
+
+DBFLAGS		=	-g -g3 -ggdb
+
+LDFLAGS		=
 
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 
-DBFLAGS		=	-g -g3 -ggdb
+CXXFLAGS	=	-std=c++14 $(WFLAGS) $(INC)
 
 NAME		=	arcade
 
@@ -35,9 +41,9 @@ NAME_UT		=	unit_tests
 all: $(NAME)
 
 $(NAME): $(OBJ_M) $(OBJ)
-	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
+	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ_M) $(OBJ) $(LDFLAGS)
 
-debug: $(OBJ)
+debug: $(OBJ_M) $(OBJ)
 	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
 
 doc: FORCE
@@ -51,10 +57,12 @@ tests_run: clean $(OBJ) $(OBJ_UT)
 coverage:
 	gcovr -s --exclude tests/
 
+coding-style:
+	cpplint --recursive --filter=-legal/copyright --verbose=3 .
+
 clean:
 	rm -f $(OBJ)
 	rm -f $(OBJ_UT)
-	rm -f *.o
 	rm -f *.gc*
 
 fclean: clean
@@ -62,3 +70,5 @@ fclean: clean
 	rm -f $(NAME_UT)
 
 re: fclean all
+
+.PHONY: all debug doc tests_run coverage coding-style clean fclean re
