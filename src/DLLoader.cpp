@@ -7,7 +7,7 @@
 
 #include <dlfcn.h>
 #include "DLLoader.hpp"
-#include "ARCError.hpp"
+#include "Error.hpp"
 
 template <typename T>
 arc::DLLoader<T>::DLLoader(const char *filename) {

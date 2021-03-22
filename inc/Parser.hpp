@@ -18,9 +18,13 @@ class Parser {
         std::string type;
         std::string graphic;
         char text;
+        char mapRef;
     };
     Parser(const std::string &filename);
     virtual ~Parser(void) {}
+
+    inline std::vector<item> getItems(void) const { return _items;};
+    inline char **getMap(void) const { return _map;};
 
  private:
     std::vector<std::string> readLines(std::ifstream &file);
@@ -30,11 +34,9 @@ class Parser {
     void parseItems(std::vector<std::string> &lines);
     item createItem(std::string line);
 
-    inline std::vector<item> getItems(void) const { return _items;};
-    inline char const **getMap(void) const { return _map;};
 
     std::vector<item> _items;
-    char const **_map;
+    char **_map;
 };
 }  // namespace arc
 #endif /* !PARSER_HPP_ */

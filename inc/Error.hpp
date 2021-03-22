@@ -12,9 +12,9 @@
 #include <string>
 
 namespace arc {
-class ARCError : public std::exception {
+class Error : public std::exception {
  public:
-    explicit ARCError(std::string const &message) : _message(message) {}
+    explicit Error(std::string const &message) : _message(message) {}
 
     inline virtual const char* what() const noexcept {
         return _message.c_str();
@@ -24,15 +24,15 @@ class ARCError : public std::exception {
     std::string _message;
 };
 
-class DLLError : public arc::ARCError {
+class DLLError : public arc::Error {
  public:
-    explicit DLLError(std::string const &message) : ARCError(message) {}
+    explicit DLLError(std::string const &message) : Error(message) {}
 };
 
-class ParseError : public ARCError
+class ParseError : public Error
 {
 public:
-    explicit ParseError(std::string const &message) : ARCError(message) {}
+    explicit ParseError(std::string const &message) : Error(message) {}
 };
 }  // namespace arc
 
