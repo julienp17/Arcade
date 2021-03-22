@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2021
-## Nano Tek Spice
+## Arcade
 ## File description:
 ## Makefile
 ##
@@ -13,7 +13,7 @@ OBJ_M		=	$(MAIN:.cpp=.o)
 SRC			=	$(addprefix $(SRC_D), $(SRC_F))
 OBJ			=	$(SRC:.cpp=.o)
 SRC_D		=	src/
-SRC_F		=
+SRC_F		=	DLLoader.cpp
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
@@ -22,15 +22,13 @@ SRC_UT_F	=
 
 INC			=	-I./inc -I./inc/components
 
-CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC) $(COVERAGE_FLAGS)
+CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC)
 
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 
-COVERAGE_FLAGS = --coverage -g -O0
-
 DBFLAGS		=	-g -g3 -ggdb
 
-NAME		=	nanotekspice
+NAME		=	arcade
 
 NAME_UT		=	unit_tests
 
@@ -42,15 +40,16 @@ $(NAME): $(OBJ_M) $(OBJ)
 debug: $(OBJ)
 	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
 
+doc: FORCE
+	doxygen Doxyfile
+FORCE:
+
 tests_run: clean $(OBJ) $(OBJ_UT)
 	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS_UT)
 	./$(NAME_UT)
 
 coverage:
 	gcovr -s --exclude tests/
-
-coding-style:
-	cpplint --recursive --filter=-legal/copyright --verbose=3 .
 
 clean:
 	rm -f $(OBJ)
