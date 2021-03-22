@@ -39,4 +39,4 @@ class Parser {
     char **_map;
 };
 }  // namespace arc
-#endif /* !INC_PARSER_HPP_ */
+#endif // INC_PARSER_HPP_
