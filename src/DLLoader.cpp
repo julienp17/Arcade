@@ -7,7 +7,7 @@
 
 #include <dlfcn.h>
 #include "DLLoader.hpp"
-#include "ARCError.hpp"
+#include "Error.hpp"
 
 template <typename T>
 arc::DLLoader<T>::DLLoader(const char *filename) {
@@ -22,7 +22,7 @@ arc::DLLoader<T>::~DLLoader(void) {
 
 template <typename T>
 void arc::DLLoader<T>::load(const char *filename) {
-    //TODO:check if file ends with .so
+    // TODO(julien): check if file ends with .so
     _handle = dlopen(filename, RTLD_LAZY);
     if (_handle == NULL)
         throw DLLError(dlerror());
