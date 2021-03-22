@@ -28,6 +28,11 @@ class DLLError : public Error {
  public:
     explicit DLLError(std::string const &message) : Error(message) {}
 };
+
+class DisplayError : public Error {
+ public:
+    explicit DisplayError(std::string const &message) : Error(message) {}
+};
 }  // namespace arc
 
 #endif  // INC_ERROR_HPP_
