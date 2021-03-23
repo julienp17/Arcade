@@ -13,8 +13,6 @@
 namespace arc {
 class IDisplay {
  public:
-    virtual void createWindow(void) = 0;
-    virtual void destroyWindow(void) = 0;
     virtual bool windowIsOpen(void) const = 0;
     virtual void display(void) const = 0;
     virtual void clear(void) = 0;
