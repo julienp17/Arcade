@@ -82,7 +82,6 @@ Input SDLDisplay::getInputKey(void) {
     }
     return NONE;
 }
-}  // namespace arc
 
 extern "C" IDisplay *getInstance(void) {
     return new SDLDisplay;
@@ -91,3 +90,4 @@ extern "C" IDisplay *getInstance(void) {
 extern "C" void destroyInstance(SDLDisplay *display) {
     delete display;
 }
+}  // namespace arc
