@@ -13,12 +13,12 @@ OBJ_M		=	$(MAIN:.cpp=.o)
 SRC			=	$(addprefix $(SRC_D), $(SRC_F))
 OBJ			=	$(SRC:.cpp=.o)
 SRC_D		=	src/
-SRC_F		=
+SRC_F		=	Parser.cpp
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
-SRC_UT_F	=
+SRC_UT_F	=	parser/testParser.cpp	\
 
 INC			=	-I./inc \
 				-I./inc/Core \
