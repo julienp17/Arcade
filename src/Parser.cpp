@@ -78,7 +78,7 @@ arc::Parser::item arc::Parser::createItem(std::string line) {
     }
     array.push_back(line);
     item.type = array.at(0);
-    item.token = array.at(1).c_str()[0];
-    item.filepath = array.at(2);
+    item.sym = array.at(1).c_str()[0];
+    item.path = array.at(2);
     return item;
 }
