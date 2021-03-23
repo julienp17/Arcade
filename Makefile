@@ -13,7 +13,7 @@ OBJ_M		=	$(MAIN:.cpp=.o)
 SRC			=	$(addprefix $(SRC_D), $(SRC_F))
 OBJ			=	$(SRC:.cpp=.o)
 SRC_D		=	src/
-SRC_F		=	DLLoader.cpp
+SRC_F		=
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
@@ -22,7 +22,8 @@ SRC_UT_F	=
 
 INC			=	-I./inc \
 				-I./inc/Core \
-				-I./inc/Display
+				-I./inc/Display \
+				-I./inc/Games
 
 WFLAGS		=	-W -Wall -Wextra -Werror
 
