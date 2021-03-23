@@ -24,9 +24,9 @@ class Error : public std::exception {
     std::string _message;
 };
 
-class DLLError : public Error {
+class DLError : public Error {
  public:
-    explicit DLLError(std::string const &message) : Error(message) {}
+    explicit DLError(std::string const &message) : Error(message) {}
 };
 
 class DisplayError : public Error {
