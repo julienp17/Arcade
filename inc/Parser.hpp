@@ -16,9 +16,8 @@ class Parser {
  public:
     struct item {
         std::string type;
-        std::string graphic;
-        char text;
-        char mapRef;
+        std::string filepath;
+        char token;
     };
     explicit Parser(const std::string &filename);
     virtual ~Parser(void) {}
