@@ -41,7 +41,7 @@ class DLLoader {
         if (_handle != NULL) {
             ((void (*)(T *)) dlsym(_handle, dtorName))(_instance);
             if (dlclose(_handle) != 0)
-                throw DLLError(dlerror());
+                throw DLError(dlerror());
         }
     }
 
@@ -64,10 +64,10 @@ class DLLoader {
         // TODO(julien): check if file ends with .so
         _handle = dlopen(filename, RTLD_LAZY);
         if (_handle == NULL)
-            throw DLLError(dlerror());
+            throw DLError(dlerror());
         _instance = ((T *(*)(void)) dlsym(_handle, entryPointName))();
         if (_instance == NULL)
-            throw DLLError(dlerror());
+            throw DLError(dlerror());
     }
     void *_handle;
     T *_instance;
