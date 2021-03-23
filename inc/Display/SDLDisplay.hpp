@@ -29,16 +29,6 @@ class SDLDisplay : public IDisplay {
     virtual ~SDLDisplay(void);
 
     /**
-     * @brief Create an SDL Window object
-     */
-    void createWindow(void) override;
-
-    /**
-     * @brief Destroys the window
-     */
-    void destroyWindow(void) override;
-
-    /**
      * @brief Checks whether the window is open
      *
      * @return true The window is open
@@ -65,6 +55,19 @@ class SDLDisplay : public IDisplay {
     Input getInput(void) override;
 
  private:
+    /**
+     * @brief Create an SDL Window and renderer object
+     */
+    void createWindow(void);
+
+    /**
+     * @brief Poll an input
+     *
+     * @return Input An enum of the one of the input if a recognized key is
+     * pressed, NONE otherwise
+     */
+    Input getInputKey(void);
+
     SDL_Window *_win;
     SDL_Renderer *_ren;
     SDL_Event _event;
