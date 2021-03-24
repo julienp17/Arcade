@@ -13,12 +13,12 @@
 #include "Error.hpp"
 
 namespace arc {
+/** @class DLLoader
+ * @brief Encapsulation of a dynamic library
+ */
 template <typename T>
 class DLLoader {
  public:
-    const char *entryPointName = "getInstance";
-    const char *dtorName = "destroyInstance";
-
     /**
      * @brief Construct a new DLLoader object
      */
@@ -50,11 +50,14 @@ class DLLoader {
      *
      * @return T*
      */
-    inline T *getInstance(void) {
+    inline T *get(void) {
         return _instance;
     }
 
  private:
+    const char *entryPointName = "getInstance";
+    const char *dtorName = "destroyInstance";
+
     /**
      * @brief Loads the handle and the instance of the library
      *
@@ -69,7 +72,10 @@ class DLLoader {
         if (_instance == NULL)
             throw DLError(dlerror());
     }
+
+    //* Handle to the library in memory
     void *_handle;
+    //* Pointer to an instance of the library class
     T *_instance;
 };
 }  // namespace arc
