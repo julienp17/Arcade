@@ -21,15 +21,12 @@ class DLLoader {
  public:
     /**
      * @brief Construct a new DLLoader object
-     */
-    DLLoader(void) : _handle(nullptr), _instance(nullptr) {}
-
-    /**
-     * @brief Construct a new DLLoader object
      *
      * @param filename The path to the library to load
      */
     explicit DLLoader(const char *filename) {
+        _handle = nullptr;
+        _instance = nullptr;
         this->load(filename);
     }
 
@@ -37,12 +34,7 @@ class DLLoader {
      * @brief Destroy the DLLoader object
      *
      */
-    ~DLLoader(void) {
-        if (_handle != NULL) {
-            ((void (*)(T *)) dlsym(_handle, dtorName))(_instance);
-            dlclose(_handle);
-        }
-    }
+    ~DLLoader(void) {}
 
     /**
      * @brief Get the Instance object
