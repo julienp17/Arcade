@@ -17,7 +17,7 @@ arc::Nibbler::Nibbler(char **map, std::vector<arc::Parser::item> items) {
             _wallSym = item.sym;
         if (item.type == std::string("snake"))
             _snakeSym = item.sym;
-        if (item.type == std::string("bg"))
+        if (item.type == std::string("background"))
             _bgSym = item.sym;
     }
     for (size_t y = 0; map[y]; y++) {
