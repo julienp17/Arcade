@@ -28,6 +28,8 @@ WFLAGS		=	-W -Wall -Wextra -Werror
 
 DBFLAGS		=	-g -g3 -ggdb
 
+LDFLAGS		=	-ldl
+
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 
 NAME		=	arcade
@@ -37,7 +39,7 @@ NAME_UT		=	unit_tests
 all: $(NAME)
 
 $(NAME): $(OBJ_M) $(OBJ)
-	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
+	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ_M) $(OBJ) $(LDFLAGS)
 	mv $(NAME) ../../
 
 debug: $(OBJ_M) $(OBJ)
@@ -48,7 +50,7 @@ doc: FORCE
 FORCE:
 
 tests_run: clean $(OBJ) $(OBJ_UT)
-	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS_UT)
+	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS) $(LDFLAGS_UT)
 	./$(NAME_UT)
 
 coverage:
