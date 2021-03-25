@@ -5,8 +5,8 @@
 ** DLLoader
 */
 
-#ifndef INC_CORE_DLLOADER_HPP_
-#define INC_CORE_DLLOADER_HPP_
+#ifndef INC_DLLOADER_HPP_
+#define INC_DLLOADER_HPP_
 
 #include <dlfcn.h>
 #include <string>

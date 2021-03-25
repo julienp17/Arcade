@@ -5,8 +5,8 @@
 ** Core
 */
 
-#ifndef INC_CORE_CORE_HPP_
-#define INC_CORE_CORE_HPP_
+#ifndef INC_CORE_HPP_
+#define INC_CORE_HPP_
 
 #include "arcade.hpp"
 
@@ -28,4 +28,4 @@ class Core {
 }  // namespace arc
 
 
-#endif  // INC_CORE_CORE_HPP_
+#endif  // INC_CORE_HPP_

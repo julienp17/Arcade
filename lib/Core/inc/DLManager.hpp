@@ -5,8 +5,8 @@
 ** DLManager
 */
 
-#ifndef INC_CORE_DLMANAGER_HPP_
-#define INC_CORE_DLMANAGER_HPP_
+#ifndef INC_DLMANAGER_HPP_
+#define INC_DLMANAGER_HPP_
 
 #include <dirent.h>
 #include <errno.h>
