@@ -109,9 +109,8 @@ class DLManager {
             throw DLError(strerror(errno));
         while ((ent = readdir(dir)) != NULL) {
             path = _libDir + std::string(ent->d_name);
-            if (ent->d_type == DT_REG && libMatches(libNames, path)) {
+            if (ent->d_type == DT_REG && libMatches(libNames, path))
                 _libs.push_back(DLLoader<T>(path.c_str()));
-            }
         }
         if (closedir(dir) == -1)
             throw DLError(strerror(errno));
