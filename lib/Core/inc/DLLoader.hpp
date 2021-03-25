@@ -40,8 +40,7 @@ class DLLoader {
     ~DLLoader(void) {
         if (_handle != NULL) {
             ((void (*)(T *)) dlsym(_handle, dtorName))(_instance);
-            if (dlclose(_handle) != 0)
-                throw DLError(dlerror());
+            dlclose(_handle);
         }
     }
 
