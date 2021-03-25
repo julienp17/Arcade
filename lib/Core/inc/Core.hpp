@@ -13,6 +13,9 @@
 #include "IDisplay.hpp"
 
 namespace arc {
+/** @class Core
+ * @brief Bridge between a game library and a display library
+ */
 class Core {
  public:
     /**

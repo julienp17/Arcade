@@ -11,6 +11,9 @@
 #include "arcade.hpp"
 
 namespace arc {
+/** @class IDisplay
+ * @brief Interface for a display Library
+ */
 class IDisplay {
  public:
     virtual bool windowIsOpen(void) const = 0;

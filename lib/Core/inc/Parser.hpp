@@ -12,6 +12,9 @@
 #include <vector>
 
 namespace arc {
+/** @class Parser
+ * @brief Parser for .ini configuration files
+ */
 class Parser {
  public:
     struct item {

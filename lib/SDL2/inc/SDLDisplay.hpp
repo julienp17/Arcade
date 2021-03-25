@@ -12,6 +12,9 @@
 #include "IDisplay.hpp"
 
 namespace arc {
+/** @class SDLDisplay
+ * @brief SDL2 Display library
+ */
 class SDLDisplay : public IDisplay {
  public:
     /**
