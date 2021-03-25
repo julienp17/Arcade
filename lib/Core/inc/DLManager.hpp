@@ -5,8 +5,8 @@
 ** DLManager
 */
 
-#ifndef INC_DLMANAGER_HPP_
-#define INC_DLMANAGER_HPP_
+#ifndef LIB_CORE_INC_DLMANAGER_HPP_
+#define LIB_CORE_INC_DLMANAGER_HPP_
 
 #include <dirent.h>
 #include <errno.h>
@@ -102,14 +102,16 @@ class DLManager {
     void loadLibs(const std::vector<std::string> &libNames) {
         DIR *dir = NULL;
         struct dirent *ent = NULL;
+        std::string path;
 
         dir = opendir(_libDir.c_str());
         if (dir == NULL)
             throw DLError(strerror(errno));
         while ((ent = readdir(dir)) != NULL) {
-            if (ent->d_type == DT_REG && libMatches(libNames,
-                                                    std::string(ent->d_name)))
-                _libs.push_back(DLLoader<T>(ent->d_name));
+            path = _libDir + std::string(ent->d_name);
+            if (ent->d_type == DT_REG && libMatches(libNames, path)) {
+                _libs.push_back(DLLoader<T>(path.c_str()));
+            }
         }
         if (closedir(dir) == -1)
             throw DLError(strerror(errno));
@@ -126,4 +128,4 @@ class DLManager {
 };
 }  // namespace arc
 
-#endif  // INC_CORE_DLMANAGER_HPP_
+#endif  // LIB_CORE_INC_DLMANAGER_HPP_
