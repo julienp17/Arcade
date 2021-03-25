@@ -5,8 +5,8 @@
 ** Parser
 */
 
-#ifndef INC_PARSER_HPP_
-#define INC_PARSER_HPP_
+#ifndef LIB_CORE_INC_PARSER_HPP_
+#define LIB_CORE_INC_PARSER_HPP_
 
 #include <string>
 #include <vector>
@@ -37,4 +37,4 @@ class Parser {
     char **_map;
 };
 }  // namespace arc
-#endif  // INC_PARSER_HPP_
+#endif  // LIB_CORE_INC_PARSER_HPP_

@@ -5,8 +5,8 @@
 ** IDisplay
 */
 
-#ifndef INC_DISPLAY_IDISPLAY_HPP_
-#define INC_DISPLAY_IDISPLAY_HPP_
+#ifndef LIB_INC_IDISPLAY_HPP_
+#define LIB_INC_IDISPLAY_HPP_
 
 #include "arcade.hpp"
 
@@ -20,4 +20,4 @@ class IDisplay {
 };
 }  // namespace arc
 
-#endif  // INC_DISPLAY_IDISPLAY_HPP_
+#endif  // LIB_INC_IDISPLAY_HPP_

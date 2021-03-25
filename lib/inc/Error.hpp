@@ -5,8 +5,8 @@
 ** ARCError
 */
 
-#ifndef INC_ERROR_HPP_
-#define INC_ERROR_HPP_
+#ifndef LIB_INC_ERROR_HPP_
+#define LIB_INC_ERROR_HPP_
 
 #include <exception>
 #include <string>
@@ -39,4 +39,4 @@ class DisplayError : public Error {
 };
 }  // namespace arc
 
-#endif  // INC_ERROR_HPP_
+#endif  // LIB_INC_ERROR_HPP_

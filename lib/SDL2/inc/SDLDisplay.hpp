@@ -5,8 +5,8 @@
 ** SDLDisplay
 */
 
-#ifndef INC_SDLDISPLAY_HPP_
-#define INC_SDLDISPLAY_HPP_
+#ifndef LIB_SDL2_INC_SDLDISPLAY_HPP_
+#define LIB_SDL2_INC_SDLDISPLAY_HPP_
 
 #include <SDL2/SDL.h>
 #include "IDisplay.hpp"
@@ -74,4 +74,4 @@ class SDLDisplay : public IDisplay {
 };
 }  // namespace arc
 
-#endif  // INC_SDLDISPLAY_HPP_
+#endif  // LIB_SDL2_INC_SDLDISPLAY_HPP_
