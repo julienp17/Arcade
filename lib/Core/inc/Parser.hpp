@@ -16,9 +16,8 @@ class Parser {
  public:
     struct item {
         std::string type;
-        std::string graphic;
-        char text;
-        char mapRef;
+        char sym;
+        std::string path;
     };
     explicit Parser(const std::string &filename);
     virtual ~Parser(void) {}
@@ -34,9 +33,8 @@ class Parser {
     void parseItems(std::vector<std::string> &lines);
     item createItem(std::string line);
 
-
     std::vector<item> _items;
     char **_map;
 };
 }  // namespace arc
-#endif // INC_PARSER_HPP_
+#endif  // INC_PARSER_HPP_
