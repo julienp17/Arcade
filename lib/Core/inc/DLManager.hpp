@@ -94,7 +94,6 @@ class DLManager {
         return false;
     }
 
-
     /**
      * @brief Loads matching dynamic libraries from the lib directory
      *
@@ -108,7 +107,8 @@ class DLManager {
         if (dir == NULL)
             throw DLError(strerror(errno));
         while ((ent = readdir(dir)) != NULL) {
-            if (ent->d_type == DT_REG && libMatches(std::string(ent->d_name)))
+            if (ent->d_type == DT_REG && libMatches(libNames,
+                                                    std::string(ent->d_name)))
                 _libs.push_back(DLLoader<T>(ent->d_name));
         }
         if (closedir(dir) == -1)
