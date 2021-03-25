@@ -22,7 +22,11 @@ SRC_UT_F	=	parser/testParser.cpp
 
 INC			=	-I./inc -I../inc/
 
-CXXFLAGS	=	-std=c++14 $(WFLAGS) $(INC)
+DEP			=	$(OBJ:.o=.d)
+
+-include $(DEP)
+
+CXXFLAGS	=	-std=c++14 $(WFLAGS) $(INC) -MMD
 
 WFLAGS		=	-W -Wall -Wextra -Werror
 
@@ -32,7 +36,7 @@ LDFLAGS		=	-ldl
 
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 
-NAME		=	arcade
+NAME		=	../../arcade
 
 NAME_UT		=	unit_tests
 
@@ -40,10 +44,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ_M) $(OBJ)
 	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ_M) $(OBJ) $(LDFLAGS)
-	mv $(NAME) ../../
 
 debug: $(OBJ_M) $(OBJ)
-	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
+	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ_M) $(OBJ) $(LDFLAGS)
 
 doc: FORCE
 	doxygen Doxyfile
@@ -62,6 +65,7 @@ coding-style:
 clean:
 	rm -f $(OBJ)
 	rm -f $(OBJ_UT)
+	rm -f $(DEP)
 	rm -f *.gc*
 
 fclean: clean
