@@ -77,4 +77,7 @@ class SDLDisplay : public IDisplay {
 };
 }  // namespace arc
 
+extern "C" arc::IDisplay *getInstance(void);
+extern "C" void destroyInstance(arc::SDLDisplay *display);
+
 #endif  // LIB_SDL2_INC_SDLDISPLAY_HPP_
