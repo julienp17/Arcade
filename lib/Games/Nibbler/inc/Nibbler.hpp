@@ -19,12 +19,12 @@ class Nibbler : public IGame {
     ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
-    inline char **getMap(void) override { return _map; };
+    inline char **getMap(void) override;
 
  private:
     struct pos {
-        size_t x;
-        size_t y;
+        int x;
+        int y;
     };
     bool canChangeDirection(arc::Input key);
     void moveSnake(void);

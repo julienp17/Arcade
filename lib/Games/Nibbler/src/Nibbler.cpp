@@ -20,8 +20,8 @@ arc::Nibbler::Nibbler(char **map, std::vector<arc::Parser::item> items) {
         if (item.type == std::string("background"))
             _bgSym = item.sym;
     }
-    for (size_t y = 0; map[y]; y++) {
-        for (size_t x = 0; map[y][x]; x++) {
+    for (int y = 0; map[y]; y++) {
+        for (int x = 0; map[y][x]; x++) {
             if (map[y][x] == this->_snakeSym) {
                 this->_head = {x, y};
                 this->_tail = this->_head;
@@ -85,4 +85,5 @@ arc::Nibbler::pos arc::Nibbler::findNewTale(void) {
         return {_tail.y, _tail.x + 1};
     if (_map[_tail.y][_tail.x - 1] == _snakeSym)
         return {_tail.y, _tail.x - 1};
+    return {0, 0};
 }
