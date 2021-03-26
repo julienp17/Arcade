@@ -15,25 +15,30 @@
 namespace arc {
 class Nibbler : public IGame {
  public:
-    struct pos {
-        size_t x;
-        size_t y;
-    };
     Nibbler(char **map, std::vector<arc::Parser::item> items);
+    ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
     inline char **getMap(void) override { return _map; };
 
  private:
+    struct pos {
+        size_t x;
+        size_t y;
+    };
     bool canChangeDirection(arc::Input key);
+    void moveSnake(void);
+    pos getVectFromDirection(Input direction);
+    pos findNewTale(void);
 
+    GAMESTATE _state;
     char **_map;
     arc::Input _direction;
     char _wallSym;
     char _snakeSym;
     char _bgSym;
     pos _head;
-    pos _tale;
+    pos _tail;
 };
 } // namespace arc
 

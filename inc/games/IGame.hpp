@@ -13,8 +13,11 @@
 namespace arc {
 class IGame {
  public:
-    virtual ~IGame(void) = 0;
-
+    enum GAMESTATE {
+        WIN,
+        LOOSE,
+        RUNNING
+    };
     virtual void execKey(arc::Input key) = 0;
     virtual char **getMap(void) = 0;
 };

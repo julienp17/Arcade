@@ -15,13 +15,15 @@ OBJ			=	$(SRC:.cpp=.o)
 SRC_D		=	src/
 SRC_F		=	DLLoader.cpp	\
 				Parser.cpp		\
+				games/Nibbler.cpp \
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
 SRC_UT_F	=	parser/testParser.cpp	\
+				games/testNibbler.cpp \
 
-INC			=	-I./inc -I./inc/Core
+INC			=	-I./inc -I./inc/Core -I./inc/games
 
 CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC)
 
