@@ -36,7 +36,7 @@ NAME_UT		=	unit_tests
 all: $(NAME)
 
 %.o: %.cpp
-	$(CC) $(CXXFLAGS) -fPIC -c $< -o $@
+	$(CC) $(CXXFLAGS) -fPIC -c $< -o $@ $(LDFLAGS)
 
 $(NAME): $(OBJ)
 	$(CC) $(CXXFLAGS) --shared -o $(NAME) $(OBJ) $(LDFLAGS)
