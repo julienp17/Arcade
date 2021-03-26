@@ -17,7 +17,7 @@ OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
 SRC_UT_F	=	testNibbler.cpp
 
-INC			=	-I./inc -I../inc -I../../inc
+INC			=	-I./inc -I../../inc
 
 CXXFLAGS	=	-std=c++14 $(WFLAGS) $(INC)
 
@@ -40,7 +40,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CXXFLAGS) --shared -o $(NAME) $(OBJ) $(LDFLAGS)
-	mv $(NAME) ../
+	mv $(NAME) ../../
 
 debug: $(OBJ)
 	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ)
@@ -58,7 +58,7 @@ clean:
 	rm -f *.gc*
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f ../../$(NAME)
 	rm -f $(NAME_UT)
 
 re: fclean all

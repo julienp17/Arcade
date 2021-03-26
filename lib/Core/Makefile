@@ -44,11 +44,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ_M) $(OBJ)
 	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ_M) $(OBJ) $(LDFLAGS)
-	cp $(NAME) ../../
+	mv $(NAME) ../../
 
 debug: $(OBJ_M) $(OBJ)
 	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ_M) $(OBJ) $(LDFLAGS)
-	cp $(NAME) ../../
+	mv $(NAME) ../../
 
 tests_run: clean $(OBJ) $(OBJ_UT)
 	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS) $(LDFLAGS_UT)
@@ -61,7 +61,7 @@ clean:
 	rm -f *.gc*
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f ../../$(NAME)
 	rm -f $(NAME_UT)
 
 re: fclean all
