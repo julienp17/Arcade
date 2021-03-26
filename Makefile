@@ -5,63 +5,39 @@
 ## Makefile
 ##
 
-CC			=	g++
+all: parser core games graphicals
 
-MAIN		=	$(addprefix $(SRC_D), main.cpp)
-OBJ_M		=	$(MAIN:.cpp=.o)
+parser:
+	make -C ./lib/Parser/ all
 
-SRC			=	$(addprefix $(SRC_D), $(SRC_F))
-OBJ			=	$(SRC:.cpp=.o)
-SRC_D		=	src/
-SRC_F		=	DLLoader.cpp	\
-				Parser.cpp		\
-				games/Nibbler.cpp \
+core: parser
+	make -C ./lib/Core/ all
 
-SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
-OBJ_UT		=	$(SRC_UT:.cpp=.o)
-SRC_UT_D	=	tests/
-SRC_UT_F	=	parser/testParser.cpp	\
-				games/testNibbler.cpp \
+games: parser
+	make -C ./lib/Games/ all
 
-INC			=	-I./inc -I./inc/Core -I./inc/games
-
-CXXFLAGS	=	-std=c++14 -W -Wall -Wextra -Werror $(INC)
-
-LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
-
-DBFLAGS		=	-g -g3 -ggdb
-
-NAME		=	arcade
-
-NAME_UT		=	unit_tests
-
-all: $(NAME)
-
-$(NAME): $(OBJ_M) $(OBJ)
-	$(CC) $(CXXFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
-
-debug: $(OBJ)
-	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ_M) $(OBJ)
+graphicals: parser
+	make -C ./lib/Display/ all
 
 doc: FORCE
 	doxygen Doxyfile
 FORCE:
 
-tests_run: clean $(OBJ) $(OBJ_UT)
-	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS_UT)
-	./$(NAME_UT)
-
-coverage:
-	gcovr -s --exclude tests/
+coding-style:
+	cpplint --recursive --filter=-legal/copyright --verbose=3 ./lib
 
 clean:
-	rm -f $(OBJ)
-	rm -f $(OBJ_UT)
-	rm -f *.o
-	rm -f *.gc*
+	make -C ./lib/Parser/ clean
+	make -C ./lib/Core/ clean
+	make -C ./lib/Games/ clean
+	make -C ./lib/Display/ clean
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(NAME_UT)
+	make -C ./lib/Parser/ fclean
+	make -C ./lib/Core/ fclean
+	make -C ./lib/Games/ fclean
+	make -C ./lib/Display/ fclean
 
 re: fclean all
+
+.PHONY: all debug doc tests_run coverage coding-style clean fclean re

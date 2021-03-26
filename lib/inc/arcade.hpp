@@ -5,8 +5,8 @@
 ** arcade
 */
 
-#ifndef INC_ARCADE_HPP_
-#define INC_ARCADE_HPP_
+#ifndef LIB_INC_ARCADE_HPP_
+#define LIB_INC_ARCADE_HPP_
 
 #define MY_EXIT_FAILURE     84
 #define USAGE \
@@ -14,6 +14,7 @@
 
 namespace arc {
 enum Input {
+    NONE,
     LEFT,
     RIGHT,
     UP,
@@ -21,4 +22,4 @@ enum Input {
 };
 }  // namespace arc
 
-#endif  // INC_ARCADE_HPP_
+#endif  // LIB_INC_ARCADE_HPP_

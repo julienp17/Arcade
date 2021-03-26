@@ -10,7 +10,7 @@
 #include "Error.hpp"
 
 TEST(Parser, parsed_items) {
-    arc::Parser parser("./tests/parser/pacman_basic.ini");
+    arc::Parser parser("./tests/pacman_basic.ini");
     std::vector<arc::Parser::item> items = parser.getItems();
 
     ASSERT_EQ(items.at(0).type, std::string("wall"));
@@ -31,7 +31,7 @@ TEST(Parser, parsed_items) {
 }
 
 TEST(Parser, parsed_map) {
-    arc::Parser parser("./tests/parser/pacman_basic.ini");
+    arc::Parser parser("./tests/pacman_basic.ini");
 
     char **map = parser.getMap();
     ASSERT_STREQ(map[0],  (char *)"|||||||||||||||||||||||||");

@@ -11,7 +11,7 @@
 #include "Nibbler.hpp"
 
 TEST(Nibbler, nibbler_constructor) {
-    arc::Parser parser("./tests/games/nibbler_basic.ini");
+    arc::Parser parser("./tests/nibbler_basic.ini");
     arc::Nibbler nibbler(parser.getMap(), parser.getItems());
 
 }

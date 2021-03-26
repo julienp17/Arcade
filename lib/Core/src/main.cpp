@@ -6,13 +6,15 @@
 */
 
 #include <iostream>
-#include "arcade.hpp"
+#include "Core.hpp"
 
 int main(int ac, char **av) {
-    (void)av;
+    arc::Core core;
+
     if (ac != 2) {
         std::cerr << USAGE << std::endl;
         return MY_EXIT_FAILURE;
     }
+    (void)av;
     return 0;
 }
