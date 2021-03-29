@@ -13,6 +13,8 @@
 namespace arc {
 class IGame {
  public:
+    virtual ~IGame(void) {}
+
     enum GAMESTATE {
         WIN,
         LOOSE,
