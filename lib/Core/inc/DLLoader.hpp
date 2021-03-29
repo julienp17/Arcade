@@ -35,6 +35,11 @@ class DLLoader {
      *
      */
     ~DLLoader(void) {
+        libDtor dtor = NULL;
+
+        dtor = reinterpret_cast<libDtor>(dlsym(_handle, dtorName));
+        if (dtor != NULL)
+            dtor(_instance);
         dlclose(_handle);
     }
 
@@ -43,18 +48,21 @@ class DLLoader {
      *
      * @return A pointer to the library class
      */
-    inline T *get(void) {
+    T *get(void) const {
         return _instance;
     }
 
  private:
     //* Name of the entry point function of each library
-    const char *entryPointName = "getInstance";
+    const char *ctorName = "create";
     //* Name of the delete function of each library
-    const char *dtorName = "destroyInstance";
+    const char *dtorName = "destroy";
 
-    //* Pointer to library constructor
+    //* Type of class factory constructor
     typedef T *(*libCtor)(void);
+
+    //* Type of class factory destructor
+    typedef void (*libDtor)(T *);
 
     /**
      * @brief Loads the handle and the instance of the library
@@ -67,7 +75,7 @@ class DLLoader {
         _handle = dlopen(filename.c_str(), RTLD_NOW);
         if (_handle == NULL)
             throw DLError(filename + ": " + dlerror());
-        ctor = ((libCtor) dlsym(_handle, entryPointName));
+        ctor = reinterpret_cast<libCtor>(dlsym(_handle, ctorName));
         if (ctor == NULL)
             throw DLError(filename + ": " + dlerror());
         _instance = ctor();
