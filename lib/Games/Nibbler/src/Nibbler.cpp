@@ -100,3 +100,11 @@ Nibbler::pos Nibbler::findNewTail(void) {
     return {0, 0};
 }
 }  // namespace arc
+
+extern "C" arc::IGame *getInstance(void) {
+    return new arc::Nibbler;
+}
+
+extern "C" void destroyInstance(arc::IGame *game) {
+    delete game;
+}

@@ -21,7 +21,7 @@ class Nibbler : public IGame {
     virtual ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
-    inline char **getMap(void) override;
+    char **getMap(void) override;
 
  private:
     void init(char **map, std::vector<arc::Parser::item> items);
@@ -44,13 +44,5 @@ class Nibbler : public IGame {
     pos _tail;
 };
 }  // namespace arc
-
-extern "C" arc::IGame *getInstance(void) {
-    return new arc::Nibbler;
-}
-
-extern "C" void destroyInstance(arc::IGame *game) {
-    delete game;
-}
 
 #endif /* !NIBBLER_HPP_ */
