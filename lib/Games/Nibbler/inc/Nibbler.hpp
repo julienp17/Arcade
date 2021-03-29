@@ -8,6 +8,7 @@
 #ifndef NIBBLER_HPP_
 #define NIBBLER_HPP_
 
+#include <vector>
 #include "IGame.hpp"
 #include "Parser.hpp"
 #include "arcade.hpp"
@@ -15,13 +16,15 @@
 namespace arc {
 class Nibbler : public IGame {
  public:
+    Nibbler(void);
     Nibbler(char **map, std::vector<arc::Parser::item> items);
-    ~Nibbler(void) {}
+    virtual ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
     inline char **getMap(void) override;
 
  private:
+    void init(char **map, std::vector<arc::Parser::item> items);
     struct pos {
         int x;
         int y;
@@ -29,7 +32,7 @@ class Nibbler : public IGame {
     bool canChangeDirection(arc::Input key);
     void moveSnake(void);
     pos getVectFromDirection(Input direction);
-    pos findNewTale(void);
+    pos findNewTail(void);
 
     GAMESTATE _state;
     char **_map;
@@ -40,6 +43,14 @@ class Nibbler : public IGame {
     pos _head;
     pos _tail;
 };
-} // namespace arc
+}  // namespace arc
+
+extern "C" arc::IGame *getInstance(void) {
+    return new arc::Nibbler;
+}
+
+extern "C" void destroyInstance(arc::IGame *game) {
+    delete game;
+}
 
 #endif /* !NIBBLER_HPP_ */

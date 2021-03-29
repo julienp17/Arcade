@@ -7,11 +7,23 @@
 
 #include <chrono>
 #include "Nibbler.hpp"
+#include "Parser.hpp"
 
-arc::Nibbler::Nibbler(char **map, std::vector<arc::Parser::item> items) {
+namespace arc {
+Nibbler::Nibbler(void) {
+    Parser parser("./conf/nibbler.ini");
+
+    this->init(parser.getMap(), parser.getItems());
+}
+
+Nibbler::Nibbler(char **map, std::vector<Parser::item> items) {
+    this->init(map, items);
+}
+
+void Nibbler::init(char **map, std::vector<Parser::item> items) {
     this->_map = map;
-    this->_direction = arc::RIGHT;
-    this->_state = arc::IGame::RUNNING;
+    this->_direction = RIGHT;
+    this->_state = IGame::RUNNING;
     for (auto item : items) {
         if (item.type == std::string("wall"))
             _wallSym = item.sym;
@@ -31,7 +43,7 @@ arc::Nibbler::Nibbler(char **map, std::vector<arc::Parser::item> items) {
     }
 }
 
-void arc::Nibbler::execKey(arc::Input key) {
+void Nibbler::execKey(Input key) {
     if (key == this->_direction)
         return;
     this->_direction = key;
@@ -39,7 +51,7 @@ void arc::Nibbler::execKey(arc::Input key) {
 }
 
 
-char **arc::Nibbler::getMap(void) {
+char **Nibbler::getMap(void) {
     static auto lastCall = std::chrono::high_resolution_clock::now();
     auto  now = std::chrono::high_resolution_clock::now();
     auto duration =
@@ -55,28 +67,28 @@ char **arc::Nibbler::getMap(void) {
     return _map;
 }
 
-void arc::Nibbler::moveSnake(void) {
-    arc::Nibbler::pos vect = this->getVectFromDirection(this->_direction);
+void Nibbler::moveSnake(void) {
+    Nibbler::pos vect = this->getVectFromDirection(this->_direction);
 
     if (_map[_head.y + vect.y][_head.x + vect.x] == _wallSym)
-        _state = arc::IGame::LOOSE;
+        _state = IGame::LOOSE;
     // TODO(tristan): ajouter le cas ou le snake mange un oeuf
     _map[_head.y + vect.y][_head.x + vect.x] = _snakeSym;
     _map[_tail.y][_tail.x] = _bgSym;
-    _tail = findNewTale();
+    _tail = findNewTail();
 }
 
-arc::Nibbler::pos arc::Nibbler::getVectFromDirection(Input direction) {
-    if (direction == arc::LEFT)
+Nibbler::pos Nibbler::getVectFromDirection(Input direction) {
+    if (direction == LEFT)
         return {-1, 0};
-    if (direction == arc::RIGHT)
+    if (direction == RIGHT)
         return {1, 0};
-    if (direction == arc::UP)
+    if (direction == UP)
         return {0, -1};
     return {0, 1};
 }
 
-arc::Nibbler::pos arc::Nibbler::findNewTale(void) {
+Nibbler::pos Nibbler::findNewTail(void) {
     if (_map[_tail.y + 1][_tail.x] == _snakeSym)
         return {_tail.y + 1, _tail.x};
     if (_map[_tail.y - 1][_tail.x] == _snakeSym)
@@ -87,3 +99,4 @@ arc::Nibbler::pos arc::Nibbler::findNewTale(void) {
         return {_tail.y, _tail.x - 1};
     return {0, 0};
 }
+}  // namespace arc
