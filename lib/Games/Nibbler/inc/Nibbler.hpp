@@ -22,6 +22,7 @@ class Nibbler : public IGame {
 
     void execKey(arc::Input key) override;
     char **getMap(void) override;
+    inline GAMESTATE getGameState() const {return _state;};
 
  private:
     void init(char **map, std::vector<arc::Parser::item> items);
@@ -40,6 +41,7 @@ class Nibbler : public IGame {
     char _wallSym;
     char _snakeSym;
     char _bgSym;
+    char _eggSym;
     pos _head;
     pos _tail;
 };

@@ -6,6 +6,7 @@
 */
 
 #include <chrono>
+#include <iostream>
 #include "Nibbler.hpp"
 #include "Parser.hpp"
 
@@ -31,6 +32,8 @@ void Nibbler::init(char **map, std::vector<Parser::item> items) {
             _snakeSym = item.sym;
         if (item.type == std::string("background"))
             _bgSym = item.sym;
+        if (item.type == std::string("egg"))
+            _eggSym = item.sym;
     }
     for (int y = 0; map[y]; y++) {
         for (int x = 0; map[y][x]; x++) {
@@ -57,11 +60,13 @@ char **Nibbler::getMap(void) {
     auto duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall);
 
-    if (duration <= std::chrono::milliseconds{1000})
+    if (duration <= std::chrono::milliseconds{500})
         return _map;
-    while (duration > std::chrono::milliseconds{1000}) {
+    while (duration > std::chrono::milliseconds{500}) {
+        if (_state == IGame::LOOSE)
+            return _map;
         this->moveSnake();
-        duration -= std::chrono::milliseconds{1000};
+        duration -= std::chrono::milliseconds{500};
     }
     lastCall = std::chrono::high_resolution_clock::now();
     return _map;
@@ -70,12 +75,17 @@ char **Nibbler::getMap(void) {
 void Nibbler::moveSnake(void) {
     Nibbler::pos vect = this->getVectFromDirection(this->_direction);
 
-    if (_map[_head.y + vect.y][_head.x + vect.x] == _wallSym)
+    if (_map[_head.y + vect.y][_head.x + vect.x] == _wallSym) {
         _state = IGame::LOOSE;
-    // TODO(tristan): ajouter le cas ou le snake mange un oeuf
+        return;
+    }
+
+    if (_map[_head.y + vect.y][_head.x + vect.x] != _eggSym) {
+        _map[_tail.y][_tail.x] = _bgSym;
+        _tail = findNewTail();
+    }
     _map[_head.y + vect.y][_head.x + vect.x] = _snakeSym;
-    _map[_tail.y][_tail.x] = _bgSym;
-    _tail = findNewTail();
+    _head = {_head.x + vect.x, _head.y + vect.y};
 }
 
 Nibbler::pos Nibbler::getVectFromDirection(Input direction) {
@@ -90,13 +100,13 @@ Nibbler::pos Nibbler::getVectFromDirection(Input direction) {
 
 Nibbler::pos Nibbler::findNewTail(void) {
     if (_map[_tail.y + 1][_tail.x] == _snakeSym)
-        return {_tail.y + 1, _tail.x};
+        return {_tail.x, _tail.y + 1};
     if (_map[_tail.y - 1][_tail.x] == _snakeSym)
-        return {_tail.y - 1, _tail.x};
+        return {_tail.x, _tail.y - 1};
     if (_map[_tail.y][_tail.x + 1] == _snakeSym)
-        return {_tail.y, _tail.x + 1};
+        return {_tail.x + 1, _tail.y};
     if (_map[_tail.y][_tail.x - 1] == _snakeSym)
-        return {_tail.y, _tail.x - 1};
+        return {_tail.x - 1, _tail.y};
     return {0, 0};
 }
 }  // namespace arc

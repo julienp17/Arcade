@@ -46,7 +46,7 @@ debug: $(OBJ)
 	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ)
 
 tests_run: clean $(OBJ) $(OBJ_UT)
-	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS_UT)
+	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS) $(LDFLAGS_UT)
 	./$(NAME_UT)
 
 coverage:
