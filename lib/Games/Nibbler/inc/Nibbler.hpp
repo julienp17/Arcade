@@ -5,8 +5,8 @@
 ** Nibbler
 */
 
-#ifndef NIBBLER_HPP_
-#define NIBBLER_HPP_
+#ifndef LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
+#define LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
 
 #include <vector>
 #include "IGame.hpp"
@@ -47,4 +47,4 @@ class Nibbler : public IGame {
 };
 }  // namespace arc
 
-#endif /* !NIBBLER_HPP_ */
+#endif  // LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
