@@ -8,6 +8,8 @@
 #ifndef LIB_CORE_INC_CORE_HPP_
 #define LIB_CORE_INC_CORE_HPP_
 
+#include <unordered_map>
+#include <functional>
 #include "arcade.hpp"
 #include "DLManager.hpp"
 #include "IDisplay.hpp"
@@ -21,12 +23,22 @@ class Core {
     /**
      * @brief Construct a new Core object
      */
-    Core(void) : _dispM({"sdl2"}) {}
+    Core(void);
 
     /**
      * @brief Destroy the Core object
      */
     ~Core(void) {}
+
+    /**
+     * @brief Launches the arcade !
+     */
+    void run(void);
+
+    /**
+     * @brief Handles the inputs related to arcade
+     */
+    void execKeys(void);
 
     /**
      * @brief Retrieve an input from the current display library
@@ -38,8 +50,17 @@ class Core {
     // void saveHiScore();
 
  private:
+    void mapInputs(void);
+    typedef std::function<void(void)> handler;
+
+    bool _isRunning;
+    Input _input;
+
     //* Display Manager
     DLManager<IDisplay> _dispM;
+
+    //* Events handlers
+    std::unordered_map<Input, handler> _handlers;
 };
 }  // namespace arc
 

@@ -13,7 +13,7 @@ OBJ_M		=	$(MAIN:.cpp=.o)
 SRC			=	$(addprefix $(SRC_D), $(SRC_F))
 OBJ			=	$(SRC:.cpp=.o)
 SRC_D		=	src/
-SRC_F		=
+SRC_F		=	Core.cpp
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
@@ -55,10 +55,7 @@ tests_run: clean $(OBJ) $(OBJ_UT)
 	./$(NAME_UT)
 
 clean:
-	rm -f $(OBJ)
-	rm -f $(OBJ_UT)
-	rm -f $(DEP)
-	rm -f *.gc*
+	rm -f $(OBJ) $(OBJ_M) $(OBJ_UT) $(DEP) *.gc*
 
 fclean: clean
 	rm -f ../../$(NAME)

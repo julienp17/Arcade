@@ -16,5 +16,6 @@ int main(int ac, char **av) {
         return MY_EXIT_FAILURE;
     }
     (void)av;
+    core.run();
     return 0;
 }
