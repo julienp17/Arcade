@@ -19,11 +19,12 @@ class IDisplay {
  public:
     virtual ~IDisplay() = default;
 
-    virtual std::string getName(void) = 0;
-    virtual bool windowIsOpen(void) const = 0;
+    virtual void createWindow(void) = 0;
+    virtual void destroyWindow(void) = 0;
     virtual void display(void) const = 0;
     virtual void clear(void) = 0;
-    virtual Input getInput(void) = 0;
+    virtual Input getInput(void) const = 0;
+    virtual std::string getName(void) const = 0;
 };
 }  // namespace arc
 
