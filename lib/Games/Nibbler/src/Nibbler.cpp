@@ -75,7 +75,8 @@ char **Nibbler::getMap(void) {
 void Nibbler::moveSnake(void) {
     Nibbler::pos vect = this->getVectFromDirection(this->_direction);
 
-    if (_map[_head.y + vect.y][_head.x + vect.x] == _wallSym) {
+    if (_map[_head.y + vect.y][_head.x + vect.x] == _wallSym ||
+        _map[_head.y + vect.y][_head.x + vect.x] == _snakeSym) {
         _state = IGame::LOOSE;
         return;
     }
