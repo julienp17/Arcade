@@ -68,7 +68,7 @@ class SDLDisplay : public IDisplay {
      * 
      * @return "sdl2"
      */
-    std::string getName(void) override {
+    std::string getName(void) const override {
         return "sdl2";
     }
 
