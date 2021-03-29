@@ -9,6 +9,7 @@
 #define LIB_CORE_INC_DLMANAGER_HPP_
 
 #include <dirent.h>
+#include <memory>
 #include <errno.h>
 #include <string.h>
 #include <vector>
@@ -38,7 +39,7 @@ class DLManager {
     /**
      * @brief Destroy the Display Manager object
      */
-    ~DLManager(void) {}
+    virtual ~DLManager(void) {}
 
     /**
      * @brief Loads the previous dynamic library
@@ -81,8 +82,11 @@ class DLManager {
      * @return A pointer to the instance of the loaded dynamic library
      */
     T *get(void) {
-        return _libs[_i].get();
+        return _libs[_i].get()->get();
     }
+
+    typedef std::shared_ptr<DLLoader<T>> DLPtr;
+    typedef std::vector<DLPtr> DLPtrVec;
 
  private:
     bool libMatches(const std::vector<std::string> &libNames,
@@ -104,13 +108,14 @@ class DLManager {
         struct dirent *ent = NULL;
         std::string path;
 
+        // TODO(julien): replace dir funcs to c++17 dir iterator
         dir = opendir(_libDir.c_str());
         if (dir == NULL)
             throw DLError(strerror(errno));
         while ((ent = readdir(dir)) != NULL) {
             path = _libDir + std::string(ent->d_name);
             if (ent->d_type == DT_REG && libMatches(libNames, path))
-                _libs.push_back(DLLoader<T>(path));
+                _libs.push_back(DLPtr(new DLLoader<T>(path)));
         }
         if (closedir(dir) == -1)
             throw DLError(strerror(errno));
@@ -123,7 +128,7 @@ class DLManager {
     size_t _i;
     // TODO(julien): maybe switch from a vector to a set ?
     //* Vector containing the loaded dynamic libraries
-    std::vector<DLLoader<T>> _libs;
+    DLPtrVec _libs;
 };
 }  // namespace arc
 
