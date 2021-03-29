@@ -34,7 +34,9 @@ class DLLoader {
      * @brief Destroy the DLLoader object
      *
      */
-    ~DLLoader(void) {}
+    ~DLLoader(void) {
+        dlclose(handle);
+    }
 
     /**
      * @brief Get the Instance object
