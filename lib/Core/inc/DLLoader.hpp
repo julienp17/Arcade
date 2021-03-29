@@ -35,7 +35,7 @@ class DLLoader {
      *
      */
     ~DLLoader(void) {
-        dlclose(handle);
+        dlclose(_handle);
     }
 
     /**
