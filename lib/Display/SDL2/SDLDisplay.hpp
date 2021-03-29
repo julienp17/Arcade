@@ -38,12 +38,9 @@ class SDLDisplay : public IDisplay {
     void createWindow(void) override;
 
     /**
-     * @brief Checks whether the window is open
-     *
-     * @return true The window is open
-     * @return false The window is not open
+     * @brief Destroys the SDL Window and renderer
      */
-    bool windowIsOpen(void) const override;
+    void destroyWindow(void) override;
 
     /**
      * @brief Displays the window
@@ -61,11 +58,11 @@ class SDLDisplay : public IDisplay {
      * @return Input An enum of the one of the input if a recognized key is
      * pressed, NONE otherwise
      */
-    Input getInput(void) override;
+    Input getInput(void) const override;
 
     /**
      * @brief Get the name of the library
-     * 
+     *
      * @return "sdl2"
      */
     std::string getName(void) const override {
@@ -79,11 +76,11 @@ class SDLDisplay : public IDisplay {
      * @return Input An enum of the one of the input if a recognized key is
      * pressed, NONE otherwise
      */
-    Input getInputKey(void);
+    Input getInputKey(const SDL_Event &event) const;
 
+    bool _isRunning;
     SDL_Window *_win;
     SDL_Renderer *_ren;
-    SDL_Event _event;
 };
 }  // namespace arc
 

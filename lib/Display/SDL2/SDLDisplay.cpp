@@ -14,16 +14,11 @@ namespace arc {
 SDLDisplay::SDLDisplay(void) {
     _win = nullptr;
     _ren = nullptr;
-    memset(&_event, 0, sizeof(SDL_Event));
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
         throw DisplayError(SDL_GetError());
 }
 
 SDLDisplay::~SDLDisplay(void) {
-    if (this->_win != nullptr)
-        SDL_DestroyWindow(_win);
-    if (this->_ren != nullptr)
-        SDL_DestroyRenderer(_ren);
     SDL_Quit();
 }
 
@@ -35,8 +30,11 @@ void SDLDisplay::createWindow(void) {
     SDL_RenderClear(_ren);
 }
 
-bool SDLDisplay::windowIsOpen(void) const {
-    return _event.type != SDL_QUIT;
+void SDLDisplay::destroyWindow(void) {
+    SDL_DestroyWindow(_win);
+    _win = nullptr;
+    SDL_DestroyRenderer(_ren);
+    _ren = nullptr;
 }
 
 void SDLDisplay::display() const {
@@ -47,12 +45,15 @@ void SDLDisplay::clear() {
     SDL_RenderClear(_ren);
 }
 
-Input SDLDisplay::getInput(void) {
-    while (SDL_PollEvent(&_event)) {
-        switch (_event.type) {
-            // TODO(julien) : implement case SDL_QUIT
+Input SDLDisplay::getInput(void) const {
+    SDL_Event event;
+
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                return ESCAPE;
             case SDL_KEYDOWN:
-                return this->getInputKey();
+                return this->getInputKey(event);
             default:
                 break;
         }
@@ -60,8 +61,11 @@ Input SDLDisplay::getInput(void) {
     return NONE;
 }
 
-Input SDLDisplay::getInputKey(void) {
-    switch (_event.key.keysym.scancode) {
+Input SDLDisplay::getInputKey(const SDL_Event &event) const {
+    switch (event.key.keysym.scancode) {
+        case SDL_SCANCODE_ESCAPE:
+            return ESCAPE;
+
         case SDL_SCANCODE_Z:
         case SDL_SCANCODE_UP:
             return UP;
