@@ -9,6 +9,7 @@
 #define LIB_SDL2_INC_SDLDISPLAY_HPP_
 
 #include <SDL2/SDL.h>
+#include <string>
 #include "IDisplay.hpp"
 
 namespace arc {
@@ -30,6 +31,11 @@ class SDLDisplay : public IDisplay {
      * Calls SDL_Quit()
      */
     virtual ~SDLDisplay(void);
+
+    /**
+     * @brief Create an SDL Window and renderer object
+     */
+    void createWindow(void) override;
 
     /**
      * @brief Checks whether the window is open
@@ -57,12 +63,16 @@ class SDLDisplay : public IDisplay {
      */
     Input getInput(void) override;
 
- private:
     /**
-     * @brief Create an SDL Window and renderer object
+     * @brief Get the name of the library
+     * 
+     * @return "sdl2"
      */
-    void createWindow(void);
+    std::string getName(void) override {
+        return "sdl2";
+    }
 
+ private:
     /**
      * @brief Poll an input
      *
@@ -76,13 +86,5 @@ class SDLDisplay : public IDisplay {
     SDL_Event _event;
 };
 }  // namespace arc
-
-extern "C" arc::IDisplay *getInstance(void) {
-    return new arc::SDLDisplay;
-}
-
-extern "C" void destroyInstance(arc::SDLDisplay *display) {
-    delete display;
-}
 
 #endif  // LIB_SDL2_INC_SDLDISPLAY_HPP_

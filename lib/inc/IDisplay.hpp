@@ -8,6 +8,7 @@
 #ifndef LIB_INC_IDISPLAY_HPP_
 #define LIB_INC_IDISPLAY_HPP_
 
+#include <string>
 #include "arcade.hpp"
 
 namespace arc {
@@ -16,8 +17,9 @@ namespace arc {
  */
 class IDisplay {
  public:
-    virtual ~IDisplay() {}
+    virtual ~IDisplay() = default;
 
+    virtual std::string getName(void) = 0;
     virtual bool windowIsOpen(void) const = 0;
     virtual void display(void) const = 0;
     virtual void clear(void) = 0;

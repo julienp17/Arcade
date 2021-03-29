@@ -6,6 +6,7 @@
 */
 
 #include <SDL2/SDL.h>
+#include <iostream>
 #include "SDLDisplay.hpp"
 #include "Error.hpp"
 
@@ -14,6 +15,8 @@ SDLDisplay::SDLDisplay(void) {
     _win = nullptr;
     _ren = nullptr;
     memset(&_event, 0, sizeof(SDL_Event));
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
+        throw DisplayError(SDL_GetError());
 }
 
 SDLDisplay::~SDLDisplay(void) {
@@ -26,11 +29,8 @@ SDLDisplay::~SDLDisplay(void) {
 
 void SDLDisplay::createWindow(void) {
     // TODO(julien): make width and height not hardcoded
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
-        throw DisplayError(SDL_GetError());
-    this->createWindow();
     if (SDL_CreateWindowAndRenderer(1000, 1000, 0, &_win, &_ren) == -1)
-        throw DisplayError(SDL_GetError());
+        throw DisplayError(std::string("SDL2: ") + SDL_GetError());
     SDL_SetRenderDrawColor(_ren, 0, 0, 0, 0);
     SDL_RenderClear(_ren);
 }
@@ -82,5 +82,13 @@ Input SDLDisplay::getInputKey(void) {
             break;
     }
     return NONE;
+}
+
+extern "C" IDisplay *create(void) {
+    return new SDLDisplay;
+}
+
+extern "C" void destroy(IDisplay *display) {
+    delete display;
 }
 }  // namespace arc
