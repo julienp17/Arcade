@@ -22,7 +22,7 @@ class IGame {
         RUNNING
     };
 
-    virtual std::string getName(void) = 0;
+    virtual std::string getName(void) const = 0;
     virtual void execKey(arc::Input key) = 0;
     virtual char **getMap(void) = 0;
 };
