@@ -24,7 +24,7 @@ class DLLoader {
      *
      * @param filename The path to the library to load
      */
-    explicit DLLoader(const char *filename) {
+    explicit DLLoader(const std::string &filename) {
         _handle = nullptr;
         _instance = nullptr;
         this->load(filename);
@@ -39,36 +39,45 @@ class DLLoader {
     }
 
     /**
-     * @brief Get the Instance object
+     * @brief Get the library's instance
      *
-     * @return T*
+     * @return A pointer to the library class
      */
     inline T *get(void) {
         return _instance;
     }
 
  private:
+    //* Name of the entry point function of each library
     const char *entryPointName = "getInstance";
+    //* Name of the delete function of each library
     const char *dtorName = "destroyInstance";
+
+    //* Pointer to library constructor
+    typedef T *(*libCtor)(void);
 
     /**
      * @brief Loads the handle and the instance of the library
      *
      * @param filename The path to the library to load
      */
-    void load(const char *filename) {
-        // TODO(julien): check if file ends with .so
-        _handle = dlopen(filename, RTLD_LAZY);
+    void load(const std::string &filename) {
+        libCtor ctor = NULL;
+
+        _handle = dlopen(filename.c_str(), RTLD_NOW);
         if (_handle == NULL)
-            throw DLError(dlerror());
-        _instance = ((T *(*)(void)) dlsym(_handle, entryPointName))();
-        if (_instance == NULL)
-            throw DLError(dlerror());
+            throw DLError(filename + ": " + dlerror());
+        ctor = ((libCtor) dlsym(_handle, entryPointName));
+        if (ctor == NULL)
+            throw DLError(filename + ": " + dlerror());
+        _instance = ctor();
+        if (_instance == nullptr)
+            throw DLError(filename + ": constructor failed");
     }
 
     //* Handle to the library in memory
     void *_handle;
-    //* Pointer to an instance of the library class
+    //* Pointer to the instance of the library class
     T *_instance;
 };
 }  // namespace arc
