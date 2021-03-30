@@ -37,7 +37,7 @@ void SDLDisplay::destroyWindow(void) {
     _ren = nullptr;
 }
 
-void SDLDisplay::display() const {
+void SDLDisplay::draw() const {
     SDL_RenderPresent(_ren);
 }
 

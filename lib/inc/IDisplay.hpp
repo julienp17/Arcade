@@ -21,7 +21,7 @@ class IDisplay {
 
     virtual void createWindow(void) = 0;
     virtual void destroyWindow(void) = 0;
-    virtual void display(void) const = 0;
+    virtual void draw(void) const = 0;
     virtual void clear(void) = 0;
     virtual Input getInput(void) const = 0;
     virtual std::string getName(void) const = 0;

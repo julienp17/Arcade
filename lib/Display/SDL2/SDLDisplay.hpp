@@ -45,7 +45,7 @@ class SDLDisplay : public IDisplay {
     /**
      * @brief Displays the window
      */
-    void display(void) const override;
+    void draw(void) const override;
 
     /**
      * @brief Clears the content of the window
