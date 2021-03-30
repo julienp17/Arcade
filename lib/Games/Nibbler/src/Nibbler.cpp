@@ -47,6 +47,8 @@ void Nibbler::init(char **map, std::vector<Parser::item> items) {
 }
 
 void Nibbler::execKey(Input key) {
+    if (key != DOWN && key != UP && key != LEFT && key != RIGHT)
+        return;
     if (key == this->_direction)
         return;
     this->_direction = key;
