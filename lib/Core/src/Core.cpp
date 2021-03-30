@@ -10,7 +10,7 @@
 #include "IDisplay.hpp"
 
 namespace arc {
-Core::Core() : _dispM({"sdl2"}), _gameM({"nibbler"}) {
+Core::Core() : _dispM({"sdl2", "ncurses"}), _gameM({"nibbler"}) {
     _input = NONE;
     _isRunning = false;
     this->mapInputs();
@@ -37,6 +37,7 @@ void Core::gameLoop(IDisplay *disp) {
     while (this->_isRunning && disp == _dispM.get() && game == _gameM.get()) {
         _input = disp->getInput();
         this->execKeys();
+        // disp->draw();
     }
 }
 
@@ -48,5 +49,9 @@ void Core::execKeys(void) {
 
 void Core::mapInputs(void) {
     _handlers.emplace(ESCAPE, [this]() { this->_isRunning = false; });
+    _handlers.emplace(O, [this]() { _dispM.prev(); });
+    _handlers.emplace(P, [this]() { _dispM.next(); });
+    _handlers.emplace(L, [this]() { _gameM.prev(); });
+    _handlers.emplace(M, [this]() { _gameM.next(); });
 }
 }  // namespace arc
