@@ -5,8 +5,8 @@
 ** Nibbler
 */
 
-#ifndef NIBBLER_HPP_
-#define NIBBLER_HPP_
+#ifndef LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
+#define LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
 
 #include <vector>
 #include "IGame.hpp"
@@ -21,7 +21,8 @@ class Nibbler : public IGame {
     virtual ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
-    inline char **getMap(void) override;
+    char **getMap(void) override;
+    inline GAMESTATE getGameState() const {return _state;};
 
  private:
     void init(char **map, std::vector<arc::Parser::item> items);
@@ -40,17 +41,10 @@ class Nibbler : public IGame {
     char _wallSym;
     char _snakeSym;
     char _bgSym;
+    char _eggSym;
     pos _head;
     pos _tail;
 };
 }  // namespace arc
 
-extern "C" arc::IGame *getInstance(void) {
-    return new arc::Nibbler;
-}
-
-extern "C" void destroyInstance(arc::IGame *game) {
-    delete game;
-}
-
-#endif /* !NIBBLER_HPP_ */
+#endif  // LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
