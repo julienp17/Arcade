@@ -9,6 +9,7 @@
 #define LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
 
 #include <vector>
+#include <string>
 #include "IGame.hpp"
 #include "Parser.hpp"
 #include "arcade.hpp"
@@ -22,7 +23,11 @@ class Nibbler : public IGame {
 
     void execKey(arc::Input key) override;
     char **getMap(void) override;
-    inline GAMESTATE getGameState() const {return _state;};
+    inline GAMESTATE getGameState() const {return _state;}
+
+    std::string getName(void) const override {
+        return "nibbler";
+    }
 
  private:
     void init(char **map, std::vector<arc::Parser::item> items);
