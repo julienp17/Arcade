@@ -78,7 +78,6 @@ class SDLDisplay : public IDisplay {
      */
     Input getInputKey(const SDL_Event &event) const;
 
-    bool _isRunning;
     SDL_Window *_win;
     SDL_Renderer *_ren;
 };
