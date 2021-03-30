@@ -63,27 +63,26 @@ Input SDLDisplay::getInput(void) const {
 
 Input SDLDisplay::getInputKey(const SDL_Event &event) const {
     switch (event.key.keysym.scancode) {
-        case SDL_SCANCODE_ESCAPE:
-            return ESCAPE;
-
-        case SDL_SCANCODE_Z:
-        case SDL_SCANCODE_UP:
-            return UP;
-
-        case SDL_SCANCODE_Q:
-        case SDL_SCANCODE_LEFT:
-            return LEFT;
-
-        case SDL_SCANCODE_S:
-        case SDL_SCANCODE_DOWN:
-            return DOWN;
-
-        case SDL_SCANCODE_D:
-        case SDL_SCANCODE_RIGHT:
-            return RIGHT;
-
-        default:
-            break;
+    case SDL_SCANCODE_ESCAPE:
+        return ESCAPE;
+    case SDL_SCANCODE_UP:
+        return UP;
+    case SDL_SCANCODE_LEFT:
+        return LEFT;
+    case SDL_SCANCODE_DOWN:
+        return DOWN;
+    case SDL_SCANCODE_RIGHT:
+        return RIGHT;
+    case SDL_SCANCODE_O:
+        return O;
+    case SDL_SCANCODE_P:
+        return P;
+    case SDL_SCANCODE_L:
+        return L;
+    case SDL_SCANCODE_M:
+        return M;
+    default:
+        break;
     }
     return NONE;
 }
