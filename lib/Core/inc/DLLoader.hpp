@@ -74,10 +74,10 @@ class DLLoader {
 
         _handle = dlopen(filename.c_str(), RTLD_NOW);
         if (_handle == NULL)
-            throw DLError(filename + ": " + dlerror());
+            throw DLError(dlerror());
         ctor = reinterpret_cast<libCtor>(dlsym(_handle, ctorName));
         if (ctor == NULL)
-            throw DLError(filename + ": " + dlerror());
+            throw DLError(dlerror());
         _instance = ctor();
         if (_instance == nullptr)
             throw DLError(filename + ": constructor failed");
