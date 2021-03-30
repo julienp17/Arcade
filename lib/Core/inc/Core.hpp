@@ -13,6 +13,7 @@
 #include "arcade.hpp"
 #include "DLManager.hpp"
 #include "IDisplay.hpp"
+#include "IGame.hpp"
 
 namespace arc {
 /** @class Core
@@ -50,6 +51,12 @@ class Core {
     // void saveHiScore();
 
  private:
+    void dispLoop(void);
+    void gameLoop(IDisplay *disp);
+
+    /**
+     * @brief Map the inputs to their corresponding action
+     */
     void mapInputs(void);
     typedef std::function<void(void)> handler;
 
@@ -58,6 +65,9 @@ class Core {
 
     //* Display Manager
     DLManager<IDisplay> _dispM;
+
+    //* Game Manager
+    DLManager<IGame> _gameM;
 
     //* Events handlers
     std::unordered_map<Input, handler> _handlers;

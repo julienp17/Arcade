@@ -10,22 +10,33 @@
 #include "IDisplay.hpp"
 
 namespace arc {
-Core::Core() : _dispM({"sdl2"}) {
+Core::Core() : _dispM({"sdl2"}), _gameM({"nibbler"}) {
     _input = NONE;
+    _isRunning = false;
     this->mapInputs();
 }
 
 void Core::run(void) {
-    IDisplay *disp = nullptr;
+    _isRunning = true;
+    while (this->_isRunning)
+        dispLoop();
+}
 
-    while (this->_isRunning) {
-        disp = _dispM.get();
-        disp->createWindow();
-        while (_input != O && _input != P && _input != ESCAPE) {
-            _input = disp->getInput();
-            this->execKeys();
-        }
-        disp->destroyWindow();
+void Core::dispLoop(void) {
+    IDisplay *disp = _dispM.get();
+
+    disp->createWindow();
+    while (this->_isRunning && disp == _dispM.get())
+        gameLoop(disp);
+    disp->destroyWindow();
+}
+
+void Core::gameLoop(IDisplay *disp) {
+    IGame *game = _gameM.get();
+
+    while (this->_isRunning && disp == _dispM.get() && game == _gameM.get()) {
+        _input = disp->getInput();
+        this->execKeys();
     }
 }
 
