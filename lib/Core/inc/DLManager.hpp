@@ -46,7 +46,7 @@ class DLManager {
      */
     void prev(void) {
         if (_i == 0)
-            _i == _libs.size() - 1;
+            _i = _libs.size() - 1;
         else
             _i--;
     }
@@ -63,7 +63,7 @@ class DLManager {
     /**
      * @brief Sets the current dynamic library
      *
-     * @param libName Name of the library to set
+     * @param libName Name of the library to set, always in lowercase
      * @example set("sdl2")
      */
     void set(const std::string &libName) {
