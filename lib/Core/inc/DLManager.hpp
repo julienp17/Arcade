@@ -8,9 +8,8 @@
 #ifndef LIB_CORE_INC_DLMANAGER_HPP_
 #define LIB_CORE_INC_DLMANAGER_HPP_
 
-#include <dirent.h>
 #include <memory>
-#include <errno.h>
+#include <filesystem>
 #include <string.h>
 #include <vector>
 #include <string>
@@ -91,7 +90,20 @@ class DLManager {
  private:
     bool libMatches(const std::vector<std::string> &libNames,
                     const std::string &filename) {
-        // TODO(julien): check if file respects regex arcade_*.so
+        auto startsWith = [](const std::string &str, const std::string &toFind) {
+            if (str.rfind(toFind, 0) == 0)
+                return true;
+            return false;
+        };
+        auto endsWith = [](const std::string &str, const std::string &toFind) {
+            if (str.length() < toFind.length())
+                return false;
+            if (str.compare(str.length() - toFind.length(), toFind.length(), toFind) == 0)
+                return true;
+            return false;
+        };
+        if (!startsWith(filename, std::string(_libDir + "arcade_")) || !endsWith(filename, ".so"))
+            return false;
         for (auto it = libNames.begin() ; it != libNames.end() ; it++)
             if (filename.find(*it) != std::string::npos)
                 return true;
@@ -104,21 +116,9 @@ class DLManager {
      * @param libNames Vector containing the name of the libraries to load
      */
     void loadLibs(const std::vector<std::string> &libNames) {
-        DIR *dir = NULL;
-        struct dirent *ent = NULL;
-        std::string path;
-
-        // TODO(julien): replace dir funcs to c++17 dir iterator
-        dir = opendir(_libDir.c_str());
-        if (dir == NULL)
-            throw DLError(strerror(errno));
-        while ((ent = readdir(dir)) != NULL) {
-            path = _libDir + std::string(ent->d_name);
-            if (ent->d_type == DT_REG && libMatches(libNames, path))
-                _libs.push_back(DLPtr(new DLLoader<T>(path)));
-        }
-        if (closedir(dir) == -1)
-            throw DLError(strerror(errno));
+        for (auto &file : std::filesystem::directory_iterator(_libDir))
+            if (file.is_regular_file() && libMatches(libNames, file.path()))
+                _libs.push_back(DLPtr(new DLLoader<T>(file.path())));
     }
 
     // TODO(julien): find a way to not make this hardcoded!

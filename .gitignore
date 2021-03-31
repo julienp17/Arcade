@@ -32,3 +32,6 @@
 doc/html/*
 arcade
 unit_tests
+
+# tools
+vgcore*
