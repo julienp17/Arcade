@@ -17,7 +17,7 @@ SRC_UT_F	=	testNibbler.cpp
 
 INC			=	-I../../inc
 
-CXXFLAGS	=	-std=c++14 $(WFLAGS) $(INC)
+CXXFLAGS	=	-std=c++17 $(WFLAGS) $(INC)
 
 WFLAGS		=	-W -Wall -Wextra -Werror
 
