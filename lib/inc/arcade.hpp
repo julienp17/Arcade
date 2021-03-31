@@ -13,6 +13,8 @@
 "Usage: arcade GRAPHIC_LIBRARY"
 
 namespace arc {
+typedef char ** map_t;
+
 enum Input {
     NONE,
     ESCAPE,
