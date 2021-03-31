@@ -99,10 +99,10 @@ class DLManager {
         auto endsWith = [](const std::string &str, const std::string &toFind) {
             if (str.length() < toFind.length())
                 return false;
-            if (str.compare(str.length() - toFind.length(), toFind.length(), toFind))
+            if (str.compare(str.length() - toFind.length(), toFind.length(), toFind) == 0)
                 return true;
             return false;
-        }
+        };
         if (!startsWith(filename, "arcade_") || !endsWith(filename, ".so"))
             return false;
         for (auto it = libNames.begin() ; it != libNames.end() ; it++)
