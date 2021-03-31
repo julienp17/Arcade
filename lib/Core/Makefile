@@ -26,7 +26,7 @@ DEP			=	$(OBJ:.o=.d)
 
 -include $(DEP)
 
-CXXFLAGS	=	-std=c++14 $(WFLAGS) $(INC) -MMD
+CXXFLAGS	=	-std=c++17 $(WFLAGS) $(INC) -MMD
 
 WFLAGS		=	-W -Wall -Wextra -Werror
 
