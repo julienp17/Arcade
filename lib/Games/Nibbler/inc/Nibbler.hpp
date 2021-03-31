@@ -21,8 +21,9 @@ class Nibbler : public IGame {
     virtual ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
-    char **getMap(void) override {return _map;};
+    inline char **getMap(void) override {return _map;};
     void tick(void) override;
+    inline void reset(void) override {init(_tempMap, _tempItems);};
     inline GAMESTATE getGameState() const {return _state;};
 
  private:
@@ -37,6 +38,8 @@ class Nibbler : public IGame {
     pos findNewTail(void);
 
     GAMESTATE _state;
+    char **_tempMap;
+    std::vector<Parser::item> _tempItems;
     char **_map;
     arc::Input _direction;
     char _wallSym;

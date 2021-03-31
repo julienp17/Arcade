@@ -18,7 +18,7 @@ class IGame {
     virtual void execKey(arc::Input key) = 0;
     virtual char **getMap(void) = 0;
     virtual void tick(void) = 0;
-    // TODO(tristan): virtual void reset(void) = 0;
+    virtual void reset(void) = 0;
 };
 } // namespace arc
 

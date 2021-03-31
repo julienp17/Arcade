@@ -23,6 +23,8 @@ Nibbler::Nibbler(char **map, std::vector<Parser::item> items) {
 
 void Nibbler::init(char **map, std::vector<Parser::item> items) {
     this->_map = map;
+    this->_tempItems = items;
+    this->_tempMap = map;
     this->_direction = RIGHT;
     this->_state = RUNNING;
     for (auto item : items) {

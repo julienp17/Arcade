@@ -44,3 +44,14 @@ TEST(Nibbler, change_direction) {
         printf("%s\n", map[i]);
     }
 }
+
+TEST(Nibbler, test_reset) {
+    arc::Parser parser("./tests/nibbler_basic.ini");
+    arc::Nibbler nibbler(parser.getMap(), parser.getItems());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    nibbler.tick();
+    ASSERT_EQ(nibbler.getGameState(), arc::LOOSE);
+    nibbler.reset();
+    ASSERT_EQ(nibbler.getGameState(), arc::RUNNING);
+}
