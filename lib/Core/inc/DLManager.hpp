@@ -91,7 +91,20 @@ class DLManager {
  private:
     bool libMatches(const std::vector<std::string> &libNames,
                     const std::string &filename) {
-        // TODO(julien): check if file respects regex arcade_*.so
+        auto startsWith = [](const std::string &str, const std::string &toFind) {
+            if (str.rfind(toFind, 0) == 0)
+                return true;
+            return false;
+        };
+        auto endsWith = [](const std::string &str, const std::string &toFind) {
+            if (str.length() < toFind.length())
+                return false;
+            if (str.compare(str.length() - toFind.length(), toFind.length(), toFind))
+                return true;
+            return false;
+        }
+        if (!startsWith(filename, "arcade_") || !endsWith(filename, ".so"))
+            return false;
         for (auto it = libNames.begin() ; it != libNames.end() ; it++)
             if (filename.find(*it) != std::string::npos)
                 return true;
@@ -114,7 +127,7 @@ class DLManager {
             throw DLError(strerror(errno));
         while ((ent = readdir(dir)) != NULL) {
             path = _libDir + std::string(ent->d_name);
-            if (ent->d_type == DT_REG && libMatches(libNames, path))
+            if (ent->d_type == DT_REG && libMatches(libNames, ent->d_name))
                 _libs.push_back(DLPtr(new DLLoader<T>(path)));
         }
         if (closedir(dir) == -1)
