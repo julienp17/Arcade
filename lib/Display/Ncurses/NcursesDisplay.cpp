@@ -23,10 +23,13 @@ void NcursesDisplay::destroyWindow(void) {
     endwin();
 }
 
-void NcursesDisplay::draw(map_t map) const {
+void NcursesDisplay::display(void) const {
+    refresh();
+}
+
+void NcursesDisplay::drawMap(map_t map) const {
     for (size_t i = 0 ; map[i] ; i++)
         addstr(map[i]);
-    refresh();
 }
 
 void NcursesDisplay::drawText(int x, int y, const char *text) {
@@ -35,7 +38,6 @@ void NcursesDisplay::drawText(int x, int y, const char *text) {
     x = x * getmaxx(stdscr) / 100;
     y = y * getmaxy(stdscr) / 100;
     mvaddstr(y, x - (strlen(text) / 2), text);
-    refresh();
 }
 
 void NcursesDisplay::clear(void) {

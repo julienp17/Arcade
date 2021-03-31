@@ -21,7 +21,8 @@ class IDisplay {
 
     virtual void createWindow(void) = 0;
     virtual void destroyWindow(void) = 0;
-    virtual void draw(map_t map) const = 0;
+    virtual void display(void) const = 0;
+    virtual void drawMap(map_t map) const = 0;
     virtual void drawText(int x, int y, const char *text) = 0;
     virtual void clear(void) = 0;
     virtual Input getInput(void) const = 0;

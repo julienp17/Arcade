@@ -45,9 +45,14 @@ class SDLDisplay : public IDisplay {
     void destroyWindow(void) override;
 
     /**
-     * @brief Displays the window
+     * @brief Displays the SDL window
      */
-    void draw(map_t map) const override;
+    void display(void) const override;
+
+    /**
+     * @brief Draw the game map
+     */
+    void drawMap(map_t map) const override;
 
     /**
      * @brief Draws text to the SDL window

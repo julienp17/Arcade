@@ -44,9 +44,12 @@ void SDLDisplay::destroyWindow(void) {
     _ren = nullptr;
 }
 
-void SDLDisplay::draw(map_t map) const {
+void SDLDisplay::display(void) const {
+    SDL_RenderPresent(_ren);
+}
+
+void SDLDisplay::drawMap(map_t map) const {
     (void)map;
-    // SDL_RenderPresent(_ren);
 }
 
 void SDLDisplay::drawText(int x, int y, const char *text) {
@@ -73,12 +76,12 @@ void SDLDisplay::drawText(int x, int y, const char *text) {
     rect.h = textHeight;
     if (SDL_RenderCopy(_ren, message, NULL, &rect) == -1)
         throw SDLError();
-    SDL_RenderPresent(_ren);
     SDL_FreeSurface(surface);
     SDL_DestroyTexture(message);
 }
 
 void SDLDisplay::clear() {
+    // TODO(julien): this shit doesnt work
     if (SDL_RenderClear(_ren) == -1)
         throw SDLError();
 }

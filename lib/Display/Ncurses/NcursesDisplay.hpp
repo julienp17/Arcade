@@ -39,9 +39,14 @@ class NcursesDisplay : public IDisplay {
     void destroyWindow(void) override;
 
     /**
-     * @brief Displays the window
+     * @brief Display the Ncurses window
      */
-    void draw(map_t map) const override;
+    void display(void) const override;
+
+    /**
+     * @brief Draw a game's map
+     */
+    void drawMap(map_t map) const override;
 
     /**
      * @brief Draws text to the Ncurses window
