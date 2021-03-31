@@ -41,7 +41,16 @@ class NcursesDisplay : public IDisplay {
     /**
      * @brief Displays the window
      */
-    void draw(void) const override;
+    void draw(map_t map) const override;
+
+    /**
+     * @brief Draws text to the Ncurses window
+     *
+     * @param x Percentage of the width
+     * @param y Percentage of the height
+     * @param text The text to be drawn
+     */
+    void drawText(int x, int y, const char *text) override;
 
     /**
      * @brief Clears the content of the window

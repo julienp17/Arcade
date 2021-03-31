@@ -5,8 +5,10 @@
 ** NcursesDisplay
 */
 
+#include <string.h>
 #include <iostream>
 #include "NcursesDisplay.hpp"
+#include "Error.hpp"
 
 namespace arc {
 void NcursesDisplay::createWindow(void) {
@@ -14,20 +16,30 @@ void NcursesDisplay::createWindow(void) {
     noecho();
     cbreak();
     keypad(stdscr, TRUE);
-    mvprintw(50, 50, "hello world");
-    refresh();
+    clear();
 }
 
 void NcursesDisplay::destroyWindow(void) {
     endwin();
 }
 
-void NcursesDisplay::draw(void) const {
+void NcursesDisplay::draw(map_t map) const {
+    for (size_t i = 0 ; map[i] ; i++)
+        addstr(map[i]);
+    refresh();
+}
+
+void NcursesDisplay::drawText(int x, int y, const char *text) {
+    if (x < 0 || x > 100 || y < 0 || y > 100)
+        throw DisplayError("x or y percentage not in range [0, 100]");
+    x = x * getmaxx(stdscr) / 100;
+    y = y * getmaxy(stdscr) / 100;
+    mvaddstr(y, x - (strlen(text) / 2), text);
     refresh();
 }
 
 void NcursesDisplay::clear(void) {
-    using ::clear;  // use clear function of ncurses instead of member function
+    using ::clear;  // use ncurse's clear function instead of member function
     clear();
 }
 
