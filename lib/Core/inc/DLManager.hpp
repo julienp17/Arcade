@@ -87,6 +87,19 @@ class DLManager {
     typedef std::vector<DLPtr> DLPtrVec;
 
  private:
+    /**
+     * @brief Checks if a filename is compliant to an arcade dynamic library
+     * filename
+     *
+     * A filename is considered compliant if it starts with "arcade_" and has
+     * the extension ".so". Moreover, we pass to the function a vector of
+     * library names to only load certain libraries. This is used to
+     * differentiate display and game libraries.
+     * @param libNames Names of the libraries to load
+     * @param filename Name of the file to check
+     * @return True if the filename is compliant
+     * @return False if the filename is not compliant
+     */
     bool libMatches(const std::vector<std::string> &libNames,
                     const std::string &filename) {
         auto startsWith = [](const std::string &str, const std::string &toFind){
