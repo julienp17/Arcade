@@ -11,6 +11,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include "IDisplay.hpp"
+#include "Error.hpp"
+#include "SDL_ttf.h"
 
 namespace arc {
 /** @class SDLDisplay
@@ -45,7 +47,16 @@ class SDLDisplay : public IDisplay {
     /**
      * @brief Displays the window
      */
-    void draw(void) const override;
+    void draw(map_t map) const override;
+
+    /**
+     * @brief Draws text to the SDL window
+     *
+     * @param x Percentage of the width
+     * @param y Percentage of the height
+     * @param text The text to be drawn
+     */
+    void drawText(int x, int y, const char *text) override;
 
     /**
      * @brief Clears the content of the window
@@ -78,8 +89,26 @@ class SDLDisplay : public IDisplay {
      */
     Input getInputKey(const SDL_Event &event) const;
 
+    const SDL_Color _WHITE = {255, 255, 255, 0};
+    const SDL_Color _BLACK = {0, 0, 0, 0};
+
     SDL_Window *_win;
     SDL_Renderer *_ren;
+    TTF_Font *_font;
+};
+
+class SDLError : public Error {
+ public:
+    SDLError(void) : Error(std::string("SDL2: ") + SDL_GetError()) {}
+    explicit SDLError(std::string const &message)
+        : Error(std::string("SDL2: ") + message) {}
+};
+
+class TTFError : public SDLError {
+ public:
+    TTFError(void) : SDLError(std::string("TTF: ") + TTF_GetError()) {}
+    explicit TTFError(std::string const &message)
+        : SDLError(std::string("TTF: ") + message) {}
 };
 }  // namespace arc
 

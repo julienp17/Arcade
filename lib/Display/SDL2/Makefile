@@ -23,7 +23,7 @@ WFLAGS		=	-W -Wall -Wextra -Werror
 
 DBFLAGS		=	-g -g3 -ggdb
 
-LDFLAGS 	=	`sdl2-config --cflags --static-libs`
+LDFLAGS 	=	`sdl2-config --cflags --static-libs` -lSDL2_ttf
 
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 

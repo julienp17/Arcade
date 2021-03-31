@@ -5,7 +5,6 @@
 ** SDLDisplay
 */
 
-#include <SDL2/SDL.h>
 #include <iostream>
 #include "SDLDisplay.hpp"
 #include "Error.hpp"
@@ -15,18 +14,26 @@ SDLDisplay::SDLDisplay(void) {
     _win = nullptr;
     _ren = nullptr;
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
-        throw DisplayError(SDL_GetError());
+        throw SDLError();
+    if (TTF_Init() == -1)
+        throw TTFError();
+    _font = TTF_OpenFont("./assets/arcade.ttf", 40);
+    if (_font == NULL)
+        throw TTFError();
 }
 
 SDLDisplay::~SDLDisplay(void) {
+    TTF_CloseFont(_font);
+    TTF_Quit();
     SDL_Quit();
 }
 
 void SDLDisplay::createWindow(void) {
     // TODO(julien): make width and height not hardcoded
-    if (SDL_CreateWindowAndRenderer(1000, 1000, 0, &_win, &_ren) == -1)
-        throw DisplayError(std::string("SDL2: ") + SDL_GetError());
-    SDL_SetRenderDrawColor(_ren, 0, 0, 0, 0);
+    if (SDL_CreateWindowAndRenderer(800, 600, 0, &_win, &_ren) == -1)
+        throw SDLError();
+    if (SDL_SetRenderDrawColor(_ren, 0, 0, 0, SDL_ALPHA_OPAQUE) == -1)
+        throw SDLError();
     SDL_RenderClear(_ren);
 }
 
@@ -37,12 +44,43 @@ void SDLDisplay::destroyWindow(void) {
     _ren = nullptr;
 }
 
-void SDLDisplay::draw() const {
+void SDLDisplay::draw(map_t map) const {
+    (void)map;
+    // SDL_RenderPresent(_ren);
+}
+
+void SDLDisplay::drawText(int x, int y, const char *text) {
+    int winWidth = 0;
+    int winHeight = 0;
+    int textWidth = 0;
+    int textHeight = 0;
+    SDL_Rect rect = {0, 0, 0, 0};
+    SDL_Texture *message = NULL;
+    SDL_Surface *surface = NULL;
+
+    surface = TTF_RenderText_Solid(_font, text, _WHITE);
+    if (surface == NULL)
+        throw TTFError();
+    message = SDL_CreateTextureFromSurface(_ren, surface);
+    if (message == NULL)
+        throw SDLError();
+    SDL_GetWindowSize(_win, &winWidth, &winHeight);
+    if (TTF_SizeText(_font, text, &textWidth, &textHeight) == -1)
+        throw TTFError();
+    rect.x = (x * winWidth / 100) - textWidth / 2;
+    rect.y = (y * winHeight / 100) - textHeight / 2;
+    rect.w = textWidth;
+    rect.h = textHeight;
+    if (SDL_RenderCopy(_ren, message, NULL, &rect) == -1)
+        throw SDLError();
     SDL_RenderPresent(_ren);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(message);
 }
 
 void SDLDisplay::clear() {
-    SDL_RenderClear(_ren);
+    if (SDL_RenderClear(_ren) == -1)
+        throw SDLError();
 }
 
 Input SDLDisplay::getInput(void) const {
