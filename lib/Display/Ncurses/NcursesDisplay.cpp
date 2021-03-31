@@ -27,6 +27,7 @@ void NcursesDisplay::draw(void) const {
 }
 
 void NcursesDisplay::clear(void) {
+    using ::clear;  // use clear function of ncurses instead of member function
     clear();
 }
 
