@@ -21,7 +21,8 @@ class Nibbler : public IGame {
     virtual ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
-    char **getMap(void) override;
+    char **getMap(void) override {return _map;};
+    void tick(void) override;
     inline GAMESTATE getGameState() const {return _state;};
 
  private:

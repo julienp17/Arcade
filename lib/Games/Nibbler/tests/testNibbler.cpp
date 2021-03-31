@@ -15,10 +15,10 @@ TEST(Nibbler, loose) {
     arc::Parser parser("./tests/nibbler_basic.ini");
     arc::Nibbler nibbler(parser.getMap(), parser.getItems());
 
-    nibbler.getMap();
+    nibbler.tick();
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    nibbler.getMap();
-    ASSERT_EQ(nibbler.getGameState(), arc::IGame::LOOSE);
+    nibbler.tick();
+    ASSERT_EQ(nibbler.getGameState(), arc::LOOSE);
 }
 
 TEST(Nibbler, change_direction) {
@@ -31,14 +31,15 @@ TEST(Nibbler, change_direction) {
         printf("%s\n", map[i]);
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(1500));
-    map = nibbler.getMap();
+    nibbler.tick();
     nibbler.execKey(arc::Input::UP);
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    map = nibbler.getMap();
+    nibbler.tick();
     nibbler.execKey(arc::Input::LEFT);
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    map = nibbler.getMap();
+    nibbler.tick();
     nibbler.execKey(arc::Input::DOWN);
+    map = nibbler.getMap();
     for (int i = 0; map[i]; i++) {
         printf("%s\n", map[i]);
     }

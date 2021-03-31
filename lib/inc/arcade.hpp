@@ -20,6 +20,11 @@ enum Input {
     UP,
     DOWN
 };
+enum GAMESTATE {
+    WIN,
+    LOOSE,
+    RUNNING
+};
 }  // namespace arc
 
 #endif  // LIB_INC_ARCADE_HPP_

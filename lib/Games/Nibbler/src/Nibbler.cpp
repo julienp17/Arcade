@@ -24,7 +24,7 @@ Nibbler::Nibbler(char **map, std::vector<Parser::item> items) {
 void Nibbler::init(char **map, std::vector<Parser::item> items) {
     this->_map = map;
     this->_direction = RIGHT;
-    this->_state = IGame::RUNNING;
+    this->_state = RUNNING;
     for (auto item : items) {
         if (item.type == std::string("wall"))
             _wallSym = item.sym;
@@ -56,22 +56,21 @@ void Nibbler::execKey(Input key) {
 }
 
 
-char **Nibbler::getMap(void) {
+void Nibbler::tick(void) {
     static auto lastCall = std::chrono::high_resolution_clock::now();
     auto  now = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall);
 
     if (duration <= std::chrono::milliseconds{500})
-        return _map;
+        return;
     while (duration > std::chrono::milliseconds{500}) {
-        if (_state == IGame::LOOSE)
-            return _map;
+        if (_state == LOOSE)
+            return;
         this->moveSnake();
         duration -= std::chrono::milliseconds{500};
     }
     lastCall = std::chrono::high_resolution_clock::now();
-    return _map;
 }
 
 void Nibbler::moveSnake(void) {
@@ -79,7 +78,7 @@ void Nibbler::moveSnake(void) {
 
     if (_map[_head.y + vect.y][_head.x + vect.x] == _wallSym ||
         _map[_head.y + vect.y][_head.x + vect.x] == _snakeSym) {
-        _state = IGame::LOOSE;
+        _state = LOOSE;
         return;
     }
 
