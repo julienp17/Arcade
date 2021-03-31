@@ -11,8 +11,8 @@
 
 namespace arc {
 SDLDisplay::SDLDisplay(void) {
-    _win = nullptr;
-    _ren = nullptr;
+    _win = NULL;
+    _ren = NULL;
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
         throw SDLError();
     if (TTF_Init() == -1)
@@ -38,10 +38,10 @@ void SDLDisplay::createWindow(void) {
 }
 
 void SDLDisplay::destroyWindow(void) {
-    SDL_DestroyWindow(_win);
-    _win = nullptr;
     SDL_DestroyRenderer(_ren);
-    _ren = nullptr;
+    SDL_DestroyWindow(_win);
+    _win = NULL;
+    _ren = NULL;
 }
 
 void SDLDisplay::display(void) const {
@@ -49,6 +49,7 @@ void SDLDisplay::display(void) const {
 }
 
 void SDLDisplay::drawMap(map_t map) const {
+    // TODO(julien): implement this function
     (void)map;
 }
 
