@@ -10,7 +10,6 @@
 
 #include <memory>
 #include <filesystem>
-#include <string.h>
 #include <vector>
 #include <string>
 #include "DLLoader.hpp"
@@ -90,7 +89,7 @@ class DLManager {
  private:
     bool libMatches(const std::vector<std::string> &libNames,
                     const std::string &filename) {
-        auto startsWith = [](const std::string &str, const std::string &toFind) {
+        auto startsWith = [](const std::string &str, const std::string &toFind){
             if (str.rfind(toFind, 0) == 0)
                 return true;
             return false;
@@ -98,11 +97,11 @@ class DLManager {
         auto endsWith = [](const std::string &str, const std::string &toFind) {
             if (str.length() < toFind.length())
                 return false;
-            if (str.compare(str.length() - toFind.length(), toFind.length(), toFind) == 0)
-                return true;
-            return false;
+            return (str.compare(str.length() - toFind.length(), toFind.length(),
+                    toFind) == 0);
         };
-        if (!startsWith(filename, std::string(_libDir + "arcade_")) || !endsWith(filename, ".so"))
+        if (!startsWith(filename, std::string(_libDir + "arcade_"))
+            || !endsWith(filename, ".so"))
             return false;
         for (auto it = libNames.begin() ; it != libNames.end() ; it++)
             if (filename.find(*it) != std::string::npos)
