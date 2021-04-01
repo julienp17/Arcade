@@ -112,16 +112,18 @@ class SDLDisplay : public IDisplay {
     TTF_Font *_font;
 };
 
-class SDLError : public Error {
+class SDLError : public DisplayError {
  public:
-    SDLError(void) : Error(std::string("SDL2: ") + SDL_GetError()) {}
+    SDLError(void)
+        : DisplayError(std::string("SDL2: ") + SDL_GetError()) {}
     explicit SDLError(std::string const &message)
-        : Error(std::string("SDL2: ") + message) {}
+        : DisplayError(std::string("SDL2: ") + message) {}
 };
 
 class TTFError : public SDLError {
  public:
-    TTFError(void) : SDLError(std::string("TTF: ") + TTF_GetError()) {}
+    TTFError(void)
+        : SDLError(std::string("TTF: ") + TTF_GetError()) {}
     explicit TTFError(std::string const &message)
         : SDLError(std::string("TTF: ") + message) {}
 };

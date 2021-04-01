@@ -12,7 +12,12 @@
 #define USAGE \
 "Usage: arcade GRAPHIC_LIBRARY"
 
+#include <string>
+
 namespace arc {
+
+const char DEFAULT_FONT_PATH[] = "./assets/karmaticarcade.ttf";
+
 typedef char ** map_t;
 
 enum Input {

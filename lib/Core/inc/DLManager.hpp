@@ -16,6 +16,15 @@
 #include "Error.hpp"
 
 namespace arc {
+/** @class DLManagerError
+ * @brief Errors related to loading dynamic libraries
+ */
+class DLManagerError : public DLError {
+ public:
+    explicit DLManagerError(std::string const &message)
+        : DLError(std::string("manager: ") + message) {}
+};
+
 /** @class DLManager
  * @brief Container of dynamic libraries
  */
@@ -71,7 +80,7 @@ class DLManager {
                 return;
             }
         }
-        throw DLError("Couldn't find library named " + libName);
+        throw DLManagerError("Couldn't find library named " + libName);
     }
 
     /**

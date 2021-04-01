@@ -37,7 +37,7 @@ void NcursesDisplay::drawMap(map_t map) const {
 
 void NcursesDisplay::drawText(int x, int y, const char *text) {
     if (x < 0 || x > 100 || y < 0 || y > 100)
-        throw DisplayError("x or y percentage not in range [0, 100]");
+        throw NcursesError("x or y percentage not in range [0, 100]");
     x = x * getmaxx(stdscr) / 100;
     y = y * getmaxy(stdscr) / 100;
     mvaddstr(y, x - (strlen(text) / 2), text);

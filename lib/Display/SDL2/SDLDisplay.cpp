@@ -17,7 +17,7 @@ SDLDisplay::SDLDisplay(void) {
         throw SDLError();
     if (TTF_Init() == -1)
         throw TTFError();
-    _font = TTF_OpenFont("./assets/arcade.ttf", 40);
+    _font = TTF_OpenFont(DEFAULT_FONT_PATH, 40);
     if (_font == NULL)
         throw TTFError();
 }

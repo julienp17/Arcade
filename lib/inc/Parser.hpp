@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include "Error.hpp"
 
 namespace arc {
 /** @class Parser
@@ -38,6 +39,15 @@ class Parser {
 
     std::vector<item> _items;
     char **_map;
+};
+
+/** @class ParseError
+ * @brief Errors related to parsing
+ */
+class ParseError : public Error {
+ public:
+    explicit ParseError(std::string const &message)
+        : Error(std::string("parser: ") + message) {}
 };
 }  // namespace arc
 #endif  // LIB_CORE_INC_PARSER_HPP_

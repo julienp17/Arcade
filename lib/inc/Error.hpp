@@ -28,28 +28,31 @@ class Error : public std::exception {
     std::string _message;
 };
 
-/** @class ParseError
- * @brief Errors related to parsing
- */
-class ParseError : public Error {
- public:
-    explicit ParseError(std::string const &message) : Error(message) {}
-};
-
 /** @class DLError
  * @brief Errors related to dynamic libraries
  */
 class DLError : public Error {
- public:
-    explicit DLError(std::string const &message) : Error(message) {}
+ protected:
+    explicit DLError(std::string const &message)
+        : Error(std::string("dynamic library: ") + message) {}
 };
 
 /** @class DisplayError
  * @brief Errors related to display libraries
  */
 class DisplayError : public Error {
- public:
-    explicit DisplayError(std::string const &message) : Error(message) {}
+ protected:
+    explicit DisplayError(std::string const &message)
+        : Error(std::string("display: ") + message) {}
+};
+
+/** @class GameError
+ * @brief Errors related to game libraries
+ */
+class GameError : public Error {
+ protected:
+    explicit GameError(std::string const &message)
+        : Error(std::string("game: ") + message) {}
 };
 }  // namespace arc
 

@@ -13,6 +13,17 @@
 #include "Error.hpp"
 
 namespace arc {
+/** @class DLLoaderError
+ * @brief Errors related to loading dynamic libraries
+ */
+class DLLoaderError : public DLError {
+ public:
+    DLLoaderError(void)
+        : DLError(std::string("loader:") + dlerror()) {}
+    explicit DLLoaderError(std::string const &message)
+        : DLError(std::string("loader: ") + message) {}
+};
+
 /** @class DLLoader
  * @brief Encapsulation of a dynamic library
  */
@@ -74,13 +85,13 @@ class DLLoader {
 
         _handle = dlopen(filename.c_str(), RTLD_NOW);
         if (_handle == NULL)
-            throw DLError(dlerror());
+            throw DLLoaderError();
         ctor = reinterpret_cast<libCtor>(dlsym(_handle, ctorName));
         if (ctor == NULL)
-            throw DLError(dlerror());
+            throw DLLoaderError();
         _instance = ctor();
         if (_instance == nullptr)
-            throw DLError(filename + ": constructor failed");
+            throw DLLoaderError(filename + ": constructor failed");
     }
 
     //* Handle to the library in memory

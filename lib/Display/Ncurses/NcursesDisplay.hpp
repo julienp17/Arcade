@@ -11,6 +11,7 @@
 #include <ncurses.h>
 #include <string>
 #include "IDisplay.hpp"
+#include "Error.hpp"
 
 namespace arc {
 /** @class NcursesDisplay
@@ -88,6 +89,12 @@ class NcursesDisplay : public IDisplay {
     std::string getName(void) const override {
         return "ncurses";
     }
+};
+
+class NcursesError : public DisplayError {
+ public:
+    explicit NcursesError(std::string const &message)
+        : DisplayError(std::string("ncurses: ") + message) {}
 };
 }  // namespace arc
 
