@@ -19,7 +19,7 @@ SRC_UT_F	=	parser/testParser.cpp
 
 INC			=	-I./inc -I../inc/
 
-CXXFLAGS	=	-std=c++14 -fPIC $(WFLAGS) $(INC)
+CXXFLAGS	=	-std=c++17 -fPIC $(WFLAGS) $(INC)
 
 WFLAGS		=	-W -Wall -Wextra -Werror
 

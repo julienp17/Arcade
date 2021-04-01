@@ -8,9 +8,8 @@
 #ifndef LIB_CORE_INC_DLMANAGER_HPP_
 #define LIB_CORE_INC_DLMANAGER_HPP_
 
-#include <dirent.h>
-#include <errno.h>
-#include <string.h>
+#include <memory>
+#include <filesystem>
 #include <vector>
 #include <string>
 #include "DLLoader.hpp"
@@ -38,14 +37,14 @@ class DLManager {
     /**
      * @brief Destroy the Display Manager object
      */
-    ~DLManager(void) {}
+    virtual ~DLManager(void) {}
 
     /**
      * @brief Loads the previous dynamic library
      */
     void prev(void) {
         if (_i == 0)
-            _i == _libs.size() - 1;
+            _i = _libs.size() - 1;
         else
             _i--;
     }
@@ -62,7 +61,7 @@ class DLManager {
     /**
      * @brief Sets the current dynamic library
      *
-     * @param libName Name of the library to set
+     * @param libName Name of the library to set, always in lowercase
      * @example set("sdl2")
      */
     void set(const std::string &libName) {
@@ -81,13 +80,42 @@ class DLManager {
      * @return A pointer to the instance of the loaded dynamic library
      */
     T *get(void) {
-        return _libs[_i].get();
+        return _libs[_i].get()->get();
     }
 
+    typedef std::shared_ptr<DLLoader<T>> DLPtr;
+    typedef std::vector<DLPtr> DLPtrVec;
+
  private:
+    /**
+     * @brief Checks if a filename is compliant to an arcade dynamic library
+     * filename
+     *
+     * A filename is considered compliant if it starts with "arcade_" and has
+     * the extension ".so". Moreover, we pass to the function a vector of
+     * library names to only load certain libraries. This is used to
+     * differentiate display and game libraries.
+     * @param libNames Names of the libraries to load
+     * @param filename Name of the file to check
+     * @return True if the filename is compliant
+     * @return False if the filename is not compliant
+     */
     bool libMatches(const std::vector<std::string> &libNames,
                     const std::string &filename) {
-        // TODO(julien): check if file respects regex arcade_*.so
+        auto startsWith = [](const std::string &str, const std::string &toFind){
+            if (str.rfind(toFind, 0) == 0)
+                return true;
+            return false;
+        };
+        auto endsWith = [](const std::string &str, const std::string &toFind) {
+            if (str.length() < toFind.length())
+                return false;
+            return (str.compare(str.length() - toFind.length(), toFind.length(),
+                    toFind) == 0);
+        };
+        if (!startsWith(filename, std::string(_libDir + "arcade_"))
+            || !endsWith(filename, ".so"))
+            return false;
         for (auto it = libNames.begin() ; it != libNames.end() ; it++)
             if (filename.find(*it) != std::string::npos)
                 return true;
@@ -100,20 +128,9 @@ class DLManager {
      * @param libNames Vector containing the name of the libraries to load
      */
     void loadLibs(const std::vector<std::string> &libNames) {
-        DIR *dir = NULL;
-        struct dirent *ent = NULL;
-        std::string path;
-
-        dir = opendir(_libDir.c_str());
-        if (dir == NULL)
-            throw DLError(strerror(errno));
-        while ((ent = readdir(dir)) != NULL) {
-            path = _libDir + std::string(ent->d_name);
-            if (ent->d_type == DT_REG && libMatches(libNames, path))
-                _libs.push_back(DLLoader<T>(path.c_str()));
-        }
-        if (closedir(dir) == -1)
-            throw DLError(strerror(errno));
+        for (auto &file : std::filesystem::directory_iterator(_libDir))
+            if (file.is_regular_file() && libMatches(libNames, file.path()))
+                _libs.push_back(DLPtr(new DLLoader<T>(file.path())));
     }
 
     // TODO(julien): find a way to not make this hardcoded!
@@ -123,7 +140,7 @@ class DLManager {
     size_t _i;
     // TODO(julien): maybe switch from a vector to a set ?
     //* Vector containing the loaded dynamic libraries
-    std::vector<DLLoader<T>> _libs;
+    DLPtrVec _libs;
 };
 }  // namespace arc
 

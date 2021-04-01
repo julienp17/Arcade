@@ -9,6 +9,7 @@
 #define LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
 
 #include <vector>
+#include <string>
 #include "IGame.hpp"
 #include "Parser.hpp"
 #include "arcade.hpp"

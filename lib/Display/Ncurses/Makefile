@@ -7,34 +7,34 @@
 
 CC			=	g++
 
-SRC			=	Nibbler.cpp
+SRC			=	NcursesDisplay.cpp
 OBJ			=	$(SRC:.cpp=.o)
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
-SRC_UT_F	=	testNibbler.cpp
+SRC_UT_F	=
 
 INC			=	-I../../inc
 
-CXXFLAGS	=	-std=c++17 $(WFLAGS) $(INC)
+CXXFLAGS	=	-std=c++17 -fPIC $(WFLAGS) $(INC)
 
 WFLAGS		=	-W -Wall -Wextra -Werror
 
 DBFLAGS		=	-g -g3 -ggdb
 
-LDFLAGS 	=	-L../../ -lparser
+LDFLAGS 	=	-lncurses
 
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 
-NAME		=	arcade_nibbler.so
+NAME		=	arcade_ncurses.so
 
 NAME_UT		=	unit_tests
 
 all: $(NAME)
 
 %.o: %.cpp
-	$(CC) $(CXXFLAGS) -fPIC -c $< -o $@
+	$(CC) $(CXXFLAGS) -fPIC -c $< -o $@ $(LDFLAGS)
 
 $(NAME): $(OBJ)
 	$(CC) $(CXXFLAGS) --shared -o $(NAME) $(OBJ) $(LDFLAGS)
@@ -44,7 +44,7 @@ debug: $(OBJ)
 	$(CC) $(CXXFLAGS) $(DBFLAGS) -o $(NAME) $(OBJ)
 
 tests_run: clean $(OBJ) $(OBJ_UT)
-	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS) $(LDFLAGS_UT)
+	$(CC) $(CXXFLAGS) -o $(NAME_UT) $(OBJ) $(OBJ_UT) $(LDFLAGS_UT)
 	./$(NAME_UT)
 
 coverage:

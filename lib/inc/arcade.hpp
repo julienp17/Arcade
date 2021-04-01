@@ -13,12 +13,16 @@
 "Usage: arcade GRAPHIC_LIBRARY"
 
 namespace arc {
+typedef char ** map_t;
+
 enum Input {
     NONE,
+    ESCAPE,
     LEFT,
     RIGHT,
     UP,
-    DOWN
+    DOWN,
+    A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
 };
 enum GAMESTATE {
     WIN,
