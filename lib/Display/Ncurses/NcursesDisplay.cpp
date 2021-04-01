@@ -16,6 +16,9 @@ void NcursesDisplay::createWindow(void) {
     noecho();
     cbreak();
     keypad(stdscr, TRUE);
+    timeout(500);
+    curs_set(0);
+    nodelay(stdscr, true);
     clear();
 }
 
@@ -40,9 +43,23 @@ void NcursesDisplay::drawText(int x, int y, const char *text) {
     mvaddstr(y, x - (strlen(text) / 2), text);
 }
 
+void NcursesDisplay::drawBox(int x, int y, int w, int h) {
+    x = x * getmaxx(stdscr) / 100;
+    y = y * getmaxy(stdscr) / 100;
+    w = w * getmaxx(stdscr) / 100;
+    h = h * getmaxy(stdscr) / 100;
+    mvhline(y, x, 0, w);
+    mvhline(y + h, x, 0, w);
+    mvvline(y, x, 0, h);
+    mvvline(y, x + w, 0, h);
+    mvaddch(y, x, ACS_ULCORNER);
+    mvaddch(y + h, x, ACS_LLCORNER);
+    mvaddch(y, x + w, ACS_URCORNER);
+    mvaddch(y + h, x + w, ACS_LRCORNER);
+}
+
 void NcursesDisplay::clear(void) {
-    using ::clear;  // use ncurse's clear function instead of member function
-    clear();
+    erase();
 }
 
 Input NcursesDisplay::getInput(void) const {
