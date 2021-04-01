@@ -24,7 +24,7 @@ class DLLoader {
      *
      * @param filename The path to the library to load
      */
-    explicit DLLoader(const char *filename) {
+    explicit DLLoader(const std::string &filename) {
         _handle = nullptr;
         _instance = nullptr;
         this->load(filename);
@@ -35,40 +35,57 @@ class DLLoader {
      *
      */
     ~DLLoader(void) {
-        dlclose(handle);
+        libDtor dtor = NULL;
+
+        dtor = reinterpret_cast<libDtor>(dlsym(_handle, dtorName));
+        if (dtor != NULL)
+            dtor(_instance);
+        dlclose(_handle);
     }
 
     /**
-     * @brief Get the Instance object
+     * @brief Get the library's instance
      *
-     * @return T*
+     * @return A pointer to the library class
      */
-    inline T *get(void) {
+    T *get(void) const {
         return _instance;
     }
 
  private:
-    const char *entryPointName = "getInstance";
-    const char *dtorName = "destroyInstance";
+    //* Name of the entry point function of each library
+    const char *ctorName = "create";
+    //* Name of the delete function of each library
+    const char *dtorName = "destroy";
+
+    //* Type of class factory constructor
+    typedef T *(*libCtor)(void);
+
+    //* Type of class factory destructor
+    typedef void (*libDtor)(T *);
 
     /**
      * @brief Loads the handle and the instance of the library
      *
      * @param filename The path to the library to load
      */
-    void load(const char *filename) {
-        // TODO(julien): check if file ends with .so
-        _handle = dlopen(filename, RTLD_LAZY);
+    void load(const std::string &filename) {
+        libCtor ctor = NULL;
+
+        _handle = dlopen(filename.c_str(), RTLD_NOW);
         if (_handle == NULL)
             throw DLError(dlerror());
-        _instance = ((T *(*)(void)) dlsym(_handle, entryPointName))();
-        if (_instance == NULL)
+        ctor = reinterpret_cast<libCtor>(dlsym(_handle, ctorName));
+        if (ctor == NULL)
             throw DLError(dlerror());
+        _instance = ctor();
+        if (_instance == nullptr)
+            throw DLError(filename + ": constructor failed");
     }
 
     //* Handle to the library in memory
     void *_handle;
-    //* Pointer to an instance of the library class
+    //* Pointer to the instance of the library class
     T *_instance;
 };
 }  // namespace arc

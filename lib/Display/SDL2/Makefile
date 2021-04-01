@@ -7,25 +7,23 @@
 
 CC			=	g++
 
-SRC			=	$(addprefix $(SRC_D), $(SRC_F))
+SRC			=	SDLDisplay.cpp
 OBJ			=	$(SRC:.cpp=.o)
-SRC_D		=	src/
-SRC_F		=	SDLDisplay.cpp
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
 OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
 SRC_UT_F	=
 
-INC			=	-I./inc -I../../inc
+INC			=	-I../../inc
 
-CXXFLAGS	=	-std=c++14 -fPIC $(WFLAGS) $(INC)
+CXXFLAGS	=	-std=c++17 -fPIC $(WFLAGS) $(INC)
 
 WFLAGS		=	-W -Wall -Wextra -Werror
 
 DBFLAGS		=	-g -g3 -ggdb
 
-LDFLAGS 	=	`sdl2-config --cflags --static-libs`
+LDFLAGS 	=	`sdl2-config --cflags --static-libs` -lSDL2_ttf
 
 LDFLAGS_UT  =	-lgtest -lgtest_main -lpthread
 

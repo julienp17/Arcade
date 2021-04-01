@@ -17,7 +17,8 @@ namespace arc {
  */
 class Error : public std::exception {
  public:
-    explicit Error(std::string const &message) : _message(message) {}
+    explicit Error(std::string const &message)
+        : _message(std::string("arcade: ") + message) {}
 
     inline virtual const char* what() const noexcept {
         return _message.c_str();
