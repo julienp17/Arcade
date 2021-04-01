@@ -39,19 +39,18 @@ class Core {
     /**
      * @brief Handles the inputs related to arcade
      */
-    void execKeys(void);
-
-    /**
-     * @brief Retrieve an input from the current display library
-     * 
-     * @return An enum Input
-     */
-    Input getInput(void);
+    void execKeys(const Input input);
 
     // void saveHiScore();
 
  private:
+    enum Scene {
+        MENU,
+        GAME
+    };
+
     void dispLoop(void);
+    void menuLoop(IDisplay *disp);
     void gameLoop(IDisplay *disp);
 
     /**
@@ -61,13 +60,15 @@ class Core {
     typedef std::function<void(void)> handler;
 
     bool _isRunning;
-    Input _input;
 
     //* Display Manager
     DLManager<IDisplay> _dispM;
 
     //* Game Manager
     DLManager<IGame> _gameM;
+
+    //* Current scene
+    Scene _scene;
 
     //* Events handlers
     std::unordered_map<Input, handler> _handlers;
