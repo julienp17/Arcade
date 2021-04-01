@@ -15,7 +15,7 @@ OBJ_UT		=	$(SRC_UT:.cpp=.o)
 SRC_UT_D	=	tests/
 SRC_UT_F	=	testNibbler.cpp
 
-INC			=	-I../../inc
+INC			=	-I../../inc -I./
 
 CXXFLAGS	=	-std=c++17 $(WFLAGS) $(INC)
 
