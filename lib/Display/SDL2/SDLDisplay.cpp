@@ -81,6 +81,13 @@ void SDLDisplay::drawText(int x, int y, const char *text) {
     SDL_DestroyTexture(message);
 }
 
+void SDLDisplay::drawBox(int x, int y, int w, int h) {
+    (void)x;
+    (void)y;
+    (void)w;
+    (void)h;
+}
+
 void SDLDisplay::clear() {
     // TODO(julien): this shit doesnt work
     if (SDL_RenderClear(_ren) == -1)

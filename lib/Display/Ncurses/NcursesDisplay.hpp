@@ -58,6 +58,16 @@ class NcursesDisplay : public IDisplay {
     void drawText(int x, int y, const char *text) override;
 
     /**
+     * @brief Draws a transparent-filled box with white border
+     *
+     * @param x Start position of the box on the X-axis
+     * @param y Start position of the box on the Y-axis
+     * @param w Width of the box
+     * @param h Height of the box
+     */
+    void drawBox(int x, int y, int w, int h) override;
+
+    /**
      * @brief Clears the content of the window
      */
     void clear(void) override;
