@@ -29,7 +29,7 @@ void Core::dispLoop(void) {
 
     disp->createWindow();
     while (this->_isRunning && disp == _dispM.get()) {
-        //menuLoop(disp);
+        menuLoop(disp);
         gameLoop(disp);
     }
     disp->destroyWindow();

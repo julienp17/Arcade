@@ -87,7 +87,8 @@ void Nibbler::moveSnake(void) {
     }
     if (_map[head.y + vect.y][head.x + vect.x] == _eggSym)
         _snake.insert(_snake.begin(), {head.x + vect.x, head.y + vect.y});
-    this->updateSnakePos();
+    else
+        this->updateSnakePos();
     this->clearMap();
     for (size_t i = 0; i != _snake.size(); i++)
         _map[_snake[i].y][_snake[i].x] = _snakeSym;
