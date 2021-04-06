@@ -29,6 +29,11 @@ enum GAMESTATE {
     LOOSE,
     RUNNING
 };
+typedef struct item {
+    std::string type;
+    char sym;
+    std::string path;
+}item;
 }  // namespace arc
 
 #endif  // LIB_INC_ARCADE_HPP_

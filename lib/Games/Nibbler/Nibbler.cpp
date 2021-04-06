@@ -17,11 +17,11 @@ Nibbler::Nibbler(void) {
     this->init(parser.getMap(), parser.getItems());
 }
 
-Nibbler::Nibbler(char **map, std::vector<Parser::item> items) {
+Nibbler::Nibbler(char **map, std::vector<item> items) {
     this->init(map, items);
 }
 
-void Nibbler::init(char **map, std::vector<Parser::item> items) {
+void Nibbler::init(char **map, std::vector<item> items) {
     this->_map = map;
     this->_tempItems = items;
     this->_tempMap = map;

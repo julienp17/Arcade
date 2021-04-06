@@ -14,7 +14,7 @@
 namespace arc {
 Core::Core() : _dispM({"sdl2", "ncurses"}), _gameM({"nibbler"}) {
     _isRunning = false;
-    _scene = GAME;
+    _scene = MENU;
     this->mapInputs();
 }
 

@@ -11,7 +11,8 @@
 #include "Parser.hpp"
 #include "Error.hpp"
 
-arc::Parser::Parser(const std::string &filename) {
+namespace arc {
+Parser::Parser(const std::string &filename) {
     std::ifstream file(filename);
     std::vector<std::string> lines;
 
@@ -22,7 +23,7 @@ arc::Parser::Parser(const std::string &filename) {
     this->parseMap(lines);
 }
 
-std::vector<std::string> arc::Parser::readLines(std::ifstream &file) {
+std::vector<std::string> Parser::readLines(std::ifstream &file) {
     std::string line;
     std::vector<std::string> lines;
 
@@ -31,18 +32,18 @@ std::vector<std::string> arc::Parser::readLines(std::ifstream &file) {
     return lines;
 }
 
-void arc::Parser::parseMap(std::vector<std::string> lines) {
+void Parser::parseMap(std::vector<std::string> lines) {
     std::vector<std::string> vectMap;
     size_t i = 0;
     char **map;
 
     if (lines.at(0).rfind("[maptiles]", 0) != 0)
-        throw arc::ParseError("Missing [maptiles] label");
+        throw ParseError("Missing [maptiles] label");
     lines.erase(lines.begin());
     lines.at(0).erase(0, lines.at(0).find('=') + 1);
     std::ifstream file(lines.at(0));
     if (file.is_open() == false)
-        throw arc::ParseError("Cannot open " + lines.at(0));
+        throw ParseError("Cannot open " + lines.at(0));
     vectMap = this->readLines(file);
     map = reinterpret_cast<char**>
                             (malloc(sizeof(char *) * (vectMap.size() + 1)));
@@ -53,7 +54,7 @@ void arc::Parser::parseMap(std::vector<std::string> lines) {
     this->_map = map;
 }
 
-void arc::Parser::parseItems(std::vector<std::string> &lines) {
+void Parser::parseItems(std::vector<std::string> &lines) {
     if (lines.at(0).rfind("[items]", 0) != 0)
         throw ParseError("Missing [items] label");
     lines.erase(lines.begin());
@@ -63,7 +64,7 @@ void arc::Parser::parseItems(std::vector<std::string> &lines) {
     }
 }
 
-arc::Parser::item arc::Parser::createItem(std::string line) {
+item Parser::createItem(std::string line) {
     std::vector<std::string> array;
     size_t pos = 0;
     std::string token;
@@ -82,3 +83,4 @@ arc::Parser::item arc::Parser::createItem(std::string line) {
     item.path = array.at(2);
     return item;
 }
+}  // namspace arc

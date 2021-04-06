@@ -18,7 +18,7 @@ namespace arc {
 class Nibbler : public IGame {
  public:
     Nibbler(void);
-    Nibbler(char **map, std::vector<arc::Parser::item> items);
+    Nibbler(char **map, std::vector<arc::item> items);
     virtual ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
@@ -27,9 +27,9 @@ class Nibbler : public IGame {
     inline void reset(void) override {init(_tempMap, _tempItems);};
     inline GAMESTATE getGameState() const {return _state;};
     inline std::string getName(void) const override {return "nibbler";};
-    
+    inline std::vector<item> getItems(void) const override {return _tempItems;};
  private:
-    void init(char **map, std::vector<arc::Parser::item> items);
+    void init(char **map, std::vector<arc::item> items);
     struct pos {
         int x;
         int y;
@@ -41,7 +41,7 @@ class Nibbler : public IGame {
 
     GAMESTATE _state;
     char **_tempMap;
-    std::vector<Parser::item> _tempItems;
+    std::vector<item> _tempItems;
     char **_map;
     arc::Input _direction;
     arc::Input _tailDirection;
