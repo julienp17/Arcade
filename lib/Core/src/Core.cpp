@@ -65,8 +65,10 @@ void Core::dispLoop(void) {
 
     disp->createWindow();
     while (dispIsRunning()) {
-        menuLoop(disp);
-        gameLoop(disp);
+        if (_scene == MENU)
+            menuLoop(disp);
+        else if (_scene == GAME)
+            gameLoop(disp);
     }
     disp->destroyWindow();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -79,6 +81,7 @@ void Core::menuLoop(IDisplay *disp) {
             && _scene == MENU);
     };
 
+    disp->clear();
     // Your name box
     disp->drawBox(10, 20, 80, 10);
     // Displays box
@@ -136,5 +139,7 @@ void Core::mapInputs(void) {
     _handlers.emplace(P, [this]() { _dispM.next(); });
     _handlers.emplace(L, [this]() { _gameM.prev(); });
     _handlers.emplace(M, [this]() { _gameM.next(); });
+    _handlers.emplace(R, [this]() { _gameM.get()->reset(); });
+    _handlers.emplace(T, [this]() { _scene = MENU; });
 }
 }  // namespace arc
