@@ -25,7 +25,7 @@ class Nibbler : public IGame {
     inline char **getMap(void) override {return _map;};
     void tick(void) override;
     inline void reset(void) override {init(_tempMap, _tempItems);};
-    inline GAMESTATE getGameState() const {return _state;};
+    inline GAMESTATE getState() const override {return _state;};
     inline std::string getName(void) const override {return "nibbler";};
     inline std::vector<item> getItems(void) const override {return _tempItems;};
  private:
