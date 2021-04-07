@@ -14,7 +14,7 @@
 namespace arc {
 Core::Core() : _dispM({"sdl2", "ncurses"}), _gameM({"nibbler"}) {
     _isRunning = false;
-    _scene = MENU;
+    _scene = GAME;
     this->mapInputs();
 }
 
@@ -29,7 +29,7 @@ void Core::dispLoop(void) {
 
     disp->createWindow();
     while (this->_isRunning && disp == _dispM.get()) {
-        menuLoop(disp);
+        //menuLoop(disp);
         gameLoop(disp);
     }
     disp->destroyWindow();

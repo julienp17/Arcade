@@ -25,7 +25,6 @@ void Nibbler::init(char **map, std::vector<item> items) {
     this->_map = map;
     this->_tempItems = items;
     this->_tempMap = map;
-    this->_tailDirection = RIGHT;
     this->_direction = RIGHT;
     this->_state = RUNNING;
     for (auto item : items) {
@@ -41,8 +40,6 @@ void Nibbler::init(char **map, std::vector<item> items) {
     for (int y = 0; map[y]; y++) {
         for (int x = 0; map[y][x]; x++) {
             if (map[y][x] == this->_snakeSym) {
-                this->_head = {x, y};
-                this->_tail = this->_head;
                 this->_snake.push_back({x, y});
                 return;
             }

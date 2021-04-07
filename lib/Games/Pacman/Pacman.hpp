@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** arcade
 ** File description:
-** Nibbler
+** Pacman
 */
 
 #ifndef LIB_GAMES_NIBBLER_INC_NIBBLER_HPP_
@@ -15,18 +15,18 @@
 #include "arcade.hpp"
 
 namespace arc {
-class Nibbler : public IGame {
+class Pacman : public IGame {
  public:
-    Nibbler(void);
-    Nibbler(char **map, std::vector<arc::item> items);
-    virtual ~Nibbler(void) {}
+    Pacman(void);
+    Pacman(char **map, std::vector<arc::item> items);
+    virtual ~Pacman(void) {}
 
     void execKey(arc::Input key) override;
     inline char **getMap(void) override {return _map;};
     void tick(void) override;
     inline void reset(void) override {init(_tempMap, _tempItems);};
     inline GAMESTATE getGameState() const {return _state;};
-    inline std::string getName(void) const override {return "nibbler";};
+    inline std::string getName(void) const override {return "pacman";};
     inline std::vector<item> getItems(void) const override {return _tempItems;};
  private:
     void init(char **map, std::vector<arc::item> items);
@@ -34,21 +34,27 @@ class Nibbler : public IGame {
         int x;
         int y;
     };
-    void moveSnake(void);
+    struct ghost {
+        pos pos;
+        arc::Input direction;
+    };
+    void movePacman(void);
+    void moveGhosts(void);
     pos getVectFromDirection(Input direction);
     void updateSnakePos(void);
     void clearMap(void);
 
     GAMESTATE _state;
     char **_tempMap;
-    std::vector<item> _tempItems;
     char **_map;
+    std::vector<item> _tempItems;
     arc::Input _direction;
     char _wallSym;
-    char _snakeSym;
+    char _pacmanSym;
     char _bgSym;
-    char _eggSym;
-    std::vector<pos> _snake;
+    char _ghostSym;
+    pos _pacman;
+    std::vector<ghost> _ghosts;
 };
 }  // namespace arc
 
