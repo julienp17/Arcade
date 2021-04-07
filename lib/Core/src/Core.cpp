@@ -6,13 +6,15 @@
 */
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "Core.hpp"
 #include "IDisplay.hpp"
 
 namespace arc {
 Core::Core() : _dispM({"sdl2", "ncurses"}), _gameM({"nibbler"}) {
     _isRunning = false;
-    _scene = GAME;
+    _scene = MENU;
     this->mapInputs();
 }
 
@@ -27,10 +29,11 @@ void Core::dispLoop(void) {
 
     disp->createWindow();
     while (this->_isRunning && disp == _dispM.get()) {
-        //menuLoop(disp);
+        menuLoop(disp);
         gameLoop(disp);
     }
     disp->destroyWindow();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 void Core::menuLoop(IDisplay *disp) {
@@ -55,11 +58,15 @@ void Core::menuLoop(IDisplay *disp) {
 
 void Core::gameLoop(IDisplay *disp) {
     IGame *game = _gameM.get();
+    Input input = NONE;
 
     while (this->_isRunning && disp == _dispM.get() && _scene == GAME && game == _gameM.get()) {
-        this->execKeys(disp->getInput());
+        input = disp->getInput();
+        this->execKeys(input);
+        game->execKey(input);
+        game->tick();
         disp->clear();
-        disp->drawText(50, 10, game->getName().c_str());
+        //disp->drawText(50, 10, game->getName().c_str());
         disp->drawMap(game->getMap());
         disp->display();
     }

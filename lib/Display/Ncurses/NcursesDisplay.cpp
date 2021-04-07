@@ -31,8 +31,10 @@ void NcursesDisplay::display(void) const {
 }
 
 void NcursesDisplay::drawMap(map_t map) const {
-    for (size_t i = 0 ; map[i] ; i++)
+    for (size_t i = 0 ; map[i] ; i++) {
         addstr(map[i]);
+        addch('\n');
+    }
 }
 
 void NcursesDisplay::drawText(int x, int y, const char *text) {

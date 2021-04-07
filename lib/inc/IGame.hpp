@@ -9,6 +9,7 @@
 #define INC_IGAME_HPP_
 
 #include <string>
+#include <vector>
 #include "arcade.hpp"
 
 namespace arc {
@@ -20,6 +21,7 @@ class IGame {
     virtual char **getMap(void) = 0;
     virtual void tick(void) = 0;
     virtual void reset(void) = 0;
+    virtual std::vector<item> getItems(void) const = 0;
 };
 } // namespace arc
 

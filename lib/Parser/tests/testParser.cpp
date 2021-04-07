@@ -11,7 +11,7 @@
 
 TEST(Parser, parsed_items) {
     arc::Parser parser("./tests/pacman_basic.ini");
-    std::vector<arc::Parser::item> items = parser.getItems();
+    std::vector<arc::item> items = parser.getItems();
 
     ASSERT_EQ(items.at(0).type, std::string("wall"));
     ASSERT_EQ(items.at(0).sym, '|');

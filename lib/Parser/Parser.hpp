@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include "Error.hpp"
+#include "arcade.hpp"
 
 namespace arc {
 /** @class Parser
@@ -18,11 +19,6 @@ namespace arc {
  */
 class Parser {
  public:
-    struct item {
-        std::string type;
-        char sym;
-        std::string path;
-    };
     explicit Parser(const std::string &filename);
     virtual ~Parser(void) {}
 
