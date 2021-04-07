@@ -58,9 +58,13 @@ void Core::run(void) {
 
 void Core::dispLoop(void) {
     IDisplay *disp = _dispM.get();
+    auto dispIsRunning = [this, disp] (void) {
+        return (this->_isRunning
+            && disp == _dispM.get());
+    };
 
     disp->createWindow();
-    while (this->_isRunning && disp == _dispM.get()) {
+    while (dispIsRunning()) {
         menuLoop(disp);
         gameLoop(disp);
     }
@@ -69,6 +73,12 @@ void Core::dispLoop(void) {
 }
 
 void Core::menuLoop(IDisplay *disp) {
+    auto menuIsRunning = [this, disp] (void) {
+        return (this->_isRunning
+            && disp == _dispM.get()
+            && _scene == MENU);
+    };
+
     // Your name box
     disp->drawBox(10, 20, 80, 10);
     // Displays box
@@ -84,23 +94,35 @@ void Core::menuLoop(IDisplay *disp) {
     disp->drawText(65, 40, "Games");
     disp->drawText(85, 40, "Scores");
     disp->display();
-    while (this->_isRunning && disp == _dispM.get() && _scene == MENU)
+    while (menuIsRunning())
         this->execKeys(disp->getInput());
 }
 
 void Core::gameLoop(IDisplay *disp) {
     IGame *game = _gameM.get();
     Input input = NONE;
+    auto gameIsRunning = [this, disp, game](void) {
+        return (this->_isRunning
+            && disp == _dispM.get()
+            && _scene == GAME
+            && game == _gameM.get());
+    };
 
-    while (this->_isRunning && disp == _dispM.get() && _scene == GAME && game == _gameM.get()) {
+    while (gameIsRunning()) {
         input = disp->getInput();
         this->execKeys(input);
-        game->execKey(input);
-        game->tick();
-        disp->clear();
-        //disp->drawText(50, 10, game->getName().c_str());
-        disp->drawMap(game->getMap());
-        disp->display();
+        if (game->getState() == RUNNING) {
+            game->execKey(input);
+            game->tick();
+            disp->clear();
+            disp->drawMap(game->getMap());
+            disp->display();
+        } else {
+            disp->clear();
+            disp->drawText(50, 50, game->getState() == WIN ?
+                                "You won !" : "You lost !");
+            disp->display();
+        }
     }
 }
 
