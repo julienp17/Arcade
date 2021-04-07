@@ -35,7 +35,7 @@ class Pacman : public IGame {
         int y;
     };
     struct ghost {
-        pos pos;
+        pos position;
         arc::Input direction;
     };
     void movePacman(void);
