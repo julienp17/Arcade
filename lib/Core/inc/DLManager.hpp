@@ -31,15 +31,20 @@ class DLManagerError : public DLError {
 template <typename T>
 class DLManager {
  public:
-    // TODO(tristan): switch from giving a vector of names to a config file
+    /**
+     * @brief Create a DLManager object with no library loaded
+     *
+     * Call loadLibs next to load libraries
+     */
+    DLManager(void) : _i(0) {}
+
     /**
      * @brief Loads matching dynamic libraries from the lib directory
      *
      * @param libNames Vector containing the name of the libraries to load
      * @example DLManager("OpenGL", "SDL2", "Ncurses")
      */
-    explicit DLManager(const std::vector<std::string> &libNames) {
-        _i = 0;
+    explicit DLManager(const std::vector<std::string> &libNames) : _i(0) {
         this->loadLibs(libNames);
     }
 
@@ -92,6 +97,17 @@ class DLManager {
         return _libs[_i].get()->get();
     }
 
+    /**
+     * @brief Loads matching dynamic libraries from the lib directory
+     *
+     * @param libNames Vector containing the name of the libraries to load
+     */
+    void loadLibs(const std::vector<std::string> &libNames) {
+        for (auto &file : std::filesystem::directory_iterator(LIBDIR))
+            if (file.is_regular_file() && libMatches(libNames, file.path()))
+                _libs.push_back(DLPtr(new DLLoader<T>(file.path())));
+    }
+
     typedef std::shared_ptr<DLLoader<T>> DLPtr;
     typedef std::vector<DLPtr> DLPtrVec;
 
@@ -122,7 +138,7 @@ class DLManager {
             return (str.compare(str.length() - toFind.length(), toFind.length(),
                     toFind) == 0);
         };
-        if (!startsWith(filename, std::string(_libDir + "arcade_"))
+        if (!startsWith(filename, std::string(LIBDIR) + "arcade_")
             || !endsWith(filename, ".so"))
             return false;
         for (auto it = libNames.begin() ; it != libNames.end() ; it++)
@@ -131,20 +147,6 @@ class DLManager {
         return false;
     }
 
-    /**
-     * @brief Loads matching dynamic libraries from the lib directory
-     *
-     * @param libNames Vector containing the name of the libraries to load
-     */
-    void loadLibs(const std::vector<std::string> &libNames) {
-        for (auto &file : std::filesystem::directory_iterator(_libDir))
-            if (file.is_regular_file() && libMatches(libNames, file.path()))
-                _libs.push_back(DLPtr(new DLLoader<T>(file.path())));
-    }
-
-    // TODO(julien): find a way to not make this hardcoded!
-    //* Path to the library directory
-    const std::string _libDir = "./lib/";
     //* Index poiting to the current dynamic library
     size_t _i;
     // TODO(julien): maybe switch from a vector to a set ?
