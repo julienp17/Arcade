@@ -111,18 +111,16 @@ void Core::gameLoop(IDisplay *disp) {
     while (gameIsRunning()) {
         input = disp->getInput();
         this->execKeys(input);
+        disp->clear();
         if (game->getState() == RUNNING) {
             game->execKey(input);
             game->tick();
-            disp->clear();
             disp->drawMap(game->getMap());
-            disp->display();
         } else {
-            disp->clear();
             disp->drawText(50, 50, game->getState() == WIN ?
-                                "You won !" : "You lost !");
-            disp->display();
+                            "You won !" : "You lost !");
         }
+        disp->display();
     }
 }
 
