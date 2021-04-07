@@ -67,6 +67,8 @@ void NcursesDisplay::clear(void) {
 Input NcursesDisplay::getInput(void) const {
     int c = getch();
 
+    if (tolower(c) >= 'a' && tolower(c) <= 'z')
+        return static_cast<Input>(A + (c - 'a'));
     switch (c) {
     case KEY_UP:
         return UP;
@@ -76,14 +78,8 @@ Input NcursesDisplay::getInput(void) const {
         return LEFT;
     case KEY_RIGHT:
         return RIGHT;
-    case 'o':
-        return O;
-    case 'p':
-        return P;
-    case 'l':
-        return L;
-    case 'm':
-        return M;
+    case KEY_EXIT:
+        return ESCAPE;
     default:
         break;
     }
