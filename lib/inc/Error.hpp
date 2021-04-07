@@ -34,7 +34,7 @@ class Error : public std::exception {
 class DLError : public Error {
  protected:
     explicit DLError(std::string const &message)
-        : Error(std::string("dynamic library: ") + message) {}
+        : Error(std::string("dynamic library ") + message) {}
 };
 
 /** @class DisplayError
