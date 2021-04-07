@@ -17,7 +17,7 @@
 
 namespace arc {
 /** @class DLManagerError
- * @brief Errors related to loading dynamic libraries
+ * @brief Errors related to managing dynamic libraries
  */
 class DLManagerError : public DLError {
  public:
@@ -79,13 +79,14 @@ class DLManager {
      * @example set("sdl2")
      */
     void set(const std::string &libName) {
-        for (auto it = _libs.begin() ; it != _libs.end() ; it++) {
-            if (*it.get().getName() == libName) {
-                _i = std::distance(_libs.begin(), it);
+        _i = 0;
+        for (const DLPtr lib : _libs) {
+            if (lib.get()->get()->getName() == libName)
                 return;
-            }
+            _i++;
         }
-        throw DLManagerError("Couldn't find library named " + libName);
+        if (_i == _libs.size())
+            throw DLManagerError("Couldn't find library named " + libName);
     }
 
     /**

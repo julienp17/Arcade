@@ -19,7 +19,7 @@ namespace arc {
 class DLLoaderError : public DLError {
  public:
     DLLoaderError(void)
-        : DLError(std::string("loader:") + dlerror()) {}
+        : DLError(std::string("loader: ") + dlerror()) {}
     explicit DLLoaderError(std::string const &message)
         : DLError(std::string("loader: ") + message) {}
 };

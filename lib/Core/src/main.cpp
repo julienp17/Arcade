@@ -17,9 +17,8 @@ int main(int ac, char **av) {
         std::cerr << USAGE << std::endl;
         return MY_EXIT_FAILURE;
     }
-    (void)av;
     try {
-        core = std::unique_ptr<arc::Core>(new arc::Core);
+        core = std::unique_ptr<arc::Core>(new arc::Core(av[1]));
         core->run();
     } catch (const arc::Error &err) {
         std::cerr << err.what() << std::endl;

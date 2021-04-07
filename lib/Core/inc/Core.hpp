@@ -9,6 +9,7 @@
 #define LIB_CORE_INC_CORE_HPP_
 
 #include <unordered_map>
+#include <memory>
 #include <string>
 #include <functional>
 #include "arcade.hpp"
@@ -33,9 +34,11 @@ class CoreError : public Error {
 class Core {
  public:
     /**
-     * @brief Construct a new Core object
+     * @brief Construct a new Core object with a selected display
+     *
+     * @param filename Path to the library to load
      */
-    Core(void);
+    explicit Core(const std::string &filename);
 
     /**
      * @brief Destroy the Core object
@@ -50,6 +53,10 @@ class Core {
     // void saveHiScore();
 
  private:
+    typedef DLLoader<IDisplay> DispLoader;
+    typedef DLLoader<IGame> GameLoader;
+    typedef std::shared_ptr<DispLoader> DispLoaderPtr;
+    typedef std::shared_ptr<GameLoader> GameLoaderPtr;
     typedef std::function<void(void)> handler;
 
     enum Scene {

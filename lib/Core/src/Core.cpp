@@ -14,17 +14,20 @@
 #include "IDisplay.hpp"
 
 namespace arc {
-Core::Core() {
+Core::Core(const std::string &filename) {
+    std::unique_ptr<DispLoader> selectedDisplay =
+        std::unique_ptr<DispLoader>(new DispLoader(filename));
+
     _isRunning = false;
-    _scene = MENU;
+    _scene = GAME;
     this->loadLibs();
+    _dispM.set(selectedDisplay.get()->get()->getName());
 }
 
 void Core::loadLibs(void) {
     const std::string filename = "./conf/core.conf";
     std::ifstream file(filename);
     std::string line;
-
     auto split = [] (const std::string &s, char delim) {
         std::vector<std::string> result;
         std::stringstream ss(s);
