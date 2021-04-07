@@ -6,20 +6,49 @@
 */
 
 #include <iostream>
+#include <sstream>
 #include <thread>
 #include <chrono>
+#include <fstream>
 #include "Core.hpp"
 #include "IDisplay.hpp"
 
 namespace arc {
-Core::Core() : _dispM({"sdl2", "ncurses"}), _gameM({"nibbler"}) {
+Core::Core() {
     _isRunning = false;
     _scene = MENU;
-    this->mapInputs();
+    this->loadLibs();
+}
+
+void Core::loadLibs(void) {
+    const std::string filename = "./conf/core.conf";
+    std::ifstream file(filename);
+    std::string line;
+
+    auto split = [] (const std::string &s, char delim) {
+        std::vector<std::string> result;
+        std::stringstream ss(s);
+        std::string item;
+
+        while (getline(ss, item, delim))
+            result.push_back(item);
+        return result;
+    };
+
+    if (file.is_open() == false)
+        throw CoreError("Cannot open " + filename);
+    if (!getline(file, line))
+        throw CoreError("Coudln't find display names in " + filename);
+    _dispM.loadLibs(split(line, ' '));
+    if (!getline(file, line))
+        throw CoreError("Coudln't find game names in " + filename);
+    _gameM.loadLibs(split(line, ' '));
+    file.close();
 }
 
 void Core::run(void) {
     _isRunning = true;
+    this->mapInputs();
     while (this->_isRunning)
         dispLoop();
 }

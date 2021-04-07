@@ -9,13 +9,24 @@
 #define LIB_CORE_INC_CORE_HPP_
 
 #include <unordered_map>
+#include <string>
 #include <functional>
 #include "arcade.hpp"
 #include "DLManager.hpp"
 #include "IDisplay.hpp"
 #include "IGame.hpp"
+#include "Error.hpp"
 
 namespace arc {
+/** @class CoreError
+ * @brief Errors related to arcade Core
+ */
+class CoreError : public Error {
+ public:
+    explicit CoreError(std::string const &message)
+        : Error(std::string("core: ") + message) {}
+};
+
 /** @class Core
  * @brief Bridge between a game library and a display library
  */
@@ -29,25 +40,35 @@ class Core {
     /**
      * @brief Destroy the Core object
      */
-    ~Core(void) {}
+    virtual ~Core(void) {}
 
     /**
      * @brief Launches the arcade !
      */
     void run(void);
 
+    // void saveHiScore();
+
+ private:
+    typedef std::function<void(void)> handler;
+
+    enum Scene {
+        MENU,
+        GAME
+    };
+
     /**
      * @brief Handles the inputs related to arcade
      */
     void execKeys(const Input input);
 
-    // void saveHiScore();
-
- private:
-    enum Scene {
-        MENU,
-        GAME
-    };
+    /**
+     * @brief Loads the display and game libraries
+     *
+     * Called when a Core object is created.
+     * Calls the loadLibs method of the display and game manager.
+     */
+    void loadLibs(void);
 
     void dispLoop(void);
     void menuLoop(IDisplay *disp);
@@ -57,7 +78,6 @@ class Core {
      * @brief Map the inputs to their corresponding action
      */
     void mapInputs(void);
-    typedef std::function<void(void)> handler;
 
     bool _isRunning;
 
