@@ -130,7 +130,7 @@ class SDLDisplay : public IDisplay {
     TTF_Font *_font;
 
     //* Mapping of symbols to sprites
-    std::unordered_map<cell_t, SDL_Surface *> _spritesMap;
+    std::unordered_map<char, SDL_Texture *> _spritesMap;
 };
 
 class SDLError : public DisplayError {

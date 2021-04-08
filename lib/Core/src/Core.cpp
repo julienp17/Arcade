@@ -97,8 +97,11 @@ void Core::gameLoop(IDisplay *disp) {
             game->tick();
             disp->drawMap(game->getMap());
         } else {
-            disp->drawText(50, 50, game->getState() == WIN ?
+            disp->drawText(50, 30, game->getName().c_str());
+            disp->drawText(50, 45, game->getState() == WIN ?
                             "You won !" : "You lost !");
+            disp->drawText(50, 60, "Press 'R' to reload the game");
+            disp->drawText(50, 70, "Press 'T' to return to the menu");
         }
         disp->display();
     }
