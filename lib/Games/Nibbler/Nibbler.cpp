@@ -30,7 +30,7 @@ void Nibbler::init(char **map, std::vector<item> items) {
     this->_map = map;
     this->_tempItems = items;
     for (sizeofmap = 0; map[sizeofmap]; sizeofmap++);
-    _tempMap = reinterpret_cast<char**>(malloc(sizeof(char *) * sizeofmap));
+    _tempMap = reinterpret_cast<char**>(malloc(sizeof(char *) * (sizeofmap + 1)));
     for (i = 0; map[i]; i++)
         _tempMap[i] = strdup(map[i]);
     _tempMap[i++] = NULL;
