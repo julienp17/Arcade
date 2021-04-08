@@ -18,6 +18,7 @@
 namespace arc {
 const char DEFAULT_FONT_PATH[] = "./assets/karmaticarcade.ttf";
 const char LIBDIR[] = "./lib/";
+const size_t SPRITE_SIZE = 32;
 
 enum LibType {
     DISPLAY,
@@ -47,7 +48,6 @@ typedef struct item {
 } item;
 
 typedef std::vector<item> itemVec;
-typedef char cell_t;
 typedef char ** map_t;
 }  // namespace arc
 

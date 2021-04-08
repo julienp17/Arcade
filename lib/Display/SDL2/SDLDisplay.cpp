@@ -33,7 +33,7 @@ SDLDisplay::~SDLDisplay(void) {
 
 void SDLDisplay::createWindow(void) {
     // TODO(julien): make width and height not hardcoded
-    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_FULLSCREEN,
+    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_FULLSCREEN_DESKTOP,
             &_win, &_ren) == -1)
         throw SDLError();
     if (SDL_SetRenderDrawColor(_ren, 0, 0, 0, SDL_ALPHA_OPAQUE) == -1)
@@ -49,19 +49,24 @@ void SDLDisplay::destroyWindow(void) {
 }
 
 void SDLDisplay::loadSprites(const itemVec items) {
-    SDL_Surface *sprite = NULL;
+    SDL_Surface *surface = NULL;
+    SDL_Texture *sprite = NULL;
 
     for (auto item : items) {
-        sprite =  IMG_Load(item.path.c_str());
-        if (sprite == NULL)
+        surface = IMG_Load(item.path.c_str());
+        if (surface == NULL)
             throw IMGError();
-        _spritesMap[item.sym] = sprite;
+        sprite = SDL_CreateTextureFromSurface(_ren, surface);
+        if (sprite == NULL)
+            throw SDLError();
+        _spritesMap.emplace(item.sym, sprite);
+        SDL_FreeSurface(surface);
     }
 }
 
 void SDLDisplay::destroySprites(void) {
-    for (const auto &[symbol, sprite] : _spritesMap)
-        SDL_FreeSurface(sprite);
+    for (auto &[symbol, sprite] : _spritesMap)
+        SDL_DestroyTexture(sprite);
     _spritesMap.clear();
 }
 
@@ -70,8 +75,24 @@ void SDLDisplay::display(void) const {
 }
 
 void SDLDisplay::drawMap(map_t map) const {
-    // TODO(julien): implement this function
-    (void)map;
+    SDL_Texture *sprite = NULL;
+    SDL_Rect rect = {0, 0, SPRITE_SIZE, SPRITE_SIZE};
+    char symbol = 0;
+
+    for (size_t i = 0 ; map[i] ; i++) {
+        for (size_t j = 0 ; map[i][j] ; j++) {
+            symbol = map[i][j];
+            try {
+                sprite = _spritesMap.at(symbol);
+            } catch (const std::out_of_range &_) {
+                throw SDLError(std::string("No matching sprite for symbol \'")
+                    + symbol);
+            }
+            rect.x += SPRITE_SIZE;
+            SDL_RenderCopy(_ren, sprite, NULL, &rect);
+        }
+        rect.y += SPRITE_SIZE;
+    }
 }
 
 void SDLDisplay::drawText(int x, int y, const char *text) {
@@ -103,14 +124,24 @@ void SDLDisplay::drawText(int x, int y, const char *text) {
 }
 
 void SDLDisplay::drawBox(int x, int y, int w, int h) {
-    (void)x;
-    (void)y;
-    (void)w;
-    (void)h;
+    int width = 0;
+    int height = 0;
+    SDL_Rect rect = {0, 0, 0, 0};
+
+    SDL_GetWindowSize(_win, &width, &height);
+    rect.x = (x * width / 100);
+    rect.y = (y * width / 100);
+    rect.w = (w * width / 100);
+    rect.h = (h * width / 100);
+    if (SDL_SetRenderDrawColor(_ren, 255, 255, 255, SDL_ALPHA_OPAQUE) == -1)
+        throw SDLError();
+    if (SDL_RenderDrawRect(_ren, &rect) == -1)
+        throw SDLError();
+    if (SDL_SetRenderDrawColor(_ren, 0, 0, 0, SDL_ALPHA_OPAQUE) == -1)
+        throw SDLError();
 }
 
 void SDLDisplay::clear() {
-    // TODO(julien): this shit doesnt work
     if (SDL_RenderClear(_ren) == -1)
         throw SDLError();
 }
