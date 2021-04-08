@@ -5,6 +5,7 @@
 ** SDLDisplay
 */
 
+#include <SDL_image.h>
 #include <iostream>
 #include "SDLDisplay.hpp"
 #include "Error.hpp"
@@ -15,6 +16,7 @@ SDLDisplay::SDLDisplay(void) {
     _ren = NULL;
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
         throw SDLError();
+    IMG_Init(IMG_INIT_PNG);
     if (TTF_Init() == -1)
         throw TTFError();
     _font = TTF_OpenFont(DEFAULT_FONT_PATH, 40);
@@ -25,12 +27,14 @@ SDLDisplay::SDLDisplay(void) {
 SDLDisplay::~SDLDisplay(void) {
     TTF_CloseFont(_font);
     TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }
 
 void SDLDisplay::createWindow(void) {
     // TODO(julien): make width and height not hardcoded
-    if (SDL_CreateWindowAndRenderer(800, 600, 0, &_win, &_ren) == -1)
+    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_FULLSCREEN,
+            &_win, &_ren) == -1)
         throw SDLError();
     if (SDL_SetRenderDrawColor(_ren, 0, 0, 0, SDL_ALPHA_OPAQUE) == -1)
         throw SDLError();
@@ -42,6 +46,23 @@ void SDLDisplay::destroyWindow(void) {
     SDL_DestroyWindow(_win);
     _win = NULL;
     _ren = NULL;
+}
+
+void SDLDisplay::loadSprites(const itemVec items) {
+    SDL_Surface *sprite = NULL;
+
+    for (auto item : items) {
+        sprite =  IMG_Load(item.path.c_str());
+        if (sprite == NULL)
+            throw IMGError();
+        _spritesMap[item.sym] = sprite;
+    }
+}
+
+void SDLDisplay::destroySprites(void) {
+    for (const auto &[symbol, sprite] : _spritesMap)
+        SDL_FreeSurface(sprite);
+    _spritesMap.clear();
 }
 
 void SDLDisplay::display(void) const {

@@ -40,6 +40,18 @@ class NcursesDisplay : public IDisplay {
     void destroyWindow(void) override;
 
     /**
+     * @brief Does nothing in ncurses
+     *
+     * @param items A vector of items
+     */
+    void loadSprites(const itemVec items) override;
+
+    /**
+     * @brief Does nothing in ncurses
+     */
+    void destroySprites(void) override;
+
+    /**
      * @brief Display the Ncurses window
      */
     void display(void) const override;

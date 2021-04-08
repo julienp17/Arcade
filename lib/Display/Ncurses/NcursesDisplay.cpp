@@ -26,6 +26,12 @@ void NcursesDisplay::destroyWindow(void) {
     endwin();
 }
 
+void NcursesDisplay::loadSprites(const itemVec items) {
+    (void)items;
+}
+
+void NcursesDisplay::destroySprites(void) {}
+
 void NcursesDisplay::display(void) const {
     refresh();
 }

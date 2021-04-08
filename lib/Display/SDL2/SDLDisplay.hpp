@@ -10,6 +10,7 @@
 
 #include <SDL2/SDL.h>
 #include <string>
+#include <unordered_map>
 #include "IDisplay.hpp"
 #include "Error.hpp"
 #include "SDL_ttf.h"
@@ -43,6 +44,18 @@ class SDLDisplay : public IDisplay {
      * @brief Destroys the SDL Window and renderer
      */
     void destroyWindow(void) override;
+
+    /**
+     * @brief Loads the textures of the game
+     *
+     * @param items A vector of items
+     */
+    void loadSprites(const itemVec items) override;
+
+    /**
+     * @brief Destroys the stored textures
+     */
+    void destroySprites(void) override;
 
     /**
      * @brief Displays the SDL window
@@ -107,9 +120,17 @@ class SDLDisplay : public IDisplay {
     const SDL_Color _WHITE = {255, 255, 255, 0};
     const SDL_Color _BLACK = {0, 0, 0, 0};
 
+    //* SDL Window
     SDL_Window *_win;
+
+    //* SDL Renderer
     SDL_Renderer *_ren;
+
+    //* Default font
     TTF_Font *_font;
+
+    //* Mapping of symbols to sprites
+    std::unordered_map<cell_t, SDL_Surface *> _spritesMap;
 };
 
 class SDLError : public DisplayError {
@@ -126,6 +147,14 @@ class TTFError : public SDLError {
         : SDLError(std::string("TTF: ") + TTF_GetError()) {}
     explicit TTFError(std::string const &message)
         : SDLError(std::string("TTF: ") + message) {}
+};
+
+class IMGError : public SDLError {
+ public:
+    IMGError(void)
+        : SDLError(std::string("IMG: ") + IMG_GetError()) {}
+    explicit IMGError(std::string const &message)
+        : SDLError(std::string("IMG: ") + message) {}
 };
 }  // namespace arc
 
