@@ -24,7 +24,7 @@ class Nibbler : public IGame {
     void execKey(arc::Input key) override;
     inline char **getMap(void) override {return _map;};
     void tick(void) override;
-    inline void reset(void) override {init(_tempMap, _tempItems);};
+    void reset(void) override;
     inline GAMESTATE getState() const override {return _state;};
     inline std::string getName(void) const override {return "nibbler";};
     inline std::vector<item> getItems(void) const override {return _tempItems;};
@@ -44,14 +44,12 @@ class Nibbler : public IGame {
     std::vector<item> _tempItems;
     char **_map;
     arc::Input _direction;
-    arc::Input _tailDirection;
     char _wallSym;
     char _snakeSym;
     char _bgSym;
     char _eggSym;
-    pos _head;
-    pos _tail;
     std::vector<pos> _snake;
+    size_t _score;
 };
 }  // namespace arc
 

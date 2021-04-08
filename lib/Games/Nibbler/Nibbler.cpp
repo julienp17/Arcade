@@ -22,10 +22,10 @@ Nibbler::Nibbler(char **map, std::vector<item> items) {
 }
 
 void Nibbler::init(char **map, std::vector<item> items) {
+    this->_score = 0;
     this->_map = map;
     this->_tempItems = items;
     this->_tempMap = map;
-    this->_tailDirection = RIGHT;
     this->_direction = RIGHT;
     this->_state = RUNNING;
     for (auto item : items) {
@@ -41,13 +41,17 @@ void Nibbler::init(char **map, std::vector<item> items) {
     for (int y = 0; map[y]; y++) {
         for (int x = 0; map[y][x]; x++) {
             if (map[y][x] == this->_snakeSym) {
-                this->_head = {x, y};
-                this->_tail = this->_head;
                 this->_snake.push_back({x, y});
                 return;
             }
         }
     }
+}
+
+void Nibbler::reset(void) {
+    init(_tempMap, _tempItems);
+    _score = 0;
+    _state = RUNNING;
 }
 
 void Nibbler::execKey(Input key) {
@@ -72,6 +76,7 @@ void Nibbler::tick(void) {
             return;
         this->moveSnake();
         duration -= std::chrono::milliseconds{500};
+        _score += 100;
     }
     lastCall = std::chrono::high_resolution_clock::now();
 }
