@@ -84,4 +84,4 @@ item Parser::createItem(std::string line) {
     item.path = array.at(2);
     return item;
 }
-}  // namspace arc
+}  // namespace arc
