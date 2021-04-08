@@ -16,7 +16,7 @@ void NcursesDisplay::createWindow(void) {
     noecho();
     cbreak();
     keypad(stdscr, TRUE);
-    timeout(500);
+    timeout(100);
     curs_set(0);
     nodelay(stdscr, true);
     clear();
@@ -86,6 +86,9 @@ Input NcursesDisplay::getInput(void) const {
         return RIGHT;
     case KEY_EXIT:
         return ESCAPE;
+    case 27:
+        if (getch() == ERR)
+            return ESCAPE;
     default:
         break;
     }
