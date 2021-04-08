@@ -103,6 +103,9 @@ class NcursesDisplay : public IDisplay {
     }
 };
 
+/** @class NcursesError
+ * @brief Errors related to Ncurses display library
+ */
 class NcursesError : public DisplayError {
  public:
     explicit NcursesError(std::string const &message)

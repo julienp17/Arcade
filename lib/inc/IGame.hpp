@@ -13,6 +13,9 @@
 #include "arcade.hpp"
 
 namespace arc {
+/** @class IGame
+ * @brief Interface for a game library
+ */
 class IGame {
  public:
     virtual ~IGame(void) {}

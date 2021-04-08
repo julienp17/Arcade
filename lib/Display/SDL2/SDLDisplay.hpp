@@ -5,8 +5,8 @@
 ** SDLDisplay
 */
 
-#ifndef LIB_SDL2_INC_SDLDISPLAY_HPP_
-#define LIB_SDL2_INC_SDLDISPLAY_HPP_
+#ifndef LIB_DISPLAY_SDL2_SDLDISPLAY_HPP_
+#define LIB_DISPLAY_SDL2_SDLDISPLAY_HPP_
 
 #include <SDL2/SDL.h>
 #include <string>
@@ -133,6 +133,9 @@ class SDLDisplay : public IDisplay {
     std::unordered_map<char, SDL_Texture *> _spritesMap;
 };
 
+/** @class SDLError
+ * @brief Errors related to SDL2 display library
+ */
 class SDLError : public DisplayError {
  public:
     SDLError(void)
@@ -141,6 +144,9 @@ class SDLError : public DisplayError {
         : DisplayError(std::string("SDL2: ") + message) {}
 };
 
+/** @class TTFError
+ * @brief Errors related to SDL2 TTF module
+ */
 class TTFError : public SDLError {
  public:
     TTFError(void)
@@ -149,6 +155,9 @@ class TTFError : public SDLError {
         : SDLError(std::string("TTF: ") + message) {}
 };
 
+/** @class IMGError
+ * @brief Errors related to SDL2 Image module
+ */
 class IMGError : public SDLError {
  public:
     IMGError(void)
@@ -158,4 +167,4 @@ class IMGError : public SDLError {
 };
 }  // namespace arc
 
-#endif  // LIB_SDL2_INC_SDLDISPLAY_HPP_
+#endif  // LIB_DISPLAY_SDL2_SDLDISPLAY_HPP_

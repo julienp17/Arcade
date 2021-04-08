@@ -13,7 +13,7 @@
 
 namespace arc {
 /** @class IDisplay
- * @brief Interface for a display Library
+ * @brief Interface for a display library
  */
 class IDisplay {
  public:
