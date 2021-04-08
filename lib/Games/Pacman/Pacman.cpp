@@ -76,12 +76,13 @@ void Pacman::tick(void) {
 void Pacman::movePacman(void) {
     Pacman::pos vect = this->getVectFromDirection(this->_direction);
 
-    if (_map[_pacman.y + vect.y][_pacman.x + vect.x] == _wallSym ||
-        _map[_pacman.y + vect.y][_pacman.x + vect.x] == _ghostSym) {
+    if (_map[_pacman.y + vect.y][_pacman.x + vect.x] == _ghostSym) {
         _state = LOOSE;
         return;
     }
-    _map[_pacman.y][_pacman.x] = _bgSym;
-    _map[_pacman.y + vect.y][_pacman.x + vect.x] = _pacmanSym;
+    if (_map[_pacman.y + vect.y][_pacman.x + vect.x] != _wallSym) {
+        _map[_pacman.y][_pacman.x] = _bgSym;
+        _map[_pacman.y + vect.y][_pacman.x + vect.x] = _pacmanSym;
+    }
 }
 }  // namespace arc
