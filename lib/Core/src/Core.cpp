@@ -117,7 +117,7 @@ void Core::mapInputs(void) {
     _handlers.emplace(P, [this]() { _dispM.next(); });
     _handlers.emplace(L, [this]() { _gameM.prev(); });
     _handlers.emplace(M, [this]() { _gameM.next(); });
-    _handlers.emplace(R, [this]() { _gameM.get()->reset(); });
+    _handlers.emplace(R, [this]() { _gameM.get()->reset();});
     _handlers.emplace(T, [this]() { _scene = MENU; });
 }
 }  // namespace arc

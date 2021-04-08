@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <cstring>
 #include "Nibbler.hpp"
 #include "Parser.hpp"
 
@@ -22,12 +23,20 @@ Nibbler::Nibbler(char **map, std::vector<item> items) {
 }
 
 void Nibbler::init(char **map, std::vector<item> items) {
+    int sizeofmap = 0;
+    int i = 0;
+
     this->_score = 0;
     this->_map = map;
     this->_tempItems = items;
-    this->_tempMap = map;
+    for (sizeofmap = 0; map[sizeofmap]; sizeofmap++);
+    _tempMap = reinterpret_cast<char**>(malloc(sizeof(char *) * sizeofmap));
+    for (i = 0; map[i]; i++)
+        _tempMap[i] = strdup(map[i]);
+    _tempMap[i++] = NULL;
     this->_direction = RIGHT;
     this->_state = RUNNING;
+    this->_snake.clear();
     for (auto item : items) {
         if (item.type == std::string("wall"))
             _wallSym = item.sym;
@@ -46,13 +55,7 @@ void Nibbler::init(char **map, std::vector<item> items) {
             }
         }
     }
-}
-
-void Nibbler::reset(void) {
-    init(_tempMap, _tempItems);
-    _score = 0;
-    _state = RUNNING;
-}
+}   
 
 void Nibbler::execKey(Input key) {
     if (key != DOWN && key != UP && key != LEFT && key != RIGHT)

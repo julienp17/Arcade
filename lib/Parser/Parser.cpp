@@ -48,6 +48,7 @@ void Parser::parseMap(std::vector<std::string> lines) {
     map = reinterpret_cast<char**>
                             (malloc(sizeof(char *) * (vectMap.size() + 1)));
     for (i = 0; i < vectMap.size(); i++) {
+        vectMap.at(i).push_back('\0');
         map[i] = strdup(vectMap.at(i).c_str());
     }
     map[i] = nullptr;
