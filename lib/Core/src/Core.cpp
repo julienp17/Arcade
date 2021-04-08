@@ -20,33 +20,9 @@ Core::Core(const std::string &filename) {
 
     _isRunning = false;
     _scene = GAME;
-    this->loadLibs();
+    _dispM.loadLibs();
+    _gameM.loadLibs();
     _dispM.set(selectedDisplay.get()->get()->getName());
-}
-
-void Core::loadLibs(void) {
-    const std::string filename = "./conf/core.conf";
-    std::ifstream file(filename);
-    std::string line;
-    auto split = [] (const std::string &s, char delim) {
-        std::vector<std::string> result;
-        std::stringstream ss(s);
-        std::string item;
-
-        while (getline(ss, item, delim))
-            result.push_back(item);
-        return result;
-    };
-
-    if (file.is_open() == false)
-        throw CoreError("Cannot open " + filename);
-    if (!getline(file, line))
-        throw CoreError("Coudln't find display names in " + filename);
-    _dispM.loadLibs(split(line, ' '));
-    if (!getline(file, line))
-        throw CoreError("Coudln't find game names in " + filename);
-    _gameM.loadLibs(split(line, ' '));
-    file.close();
 }
 
 void Core::run(void) {
@@ -111,6 +87,7 @@ void Core::gameLoop(IDisplay *disp) {
             && game == _gameM.get());
     };
 
+    disp->loadSprites(game->getItems());
     while (gameIsRunning()) {
         input = disp->getInput();
         this->execKeys(input);
@@ -125,6 +102,7 @@ void Core::gameLoop(IDisplay *disp) {
         }
         disp->display();
     }
+    disp->destroySprites();
 }
 
 void Core::execKeys(const Input input) {

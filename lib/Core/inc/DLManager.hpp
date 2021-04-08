@@ -103,10 +103,17 @@ class DLManager {
      *
      * @param libNames Vector containing the name of the libraries to load
      */
-    void loadLibs(const std::vector<std::string> &libNames) {
-        for (auto &file : std::filesystem::directory_iterator(LIBDIR))
-            if (file.is_regular_file() && libMatches(libNames, file.path()))
-                _libs.push_back(DLPtr(new DLLoader<T>(file.path())));
+    void loadLibs(void) {
+        DLPtr lib = nullptr;
+
+        for (auto &file : std::filesystem::directory_iterator(LIBDIR)) {
+            if (file.is_regular_file() && libMatches(file.path())) {
+                try {
+                    lib = DLPtr(new DLLoader<T>(file.path()));
+                    _libs.push_back(lib);
+                } catch (const DLLoaderError &_) {}
+            }
+        }
     }
 
     typedef std::shared_ptr<DLLoader<T>> DLPtr;
@@ -114,20 +121,17 @@ class DLManager {
 
  private:
     /**
-     * @brief Checks if a filename is compliant to an arcade dynamic library
-     * filename
+     * @brief Checks if the format of a filename matches one of an arcade
+     * dynamic library filename
      *
      * A filename is considered compliant if it starts with "arcade_" and has
-     * the extension ".so". Moreover, we pass to the function a vector of
-     * library names to only load certain libraries. This is used to
-     * differentiate display and game libraries.
-     * @param libNames Names of the libraries to load
+     * the extension ".so".
+     *
      * @param filename Name of the file to check
      * @return True if the filename is compliant
      * @return False if the filename is not compliant
      */
-    bool libMatches(const std::vector<std::string> &libNames,
-                    const std::string &filename) {
+    bool libMatches(const std::string &filename) {
         auto startsWith = [](const std::string &str, const std::string &toFind){
             if (str.rfind(toFind, 0) == 0)
                 return true;
@@ -139,13 +143,9 @@ class DLManager {
             return (str.compare(str.length() - toFind.length(), toFind.length(),
                     toFind) == 0);
         };
-        if (!startsWith(filename, std::string(LIBDIR) + "arcade_")
-            || !endsWith(filename, ".so"))
-            return false;
-        for (auto it = libNames.begin() ; it != libNames.end() ; it++)
-            if (filename.find(*it) != std::string::npos)
-                return true;
-        return false;
+        return (
+            startsWith(filename, std::string(LIBDIR) + "arcade_")
+            && endsWith(filename, ".so"));
     }
 
     //* Index poiting to the current dynamic library

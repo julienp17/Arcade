@@ -69,14 +69,6 @@ class Core {
      */
     void execKeys(const Input input);
 
-    /**
-     * @brief Loads the display and game libraries
-     *
-     * Called when a Core object is created.
-     * Calls the loadLibs method of the display and game manager.
-     */
-    void loadLibs(void);
-
     void dispLoop(void);
     void menuLoop(IDisplay *disp);
     void gameLoop(IDisplay *disp);
