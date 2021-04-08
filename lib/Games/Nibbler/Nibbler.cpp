@@ -55,7 +55,7 @@ void Nibbler::init(char **map, std::vector<item> items) {
             }
         }
     }
-}   
+}
 
 void Nibbler::execKey(Input key) {
     if (key != DOWN && key != UP && key != LEFT && key != RIGHT)
