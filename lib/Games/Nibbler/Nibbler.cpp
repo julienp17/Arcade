@@ -124,6 +124,10 @@ Nibbler::pos Nibbler::getVectFromDirection(Input direction) {
     return {0, 1};
 }
 
+extern "C" LibType getLibType(void) {
+    return GAME;
+}
+
 extern "C" IGame *create(void) {
     return new Nibbler;
 }

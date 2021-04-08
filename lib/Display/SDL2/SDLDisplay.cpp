@@ -153,6 +153,10 @@ Input SDLDisplay::getInputKey(const SDL_Event &event) const {
     return NONE;
 }
 
+extern "C" LibType getLibType(void) {
+    return DISPLAY;
+}
+
 extern "C" IDisplay *create(void) {
     return new SDLDisplay;
 }

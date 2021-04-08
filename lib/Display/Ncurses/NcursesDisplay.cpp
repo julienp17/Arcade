@@ -92,6 +92,10 @@ Input NcursesDisplay::getInput(void) const {
     return NONE;
 }
 
+extern "C" LibType getLibType(void) {
+    return DISPLAY;
+}
+
 extern "C" IDisplay *create(void) {
     return new NcursesDisplay;
 }

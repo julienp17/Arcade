@@ -11,6 +11,8 @@
 #include <dlfcn.h>
 #include <string>
 #include "Error.hpp"
+#include "IDisplay.hpp"
+#include "IGame.hpp"
 
 namespace arc {
 /** @class DLLoaderError
@@ -64,10 +66,15 @@ class DLLoader {
     }
 
  private:
-    //* Name of the entry point function of each library
+    //* Name of the library type checker function of each library
+    const char *libTypeName = "getLibType";
+    //* Name of the class factory constructor function of each library
     const char *ctorName = "create";
-    //* Name of the delete function of each library
+    //* Name of the class factory destructor function of each library
     const char *dtorName = "destroy";
+
+    //* Type of library type checker
+    typedef LibType (*libTypeFunc)(void);
 
     //* Type of class factory constructor
     typedef T *(*libCtor)(void);
@@ -86,6 +93,8 @@ class DLLoader {
         _handle = dlopen(filename.c_str(), RTLD_NOW);
         if (_handle == NULL)
             throw DLLoaderError();
+        if (!libTypeIsCorrect())
+            throw DLLoaderError("Wrong library type");
         ctor = reinterpret_cast<libCtor>(dlsym(_handle, ctorName));
         if (ctor == NULL)
             throw DLLoaderError();
@@ -93,6 +102,14 @@ class DLLoader {
         if (_instance == nullptr)
             throw DLLoaderError(filename + ": constructor failed");
     }
+
+    /**
+     * @brief Checks if the type of the library corresponds to the one contained
+     *
+     * This function is specialized for IDisplay and IGame, checking if the
+     * library's type is DISPLAY for the first, and GAME for the second.
+     */
+    bool libTypeIsCorrect(void);
 
     //* Handle to the library in memory
     void *_handle;
