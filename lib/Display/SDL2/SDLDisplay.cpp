@@ -80,6 +80,7 @@ void SDLDisplay::drawMap(map_t map) const {
     char symbol = 0;
 
     for (size_t i = 0 ; map[i] ; i++) {
+        rect.x = 0;
         for (size_t j = 0 ; map[i][j] ; j++) {
             symbol = map[i][j];
             try {
