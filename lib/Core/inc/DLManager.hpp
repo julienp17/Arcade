@@ -98,6 +98,15 @@ class DLManager {
         return _libs[_i].get()->get();
     }
 
+    std::vector<std::string> getLibNames(void) const {
+        std::vector<std::string> libNames;
+
+        libNames.reserve(_libs.size());
+        for (const DLPtr lib : _libs)
+            libNames.push_back(lib.get()->get()->getName());
+        return libNames;
+    }
+
     /**
      * @brief Loads matching dynamic libraries from the lib directory
      *
