@@ -128,6 +128,8 @@ Input SFMLDisplay::getInputKey(const sf::Event &event) const {
         return DOWN;
     case sf::Keyboard::Right:
         return RIGHT;
+    case sf::Keyboard::Tab:
+        return TAB;
     default:
         break;
     }

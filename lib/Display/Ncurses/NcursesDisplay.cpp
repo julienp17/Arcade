@@ -86,6 +86,8 @@ Input NcursesDisplay::getInput(void) {
         return RIGHT;
     case KEY_EXIT:
         return ESCAPE;
+    case '\t':
+        return TAB;
     case 27:
         if (getch() == ERR)
             return ESCAPE;

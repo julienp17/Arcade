@@ -171,6 +171,8 @@ Input SDLDisplay::getInputKey(const SDL_Event &event) const {
     switch (key) {
     case SDL_SCANCODE_ESCAPE:
         return ESCAPE;
+    case SDL_SCANCODE_TAB:
+        return TAB;
     case SDL_SCANCODE_UP:
         return UP;
     case SDL_SCANCODE_LEFT:

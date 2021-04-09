@@ -37,6 +37,7 @@ enum LibType {
 enum Input {
     NONE,
     ESCAPE,
+    TAB,
     LEFT,
     RIGHT,
     UP,
