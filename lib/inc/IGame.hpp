@@ -24,8 +24,8 @@ class IGame {
     virtual void tick(void) = 0;
     virtual void reset(void) = 0;
     virtual std::vector<item> getItems(void) const = 0;
-    virtual char **getMap(void) = 0;
-    virtual size_t getScore(void) = 0;
+    virtual char **getMap(void) const = 0;
+    virtual size_t getScore(void) const = 0;
     virtual std::string getName(void) const = 0;
     virtual GAMESTATE getState(void) const = 0;
 };

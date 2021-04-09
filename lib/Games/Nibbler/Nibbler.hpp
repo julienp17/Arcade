@@ -22,11 +22,11 @@ class Nibbler : public IGame {
     virtual ~Nibbler(void) {}
 
     void execKey(arc::Input key) override;
-    inline char **getMap(void) override {return _map;};
+    inline char **getMap(void) const override {return _map;};
     void tick(void) override;
     inline void reset(void) override {init(_tempMap, _tempItems);};
     inline GAMESTATE getState() const override {return _state;};
-    inline size_t getScore(void) {return _score;};
+    inline size_t getScore(void) const {return _score;};
     inline std::string getName(void) const override {return "nibbler";};
     inline std::vector<item> getItems(void) const override {return _tempItems;};
  private:
