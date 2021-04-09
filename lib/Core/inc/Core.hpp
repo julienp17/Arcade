@@ -70,7 +70,13 @@ class Core {
     void execKeys(const Input input);
 
     void dispLoop(void);
+
     void menuLoop(IDisplay *disp);
+    /**
+     * @brief Calls the current display to draw the boxes and text of the menu
+     */
+    void drawMenu(IDisplay *disp) const;
+
     void gameLoop(IDisplay *disp);
 
     /**

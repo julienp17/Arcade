@@ -19,10 +19,23 @@ Core::Core(const std::string &filename) {
         std::unique_ptr<DispLoader>(new DispLoader(filename));
 
     _isRunning = false;
-    _scene = GAME;
+    _scene = MENU;
     _dispM.loadLibs();
     _gameM.loadLibs();
+    for (const std::string &libName : _dispM.getLibNames()) {
+        std::cout
+            << "[DISPLAY] Successfully loaded '" << libName << "' library"
+            << std::endl;
+    }
+    for (const std::string &libName : _gameM.getLibNames()) {
+        std::cout
+            << "[GAME] Successfully loaded '" << libName << "' library"
+            << std::endl;
+    }
     _dispM.set(selectedDisplay.get()->get()->getName());
+    std::cout
+        << "[DISPLAY] Setting '" << _dispM.get()->getName()
+        << "' as starting display library" << std::endl;
 }
 
 void Core::run(void) {
@@ -57,24 +70,28 @@ void Core::menuLoop(IDisplay *disp) {
             && _scene == MENU);
     };
 
-    disp->clear();
-    // Your name box
-    disp->drawBox(10, 20, 80, 10);
-    // Displays box
-    disp->drawBox(10, 40, 40, 50);
-    // Scores box
-    disp->drawBox(80, 40, 10, 50);
-    // Games Box
-    disp->drawBox(50, 40, 30, 50);
+    while (menuIsRunning()) {
+        this->execKeys(disp->getInput());
+        disp->clear();
+        this->drawMenu(disp);
+        disp->display();
+    }
+}
 
+void Core::drawMenu(IDisplay *disp) const {
+    // Your name box
+    disp->drawBox(10, 25, 80, 10);
+    // Displays box
+    disp->drawBox(10, 45, 30, 50);
+    // Scores box
+    disp->drawBox(70, 45, 20, 50);
+    // Games Box
+    disp->drawBox(40, 45, 30, 50);
     disp->drawText(50, 10, "Arcade");
     disp->drawText(50, 20, "Your name");
-    disp->drawText(30, 40, "Displays");
-    disp->drawText(65, 40, "Games");
-    disp->drawText(85, 40, "Scores");
-    disp->display();
-    while (menuIsRunning())
-        this->execKeys(disp->getInput());
+    disp->drawText(25, 40, "Displays");
+    disp->drawText(55, 40, "Games");
+    disp->drawText(80, 40, "Scores");
 }
 
 void Core::gameLoop(IDisplay *disp) {
