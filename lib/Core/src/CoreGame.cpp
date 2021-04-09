@@ -40,7 +40,8 @@ void Core::gameLoop(IDisplay *disp) {
         }
         disp->display();
     }
-    this->saveHiScore(game->getName(), game->getScore());
+    if (game->getScore() > this->getHiScore(game->getName()))
+        this->saveHiScore(game->getName(), game->getScore());
     disp->destroySprites();
 }
 
