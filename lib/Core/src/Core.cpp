@@ -10,7 +10,7 @@
 #include "Core.hpp"
 
 namespace arc {
-Core::Core(const std::string &filename) {
+Core::Core(const std::string &filename) : _menu(*this) {
     std::unique_ptr<DispLoader> selectedDisplay =
         std::unique_ptr<DispLoader>(new DispLoader(filename));
 
@@ -36,7 +36,7 @@ void Core::dispLoop(void) {
     disp->createWindow();
     while (dispIsRunning()) {
         if (_scene == MENU)
-            menuLoop(disp);
+            _menu.loop(disp);
         else if (_scene == GAME)
             gameLoop(disp);
     }

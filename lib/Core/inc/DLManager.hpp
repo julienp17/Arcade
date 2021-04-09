@@ -108,6 +108,15 @@ class DLManager {
     }
 
     /**
+     * @brief Get the number of loaded libraries
+     *
+     * @return size_t Number of loaded libraries
+     */
+    size_t size(void) const {
+        return _libs.size();
+    }
+
+    /**
      * @brief Loads matching dynamic libraries from the lib directory
      *
      * @param libNames Vector containing the name of the libraries to load

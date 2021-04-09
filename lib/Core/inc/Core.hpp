@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <memory>
 #include <string>
+#include <vector>
 #include <functional>
 #include "arcade.hpp"
 #include "DLManager.hpp"
@@ -57,11 +58,6 @@ class Core {
     typedef std::shared_ptr<GameLoader> GameLoaderPtr;
     typedef std::function<void(void)> handler;
 
-    enum Scene {
-        MENU,
-        GAME
-    };
-
     /**
      * @brief Get the high score of a game
      *
@@ -85,12 +81,6 @@ class Core {
 
     void dispLoop(void);
 
-    void menuLoop(IDisplay *disp);
-    /**
-     * @brief Calls the current display to draw the boxes and text of the menu
-     */
-    void drawMenu(IDisplay *disp) const;
-
     void gameLoop(IDisplay *disp);
 
     /**
@@ -98,11 +88,31 @@ class Core {
      */
     void mapInputsGame(void);
 
-    /**
-     * @brief Map the inputs to their corresponding action in the menu
-     */
-    void mapInputsMenu(void);
+    class Menu {
+     public:
+        explicit Menu(Core &core);
+        virtual ~Menu(void) {}
 
+        void loop(IDisplay *disp);
+        void draw(IDisplay *disp) const;
+        void mapInputs(void);
+
+     private:
+        //* Reference to parent class Core to access its private members
+        Core &_core;
+
+        size_t _gameIdx;
+        size_t _dispIdx;
+
+        //* Current section of the menu
+        enum Section {
+            YOUR_NAME,
+            DISPLAY,
+            GAME
+        } _section;
+    } _menu;
+
+    //* Boolean checking if the arcade is currently running or not
     bool _isRunning;
 
     //* Display Manager
@@ -112,7 +122,10 @@ class Core {
     DLManager<IGame> _gameM;
 
     //* Current scene
-    Scene _scene;
+    enum Scene {
+        MENU,
+        GAME
+    } _scene;
 
     //* Events handlers
     std::unordered_map<Input, handler> _handlers;
