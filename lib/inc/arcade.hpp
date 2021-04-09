@@ -27,6 +27,7 @@
 
 namespace arc {
 const char LIBDIR[] = "./lib/";
+const char SCORES_DIR[] = "./.scores/";
 
 enum LibType {
     DISPLAY,
