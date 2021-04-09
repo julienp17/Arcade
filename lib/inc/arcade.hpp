@@ -39,11 +39,13 @@ enum Input {
     ESCAPE,
     TAB,
     ENTER,
+    BACKSPACE,
     LEFT,
     RIGHT,
     UP,
     DOWN,
-    A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
+    A = 'A',
+    B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
 };
 
 enum GAMESTATE {

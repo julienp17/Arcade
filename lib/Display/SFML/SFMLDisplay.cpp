@@ -124,6 +124,8 @@ Input SFMLDisplay::getInputKey(const sf::Event &event) const {
         return TAB;
     case sf::Keyboard::Enter:
         return ENTER;
+    case sf::Keyboard::BackSpace:
+        return BACKSPACE;
     case sf::Keyboard::Up:
         return UP;
     case sf::Keyboard::Left:

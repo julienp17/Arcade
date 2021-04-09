@@ -90,6 +90,8 @@ Input NcursesDisplay::getInput(void) {
         return TAB;
     case '\n':
         return ENTER;
+    case KEY_BACKSPACE:
+        return BACKSPACE;
     case 27:
         if (getch() == ERR)
             return ESCAPE;
