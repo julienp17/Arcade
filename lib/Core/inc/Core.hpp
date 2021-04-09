@@ -95,14 +95,21 @@ class Core {
 
         void loop(IDisplay *disp);
         void draw(IDisplay *disp) const;
+        void handleEnteredText(const Input input);
         void mapInputs(void);
 
      private:
         //* Reference to parent class Core to access its private members
         Core &_core;
 
+        //* Game index
         size_t _gameIdx;
+
+        //* Display index
         size_t _dispIdx;
+
+        //* Player name limited to 3 uppercase characters
+        std::string _playerName;
 
         //* Current section of the menu
         enum Section {
