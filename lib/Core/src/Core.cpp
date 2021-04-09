@@ -79,6 +79,9 @@ void Core::menuLoop(IDisplay *disp) {
 }
 
 void Core::drawMenu(IDisplay *disp) const {
+    std::vector<std::string> dispLibNames = _dispM.getLibNames();
+    std::vector<std::string> gameLibNames = _gameM.getLibNames();
+
     // Your name box
     disp->drawBox(10, 25, 80, 10);
     // Displays box
@@ -92,6 +95,11 @@ void Core::drawMenu(IDisplay *disp) const {
     disp->drawText(25, 40, "Displays");
     disp->drawText(55, 40, "Games");
     disp->drawText(80, 40, "Scores");
+
+    for (size_t i = 0 ; i < dispLibNames.size() ; i++)
+        disp->drawText(25, 50 + i * 10, dispLibNames[i].c_str());
+    for (size_t i = 0 ; i < gameLibNames.size() ; i++)
+        disp->drawText(55, 50 + i * 10, gameLibNames[i].c_str());
 }
 
 void Core::gameLoop(IDisplay *disp) {
