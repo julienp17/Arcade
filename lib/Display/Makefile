@@ -5,21 +5,26 @@
 ## Makefile
 ##
 
+SUBDIRS := $(wildcard */.)
+
 all:
-	make -C ./SDL2/ all
-	make -C ./Ncurses/ all
-	make -C ./SFML/ all
+	for dir in $(SUBDIRS); do \
+		make -C $$dir all; \
+	done
 
 clean:
-	make -C ./SDL2/ clean
-	make -C ./Ncurses/ clean
-	make -C ./SFML/ clean
+	for dir in $(SUBDIRS); do \
+		make -C $$dir clean; \
+	done
 
-fclean: clean
-	make -C ./SDL2/ fclean
-	make -C ./Ncurses/ fclean
-	make -C ./SFML/ fclean
+fclean:
+	for dir in $(SUBDIRS); do \
+		make -C $$dir clean; \
+	done
 
-re: fclean all
+re:
+	for dir in $(SUBDIRS); do \
+		make -C $$dir re; \
+	done
 
-.PHONY: all debug doc tests_run coverage coding-style clean fclean re
+.PHONY: all clean fclean re $(SUBDIRS)

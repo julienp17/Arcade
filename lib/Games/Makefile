@@ -5,18 +5,26 @@
 ## Makefile
 ##
 
-all:
-	make -C ./Nibbler/ all
+SUBDIRS := $(wildcard */.)
 
-coding-style:
-	cpplint --recursive --filter=-legal/copyright --verbose=3 .
+all:
+	for dir in $(SUBDIRS); do \
+		make -C $$dir all; \
+	done
 
 clean:
-	make -C ./Nibbler/ clean
+	for dir in $(SUBDIRS); do \
+		make -C $$dir clean; \
+	done
 
-fclean: clean
-	make -C ./Nibbler/ fclean
+fclean:
+	for dir in $(SUBDIRS); do \
+		make -C $$dir clean; \
+	done
 
-re: fclean all
+re:
+	for dir in $(SUBDIRS); do \
+		make -C $$dir re; \
+	done
 
-.PHONY: all debug doc tests_run coverage coding-style clean fclean re
+.PHONY: all clean fclean re $(SUBDIRS)
