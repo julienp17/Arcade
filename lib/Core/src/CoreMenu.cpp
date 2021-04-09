@@ -73,6 +73,14 @@ void Core::Menu::mapInputs(void) {
         else
             _section = static_cast<Section>(_section + 1);
     });
+    _core._handlers.emplace(ENTER, [this]() {
+        if (_section == GAME) {
+            _core._gameM.set(_core._gameM.getLibNames()[_gameIdx]);
+            _core._scene = Core::Scene::GAME;
+        } else if (_section == DISPLAY) {
+            _core._dispM.set(_core._dispM.getLibNames()[_dispIdx]);
+        }
+    });
     _core._handlers.emplace(UP, [this]() {
         if (_section == GAME) {
             if (_gameIdx == 0)
