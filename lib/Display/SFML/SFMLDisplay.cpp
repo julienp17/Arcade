@@ -120,6 +120,10 @@ Input SFMLDisplay::getInputKey(const sf::Event &event) const {
     switch (key) {
     case sf::Keyboard::Escape:
         return ESCAPE;
+    case sf::Keyboard::Tab:
+        return TAB;
+    case sf::Keyboard::Enter:
+        return ENTER;
     case sf::Keyboard::Up:
         return UP;
     case sf::Keyboard::Left:
@@ -128,8 +132,6 @@ Input SFMLDisplay::getInputKey(const sf::Event &event) const {
         return DOWN;
     case sf::Keyboard::Right:
         return RIGHT;
-    case sf::Keyboard::Tab:
-        return TAB;
     default:
         break;
     }

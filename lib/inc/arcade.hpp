@@ -38,6 +38,7 @@ enum Input {
     NONE,
     ESCAPE,
     TAB,
+    ENTER,
     LEFT,
     RIGHT,
     UP,
