@@ -5,8 +5,8 @@
 ** Parser
 */
 
-#ifndef LIB_CORE_INC_PARSER_HPP_
-#define LIB_CORE_INC_PARSER_HPP_
+#ifndef LIB_INC_PARSER_HPP_
+#define LIB_INC_PARSER_HPP_
 
 #include <string>
 #include <vector>
@@ -46,4 +46,5 @@ class ParseError : public Error {
         : Error(std::string("parser: ") + message) {}
 };
 }  // namespace arc
-#endif  // LIB_CORE_INC_PARSER_HPP_
+
+#endif  // LIB_INC_PARSER_HPP_

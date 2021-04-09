@@ -150,7 +150,7 @@ class DLManager {
 
     //* Index poiting to the current dynamic library
     size_t _i;
-    // TODO(julien): maybe switch from a vector to a set ?
+
     //* Vector containing the loaded dynamic libraries
     DLPtrVec _libs;
 };

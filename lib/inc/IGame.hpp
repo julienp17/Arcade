@@ -5,14 +5,17 @@
 ** IGames
 */
 
-#ifndef INC_IGAME_HPP_
-#define INC_IGAME_HPP_
+#ifndef LIB_INC_IGAME_HPP_
+#define LIB_INC_IGAME_HPP_
 
 #include <string>
 #include <vector>
 #include "arcade.hpp"
 
 namespace arc {
+/** @class IGame
+ * @brief Interface for a game library
+ */
 class IGame {
  public:
     virtual ~IGame(void) {}
@@ -26,6 +29,6 @@ class IGame {
     virtual std::string getName(void) const = 0;
     virtual GAMESTATE getState(void) const = 0;
 };
-} // namespace arc
+}  // namespace arc
 
-#endif /* !IGAME_HPP_ */
+#endif  // LIB_INC_IGAME_HPP_

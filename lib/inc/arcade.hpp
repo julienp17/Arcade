@@ -12,13 +12,21 @@
 #define USAGE \
 "Usage: arcade GRAPHIC_LIBRARY"
 
+#define KEYS_USAGE \
+"Keys:\n" \
+"   'ESCAPE' - Exit the arcade\n" \
+"        'O' - Previous graphics library\n" \
+"        'P' - Next graphics library\n" \
+"        'L' - Previous game\n" \
+"        'M' - Next game\n" \
+"        'R' - Restart the game\n" \
+"        'T' - Go back to the menu" \
+
 #include <string>
 #include <vector>
 
 namespace arc {
-const char DEFAULT_FONT_PATH[] = "./assets/karmaticarcade.ttf";
 const char LIBDIR[] = "./lib/";
-const size_t SPRITE_SIZE = 32;
 
 enum LibType {
     DISPLAY,

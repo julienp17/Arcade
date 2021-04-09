@@ -76,7 +76,7 @@ jobs:
       run: pip install cpplint
 
     - name: Run cpplint
-      run: cpplint --recursive --filter=-legal/copyright --verbose=3 .
+      run: cpplint --recursive --quiet --filter=-legal/copyright,-build/c++11 --verbose=3 ./lib
 
   # memory:
   #   name: Memory

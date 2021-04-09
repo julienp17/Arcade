@@ -24,7 +24,7 @@ doc: FORCE
 FORCE:
 
 coding-style:
-	cpplint --recursive --filter=-legal/copyright --verbose=3 ./lib
+	cpplint --recursive --quiet --filter=-legal/copyright,-build/c++11 --verbose=3 ./lib
 
 clean:
 	make -C ./lib/Parser/ clean

@@ -2,46 +2,46 @@
 ** EPITECH PROJECT, 2021
 ** arcade [WSL: Ubuntu-20.04]
 ** File description:
-** SDLDisplay
+** SFMLDisplay
 */
 
-#ifndef LIB_DISPLAY_SDL2_SDLDISPLAY_HPP_
-#define LIB_DISPLAY_SDL2_SDLDISPLAY_HPP_
+#ifndef LIB_DISPLAY_SFML_SFMLDISPLAY_HPP_
+#define LIB_DISPLAY_SFML_SFMLDISPLAY_HPP_
 
-#include <SDL2/SDL.h>
 #include <string>
 #include <unordered_map>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include "IDisplay.hpp"
 #include "Error.hpp"
-#include "SDL_ttf.h"
 
 namespace arc {
-/** @class SDLDisplay
- * @brief SDL2 Display library
+/** @class SFMLDisplay
+ * @brief SFML Display library
  */
-class SDLDisplay : public IDisplay {
+class SFMLDisplay : public IDisplay {
  public:
     /**
-     * @brief Construct a new SDLDisplay object
+     * @brief Construct a new SFMLDisplay object
      *
-     * Initialize SDL with everything
+     * Initialize SFML with everything
      */
-    SDLDisplay(void);
+    SFMLDisplay(void);
 
     /**
-     * @brief Destroy the SDLDisplay object
+     * @brief Destroy the SFMLDisplay object
      *
-     * Calls SDL_Quit()
+     * Calls SFML_Quit()
      */
-    virtual ~SDLDisplay(void);
+    virtual ~SFMLDisplay(void);
 
     /**
-     * @brief Create an SDL Window and renderer object
+     * @brief Create an SFML Window and renderer object
      */
     void createWindow(void) override;
 
     /**
-     * @brief Destroys the SDL Window and renderer
+     * @brief Destroys the SFML Window and renderer
      */
     void destroyWindow(void) override;
 
@@ -58,7 +58,7 @@ class SDLDisplay : public IDisplay {
     void destroySprites(void) override;
 
     /**
-     * @brief Displays the SDL window
+     * @brief Displays the SFML window
      */
     void display(void) override;
 
@@ -73,7 +73,7 @@ class SDLDisplay : public IDisplay {
     void drawMap(map_t map) override;
 
     /**
-     * @brief Draws text to the SDL window
+     * @brief Draws text to the SFML window
      *
      * @param x Percentage of the width
      * @param y Percentage of the height
@@ -102,10 +102,10 @@ class SDLDisplay : public IDisplay {
     /**
      * @brief Get the name of the library
      *
-     * @return "sdl2"
+     * @return "sfml"
      */
     std::string getName(void) const override {
-        return "sdl2";
+        return "sfml";
     }
 
  private:
@@ -115,56 +115,26 @@ class SDLDisplay : public IDisplay {
      * @return Input An enum of the one of the input if a recognized key is
      * pressed, NONE otherwise
      */
-    Input getInputKey(const SDL_Event &event) const;
+    Input getInputKey(const sf::Event &event) const;
 
-    const SDL_Color _WHITE = {255, 255, 255, 0};
-    const SDL_Color _BLACK = {0, 0, 0, 0};
-
-    //* SDL Window
-    SDL_Window *_win;
-
-    //* SDL Renderer
-    SDL_Renderer *_ren;
+    //* SFML Window
+    sf::RenderWindow _win;
 
     //* Default font
-    TTF_Font *_font;
+    sf::Font _font;
 
     //* Mapping of symbols to sprites
-    std::unordered_map<char, SDL_Texture *> _spritesMap;
+    std::unordered_map<char, sf::Texture> _spritesMap;
 };
 
-/** @class SDLError
- * @brief Errors related to SDL2 display library
+/** @class SFMLError
+ * @brief Errors related to SFML display library
  */
-class SDLError : public DisplayError {
+class SFMLError : public DisplayError {
  public:
-    SDLError(void)
-        : DisplayError(std::string("SDL2: ") + SDL_GetError()) {}
-    explicit SDLError(std::string const &message)
-        : DisplayError(std::string("SDL2: ") + message) {}
-};
-
-/** @class TTFError
- * @brief Errors related to SDL2 TTF module
- */
-class TTFError : public SDLError {
- public:
-    TTFError(void)
-        : SDLError(std::string("TTF: ") + TTF_GetError()) {}
-    explicit TTFError(std::string const &message)
-        : SDLError(std::string("TTF: ") + message) {}
-};
-
-/** @class IMGError
- * @brief Errors related to SDL2 Image module
- */
-class IMGError : public SDLError {
- public:
-    IMGError(void)
-        : SDLError(std::string("IMG: ") + IMG_GetError()) {}
-    explicit IMGError(std::string const &message)
-        : SDLError(std::string("IMG: ") + message) {}
+    explicit SFMLError(std::string const &message)
+        : DisplayError(std::string("SFML: ") + message) {}
 };
 }  // namespace arc
 
-#endif  // LIB_DISPLAY_SDL2_SDLDISPLAY_HPP_
+#endif  // LIB_DISPLAY_SFML_SFMLDISPLAY_HPP_
