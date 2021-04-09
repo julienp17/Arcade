@@ -70,11 +70,11 @@ void SDLDisplay::destroySprites(void) {
     _spritesMap.clear();
 }
 
-void SDLDisplay::display(void) const {
+void SDLDisplay::display(void) {
     SDL_RenderPresent(_ren);
 }
 
-void SDLDisplay::drawMap(map_t map) const {
+void SDLDisplay::drawMap(map_t map) {
     SDL_Texture *sprite = NULL;
     SDL_Rect rect = {0, 0, SPRITE_SIZE, SPRITE_SIZE};
     char symbol = 0;
@@ -131,9 +131,9 @@ void SDLDisplay::drawBox(int x, int y, int w, int h) {
 
     SDL_GetWindowSize(_win, &width, &height);
     rect.x = (x * width / 100);
-    rect.y = (y * width / 100);
+    rect.y = (y * height / 100);
     rect.w = (w * width / 100);
-    rect.h = (h * width / 100);
+    rect.h = (h * height / 100);
     if (SDL_SetRenderDrawColor(_ren, 255, 255, 255, SDL_ALPHA_OPAQUE) == -1)
         throw SDLError();
     if (SDL_RenderDrawRect(_ren, &rect) == -1)
@@ -147,7 +147,7 @@ void SDLDisplay::clear() {
         throw SDLError();
 }
 
-Input SDLDisplay::getInput(void) const {
+Input SDLDisplay::getInput(void) {
     SDL_Event event;
 
     while (SDL_PollEvent(&event)) {

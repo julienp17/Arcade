@@ -32,11 +32,15 @@ void NcursesDisplay::loadSprites(const itemVec items) {
 
 void NcursesDisplay::destroySprites(void) {}
 
-void NcursesDisplay::display(void) const {
+void NcursesDisplay::display(void)  {
     refresh();
 }
 
-void NcursesDisplay::drawMap(map_t map) const {
+void NcursesDisplay::clear(void) {
+    erase();
+}
+
+void NcursesDisplay::drawMap(map_t map) {
     for (size_t i = 0 ; map[i] ; i++) {
         addstr(map[i]);
         addch('\n');
@@ -66,11 +70,7 @@ void NcursesDisplay::drawBox(int x, int y, int w, int h) {
     mvaddch(y + h, x + w, ACS_LRCORNER);
 }
 
-void NcursesDisplay::clear(void) {
-    erase();
-}
-
-Input NcursesDisplay::getInput(void) const {
+Input NcursesDisplay::getInput(void) {
     int c = getch();
 
     if (tolower(c) >= 'a' && tolower(c) <= 'z')

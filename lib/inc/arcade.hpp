@@ -26,9 +26,7 @@
 #include <vector>
 
 namespace arc {
-const char DEFAULT_FONT_PATH[] = "./assets/karmaticarcade.ttf";
 const char LIBDIR[] = "./lib/";
-const size_t SPRITE_SIZE = 32;
 
 enum LibType {
     DISPLAY,

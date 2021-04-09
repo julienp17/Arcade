@@ -54,12 +54,17 @@ class NcursesDisplay : public IDisplay {
     /**
      * @brief Display the Ncurses window
      */
-    void display(void) const override;
+    void display(void) override;
+
+    /**
+     * @brief Clears the content of the window
+     */
+    void clear(void) override;
 
     /**
      * @brief Draw a game's map
      */
-    void drawMap(map_t map) const override;
+    void drawMap(map_t map) override;
 
     /**
      * @brief Draws text to the Ncurses window
@@ -81,17 +86,12 @@ class NcursesDisplay : public IDisplay {
     void drawBox(int x, int y, int w, int h) override;
 
     /**
-     * @brief Clears the content of the window
-     */
-    void clear(void) override;
-
-    /**
      * @brief Poll an input
      *
      * @return Input An enum of the one of the input if a recognized key is
      * pressed, NONE otherwise
      */
-    Input getInput(void) const override;
+    Input getInput(void)override;
 
     /**
      * @brief Get the name of the library
