@@ -98,8 +98,11 @@ void Core::drawMenu(IDisplay *disp) const {
 
     for (size_t i = 0 ; i < dispLibNames.size() ; i++)
         disp->drawText(25, 50 + i * 10, dispLibNames[i].c_str());
-    for (size_t i = 0 ; i < gameLibNames.size() ; i++)
+    for (size_t i = 0 ; i < gameLibNames.size() ; i++) {
         disp->drawText(55, 50 + i * 10, gameLibNames[i].c_str());
+        disp->drawText(80, 50 + i * 10,
+            std::to_string(this->getHiScore(gameLibNames[i])).c_str());
+    }
 }
 
 void Core::gameLoop(IDisplay *disp) {
@@ -130,6 +133,7 @@ void Core::gameLoop(IDisplay *disp) {
         }
         disp->display();
     }
+    this->saveHiScore(game->getName(), game->getScore());
     disp->destroySprites();
 }
 
@@ -137,6 +141,29 @@ void Core::execKeys(const Input input) {
     try {
         _handlers[input]();
     } catch (const std::bad_function_call &_) {}
+}
+
+size_t Core::getHiScore(const std::string &gameName) const {
+    std::string filename = std::string(SCORES_DIR) + gameName + ".score";
+    std::ifstream file(filename);
+    std::string line;
+
+    if (!file.is_open() || !getline(file, line)) {
+        this->saveHiScore(gameName, 0);
+        return 0;
+    }
+    file.close();
+    return atoi(line.c_str());
+}
+
+void Core::saveHiScore(const std::string &gameName, const size_t score) const {
+    std::string filename = std::string(SCORES_DIR) + gameName + ".score";
+    std::ofstream file(filename);
+
+    if (!file.is_open())
+        throw CoreError("Cannot write to '" + filename + "'");
+    file << score;
+    file.close();
 }
 
 void Core::mapInputs(void) {

@@ -50,8 +50,6 @@ class Core {
      */
     void run(void);
 
-    // void saveHiScore();
-
  private:
     typedef DLLoader<IDisplay> DispLoader;
     typedef DLLoader<IGame> GameLoader;
@@ -63,6 +61,22 @@ class Core {
         MENU,
         GAME
     };
+
+    /**
+     * @brief Get the high score of a game
+     *
+     * @param gameName The name of the game
+     * @return size_t The high score of the game
+     */
+    size_t getHiScore(const std::string &gameName) const;
+
+    /**
+     * @brief Saves the high score of a game
+     *
+     * @param gameName The name of the game
+     * @param score The score to store
+     */
+    void saveHiScore(const std::string &gameName, const size_t score) const;
 
     /**
      * @brief Handles the inputs related to arcade
