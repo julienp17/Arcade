@@ -106,12 +106,12 @@ void Nibbler::moveSnake(void) {
 
 void Nibbler::spawnEgg(void) {
     pos mapSize = this->getMapSize();
-    int randX = rand()%(mapSize.x + 1);
-    int randY = rand()%(mapSize.y + 1);
+    int randX = rand() % (mapSize.x + 1);
+    int randY = rand() % (mapSize.y + 1);
 
     while (_map[randY][randX] != _bgSym) {
-        randX = rand()%(mapSize.x);
-        randY = rand()%(mapSize.y);
+        randX = rand() % (mapSize.x + 1);
+        randY = rand() % (mapSize.y + 1);
     }
     _map[randY][randX] = _eggSym;
 }
