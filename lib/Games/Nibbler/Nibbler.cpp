@@ -34,7 +34,7 @@ void Nibbler::init(char **map, std::vector<item> items) {
     for (i = 0; map[i]; i++)
         _tempMap[i] = strdup(map[i]);
     _tempMap[i++] = NULL;
-    this->_direction = RIGHT;
+    this->_direction = LEFT;
     this->_state = RUNNING;
     this->_snake.clear();
     for (auto item : items) {
@@ -51,7 +51,6 @@ void Nibbler::init(char **map, std::vector<item> items) {
         for (int x = 0; map[y][x]; x++) {
             if (map[y][x] == this->_snakeSym) {
                 this->_snake.push_back({x, y});
-                return;
             }
         }
     }
@@ -93,13 +92,39 @@ void Nibbler::moveSnake(void) {
         _state = LOOSE;
         return;
     }
-    if (_map[head.y + vect.y][head.x + vect.x] == _eggSym)
+    if (_map[head.y + vect.y][head.x + vect.x] == _eggSym) {
         _snake.insert(_snake.begin(), {head.x + vect.x, head.y + vect.y});
+        _score += 2000;
+        this->spawnEgg();
+    }
     else
         this->updateSnakePos();
     this->clearMap();
     for (size_t i = 0; i != _snake.size(); i++)
         _map[_snake[i].y][_snake[i].x] = _snakeSym;
+}
+
+void Nibbler::spawnEgg(void) {
+    pos mapSize = this->getMapSize();
+    int randX = rand()%(mapSize.x + 1);
+    int randY = rand()%(mapSize.y + 1);
+
+    while (_map[randY][randX] != _bgSym) {
+        randX = rand()%(mapSize.x);
+        randY = rand()%(mapSize.y);
+    }
+    _map[randY][randX] = _eggSym;
+}
+
+Nibbler::pos Nibbler::getMapSize(void) {
+    int x = 0;
+    int y = 0;
+
+    for (y = 0; _map[y]; y++) {
+        for (x = 0; _map[y][x]; x++) {
+        }
+    }
+    return Nibbler::pos {x, y};
 }
 
 void Nibbler::updateSnakePos(void) {

@@ -39,6 +39,8 @@ class Nibbler : public IGame {
     pos getVectFromDirection(Input direction);
     void updateSnakePos(void);
     void clearMap(void);
+    void spawnEgg(void);
+    pos getMapSize(void);
 
     GAMESTATE _state;
     char **_tempMap;
