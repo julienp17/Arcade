@@ -94,9 +94,14 @@ class Core {
     void gameLoop(IDisplay *disp);
 
     /**
-     * @brief Map the inputs to their corresponding action
+     * @brief Map the inputs to their corresponding action in a game
      */
-    void mapInputs(void);
+    void mapInputsGame(void);
+
+    /**
+     * @brief Map the inputs to their corresponding action in the menu
+     */
+    void mapInputsMenu(void);
 
     bool _isRunning;
 

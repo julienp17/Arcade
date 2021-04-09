@@ -14,6 +14,8 @@ SRC			=	$(addprefix $(SRC_D), $(SRC_F))
 OBJ			=	$(SRC:.cpp=.o)
 SRC_D		=	src/
 SRC_F		=	Core.cpp \
+				CoreGame.cpp \
+				CoreMenu.cpp \
 				DLLoader.cpp
 
 SRC_UT		=	$(addprefix $(SRC_UT_D), $(SRC_UT_F))
