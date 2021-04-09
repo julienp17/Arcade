@@ -13,14 +13,27 @@
 "Usage: arcade GRAPHIC_LIBRARY"
 
 #define KEYS_USAGE \
-"Keys:\n" \
+"Keys in the menu:\n" \
+"   'ESCAPE' - Exit the arcade\n" \
+"      'TAB' - Switch menu section\n" \
+"    'ENTER' - Switch the display library, or launches a game\n" \
+"       'UP' - Move to the previous entry\n" \
+"     'DOWN' - Move to the next entry\n" \
+"\n" \
+"When entering the player name section, enter any alphabetic characters to " \
+"type out your name.\n" \
+"The player name cannot exceed 3 characters.\n" \
+"\n" \
+"Keys ingame:\n" \
 "   'ESCAPE' - Exit the arcade\n" \
 "        'O' - Previous graphics library\n" \
 "        'P' - Next graphics library\n" \
 "        'L' - Previous game\n" \
 "        'M' - Next game\n" \
 "        'R' - Restart the game\n" \
-"        'T' - Go back to the menu" \
+"        'T' - Go back to the menu\n" \
+"\n" \
+"Use directional keys to move your character in game."
 
 #include <string>
 #include <vector>
