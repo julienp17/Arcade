@@ -8,14 +8,17 @@
 all:
 	make -C ./SDL2/ all
 	make -C ./Ncurses/ all
+	make -C ./SFML/ all
 
 clean:
 	make -C ./SDL2/ clean
 	make -C ./Ncurses/ clean
+	make -C ./SFML/ clean
 
 fclean: clean
 	make -C ./SDL2/ fclean
 	make -C ./Ncurses/ fclean
+	make -C ./SFML/ fclean
 
 re: fclean all
 
