@@ -19,19 +19,15 @@ Allegro5Display::Allegro5Display(void) {
         throw Allegro5Error("Couldn't initialize image addon");
     if (!al_init_primitives_addon())
         throw Allegro5Error("Couldn't initialize primitives addon");
-    _eventQueue = al_create_event_queue();
-    if (!_eventQueue)
-        throw Allegro5Error("Couldn't create event queue");
-    al_register_event_source(_eventQueue, al_get_keyboard_event_source());
     _font = al_create_builtin_font();
     if (!_font)
         throw Allegro5Error("Couldn't create builtin font");
     _disp = NULL;
+    _eventQueue = NULL;
 }
 
 Allegro5Display::~Allegro5Display(void) {
     al_destroy_font(_font);
-    al_destroy_event_queue(_eventQueue);
 }
 
 void Allegro5Display::createWindow(void) {
@@ -42,11 +38,16 @@ void Allegro5Display::createWindow(void) {
     _disp = al_create_display(DEFAULT_WIN_WIDTH, DEFAULT_WIN_HEIGHT);
     if (!_disp)
         throw Allegro5Error("Couldn't create display");
+    _eventQueue = al_create_event_queue();
+    if (!_eventQueue)
+        throw Allegro5Error("Couldn't create event queue");
+    al_register_event_source(_eventQueue, al_get_keyboard_event_source());
     al_register_event_source(_eventQueue, al_get_display_event_source(_disp));
 }
 
 void Allegro5Display::destroyWindow(void) {
     al_destroy_display(_disp);
+    al_destroy_event_queue(_eventQueue);
 }
 
 void Allegro5Display::loadSprites(const itemVec items) {
