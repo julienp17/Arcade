@@ -105,6 +105,8 @@ void SDLDisplay::drawText(int x, int y, const char *text) {
     SDL_Texture *message = NULL;
     SDL_Surface *surface = NULL;
 
+    if (text[0] == 0)
+        return;
     surface = TTF_RenderText_Solid(_font, text, _WHITE);
     if (surface == NULL)
         throw TTFError();
@@ -173,9 +175,9 @@ Input SDLDisplay::getInputKey(const SDL_Event &event) const {
         return ESCAPE;
     case SDL_SCANCODE_TAB:
         return TAB;
-    case SDL_SCANCODE_KP_ENTER:
+    case SDL_SCANCODE_RETURN:
         return ENTER;
-    case SDL_SCANCODE_KP_BACKSPACE:
+    case SDL_SCANCODE_BACKSPACE:
         return BACKSPACE;
     case SDL_SCANCODE_UP:
         return UP;
