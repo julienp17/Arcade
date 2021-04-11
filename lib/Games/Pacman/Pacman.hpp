@@ -38,10 +38,13 @@ class Pacman : public IGame {
     struct ghost {
         pos position;
         arc::Input direction;
+        char prevTile;
     };
     void movePacman(void);
     void moveGhosts(void);
+    pos changeGhostDirection(ghost ghost);
     pos getVectFromDirection(Input direction);
+    pos getVectFromRand(int rand);
     void updateSnakePos(void);
     void clearMap(void);
 
@@ -53,6 +56,7 @@ class Pacman : public IGame {
     char _wallSym;
     char _pacmanSym;
     char _bgSym;
+    char _eggSym;
     char _ghostSym;
     pos _pacman;
     std::vector<ghost> _ghosts;
