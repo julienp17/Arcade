@@ -29,7 +29,6 @@
 
 # Project specific
 *.vscode*
-doc/html/*
 arcade
 unit_tests
 
