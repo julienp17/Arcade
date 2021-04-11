@@ -19,7 +19,7 @@ clean:
 
 fclean:
 	for dir in $(SUBDIRS); do \
-		make -C $$dir clean; \
+		make -C $$dir fclean; \
 	done
 
 re:
