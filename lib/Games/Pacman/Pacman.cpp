@@ -91,15 +91,10 @@ void Pacman::tick(void) {
     auto duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall);
 
-    if (duration <= std::chrono::milliseconds{500})
+    if (duration <= std::chrono::milliseconds{500} || _state == LOOSE)
         return;
-    while (duration > std::chrono::milliseconds{500}) {
-        if (_state == LOOSE)
-            return;
-        this->movePacman();
-        this->moveGhosts();
-        duration -= std::chrono::milliseconds{500};
-    }
+    this->movePacman();
+    this->moveGhosts();
     lastCall = std::chrono::high_resolution_clock::now();
 }
 

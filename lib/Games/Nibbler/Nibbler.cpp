@@ -71,15 +71,12 @@ void Nibbler::tick(void) {
     auto duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCall);
 
-    if (duration <= std::chrono::milliseconds{500})
+    if (duration <= std::chrono::milliseconds{500} || _state == LOOSE)
         return;
-    while (duration > std::chrono::milliseconds{500}) {
-        if (_state == LOOSE)
-            return;
-        this->moveSnake();
-        duration -= std::chrono::milliseconds{500};
-        _score += 100;
-    }
+    if (_state == LOOSE)
+        return;
+    this->moveSnake();
+    _score += 100;
     lastCall = std::chrono::high_resolution_clock::now();
 }
 
