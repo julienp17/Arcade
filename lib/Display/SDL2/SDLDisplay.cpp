@@ -5,8 +5,8 @@
 ** SDLDisplay
 */
 
-#include <SDL_image.h>
 #include <iostream>
+#include "SDL_image.h"
 #include "SDLDisplay.hpp"
 #include "Error.hpp"
 
