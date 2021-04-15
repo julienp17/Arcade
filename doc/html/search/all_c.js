@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['_7eallegro5display_48',['~Allegro5Display',['../classarc_1_1Allegro5Display.html#ab9648ccc596d8568913b44ba4ed6bc9d',1,'arc::Allegro5Display']]],
-  ['_7ecore_49',['~Core',['../classarc_1_1Core.html#af4458e3777e79616b54e680241d8f047',1,'arc::Core']]],
-  ['_7edlloader_50',['~DLLoader',['../classarc_1_1DLLoader.html#a92f938338ae7d017423e918ba33f05fb',1,'arc::DLLoader']]],
-  ['_7edlmanager_51',['~DLManager',['../classarc_1_1DLManager.html#af10081e80e42c348785dd6f45ee8a179',1,'arc::DLManager']]],
-  ['_7elibcacadisplay_52',['~LibCacaDisplay',['../classarc_1_1LibCacaDisplay.html#a30dd747fd79e33ac32d9a9bad53c7434',1,'arc::LibCacaDisplay']]],
-  ['_7encursesdisplay_53',['~NcursesDisplay',['../classarc_1_1NcursesDisplay.html#a57b757c7464f0fe2ed3f8da14f502eeb',1,'arc::NcursesDisplay']]],
-  ['_7esdldisplay_54',['~SDLDisplay',['../classarc_1_1SDLDisplay.html#aa2e10a3069e513e62dcff0de09a1487d',1,'arc::SDLDisplay']]],
-  ['_7esfmldisplay_55',['~SFMLDisplay',['../classarc_1_1SFMLDisplay.html#a4199bf165c81d1e75bb297c8e1eae3f1',1,'arc::SFMLDisplay']]]
+  ['m_138',['M',['../namespacearc.html#a624a50ee4cc51c14bd513cd98da5e9d1a893d04ab44f1c02ea827ee268bea603f',1,'arc']]],
+  ['main_139',['main',['../main_8cpp.html#a0c99d968a34e803d378692bde2e3f18f',1,'main.cpp']]],
+  ['main_2ecpp_140',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['main_2ed_141',['main.d',['../main_8d.html',1,'']]],
+  ['map_142',['map',['../namespacearc.html#aaf34736df7ae07a66964f95a782cb18d',1,'arc']]],
+  ['map_5ft_143',['map_t',['../namespacearc.html#a137d73704d3cc52da2032c74f0dded08',1,'arc']]],
+  ['my_5fexit_5ffailure_144',['MY_EXIT_FAILURE',['../arcade_8hpp.html#abd9f90c5a902c2f5e9d8cd82f8f8e135',1,'arcade.hpp']]]
 ];

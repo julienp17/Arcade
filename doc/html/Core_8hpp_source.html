@@ -70,7 +70,7 @@ $(function() {
 <div class="title">Core.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<a href="Core_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">** EPITECH PROJECT, 2021</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">** arcade [WSL: Ubuntu-20.04]</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">** File description:</span></div>
@@ -85,16 +85,16 @@ $(function() {
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;arcade.hpp&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;DLManager.hpp&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;IDisplay.hpp&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;IGame.hpp&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;Error.hpp&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="arcade_8hpp.html">arcade.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="DLManager_8hpp.html">DLManager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="IDisplay_8hpp.html">IDisplay.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="IGame_8hpp.html">IGame.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Error_8hpp.html">Error.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>arc {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespacearc.html">   22</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacearc.html">arc</a> {</div>
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classarc_1_1CoreError.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="classarc_1_1CoreError.html">CoreError</a> : <span class="keyword">public</span> <a class="code" href="classarc_1_1Error.html">Error</a> {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classarc_1_1CoreError.html">CoreError</a>(std::string <span class="keyword">const</span> &amp;message)</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classarc_1_1CoreError.html#a48fed17f45a9e9b1411cc7040c1761d7">   28</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classarc_1_1CoreError.html#a48fed17f45a9e9b1411cc7040c1761d7">CoreError</a>(std::string <span class="keyword">const</span> &amp;message)</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        : <a class="code" href="classarc_1_1Error.html">Error</a>(std::string(<span class="stringliteral">&quot;core: &quot;</span>) + message) {}</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
@@ -117,7 +117,7 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> saveHiScore(<span class="keyword">const</span> std::string &amp;gameName, <span class="keyword">const</span> <span class="keywordtype">size_t</span> score) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> execKeys(<span class="keyword">const</span> Input input);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> execKeys(<span class="keyword">const</span> <a class="code" href="namespacearc.html#a624a50ee4cc51c14bd513cd98da5e9d1">Input</a> input);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> dispLoop(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
@@ -132,7 +132,7 @@ $(function() {
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">void</span> loop(IDisplay *disp);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">void</span> draw(IDisplay *disp) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordtype">void</span> handleEnteredText(<span class="keyword">const</span> Input input);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordtype">void</span> handleEnteredText(<span class="keyword">const</span> <a class="code" href="namespacearc.html#a624a50ee4cc51c14bd513cd98da5e9d1">Input</a> input);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordtype">void</span> mapInputs(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;     <span class="keyword">private</span>:</div>
@@ -151,7 +151,7 @@ $(function() {
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="comment">//* Current section of the menu</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">enum</span> Section {</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            YOUR_NAME,</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            DISPLAY,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <a class="code" href="namespacearc.html#a01c608597f730acc019fee545a1666e8aaf744414b02b1ff3a6ea5356113b6b62">DISPLAY</a>,</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            GAME</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        } _section;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    } _menu;</div>
@@ -180,12 +180,21 @@ $(function() {
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">#endif  // LIB_CORE_INC_CORE_HPP_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassarc_1_1Core_html"><div class="ttname"><a href="classarc_1_1Core.html">arc::Core</a></div><div class="ttdoc">Bridge between a game library and a display library.</div><div class="ttdef"><b>Definition:</b> Core.hpp:35</div></div>
+<div class="ttc" id="aIDisplay_8hpp_html"><div class="ttname"><a href="IDisplay_8hpp.html">IDisplay.hpp</a></div></div>
+<div class="ttc" id="aError_8hpp_html"><div class="ttname"><a href="Error_8hpp.html">Error.hpp</a></div></div>
+<div class="ttc" id="aarcade_8hpp_html"><div class="ttname"><a href="arcade_8hpp.html">arcade.hpp</a></div></div>
 <div class="ttc" id="aclassarc_1_1CoreError_html"><div class="ttname"><a href="classarc_1_1CoreError.html">arc::CoreError</a></div><div class="ttdoc">Errors related to arcade Core.</div><div class="ttdef"><b>Definition:</b> Core.hpp:26</div></div>
+<div class="ttc" id="anamespacearc_html_a624a50ee4cc51c14bd513cd98da5e9d1"><div class="ttname"><a href="namespacearc.html#a624a50ee4cc51c14bd513cd98da5e9d1">arc::Input</a></div><div class="ttdeci">Input</div><div class="ttdef"><b>Definition:</b> arcade.hpp:50</div></div>
 <div class="ttc" id="aclassarc_1_1Error_html"><div class="ttname"><a href="classarc_1_1Error.html">arc::Error</a></div><div class="ttdoc">Standard arcade error.</div><div class="ttdef"><b>Definition:</b> Error.hpp:18</div></div>
+<div class="ttc" id="aclassarc_1_1CoreError_html_a48fed17f45a9e9b1411cc7040c1761d7"><div class="ttname"><a href="classarc_1_1CoreError.html#a48fed17f45a9e9b1411cc7040c1761d7">arc::CoreError::CoreError</a></div><div class="ttdeci">CoreError(std::string const &amp;message)</div><div class="ttdef"><b>Definition:</b> Core.hpp:28</div></div>
 <div class="ttc" id="aclassarc_1_1Core_html_a963f4efc3b11751517d7c2c7011b7054"><div class="ttname"><a href="classarc_1_1Core.html#a963f4efc3b11751517d7c2c7011b7054">arc::Core::Core</a></div><div class="ttdeci">Core(const std::string &amp;filename)</div><div class="ttdoc">Construct a new Core object with a selected display.</div><div class="ttdef"><b>Definition:</b> Core.cpp:13</div></div>
 <div class="ttc" id="aclassarc_1_1Core_html_af0f48fbcd2fcc4dbe9cf0adc71f45812"><div class="ttname"><a href="classarc_1_1Core.html#af0f48fbcd2fcc4dbe9cf0adc71f45812">arc::Core::run</a></div><div class="ttdeci">void run(void)</div><div class="ttdoc">Launches the arcade !</div><div class="ttdef"><b>Definition:</b> Core.cpp:24</div></div>
+<div class="ttc" id="aIGame_8hpp_html"><div class="ttname"><a href="IGame_8hpp.html">IGame.hpp</a></div></div>
 <div class="ttc" id="aclassarc_1_1DLLoader_html"><div class="ttname"><a href="classarc_1_1DLLoader.html">arc::DLLoader</a></div><div class="ttdoc">Encapsulation of a dynamic library.</div><div class="ttdef"><b>Definition:</b> DLLoader.hpp:33</div></div>
 <div class="ttc" id="aclassarc_1_1IDisplay_html"><div class="ttname"><a href="classarc_1_1IDisplay.html">arc::IDisplay</a></div><div class="ttdoc">Interface for a display library.</div><div class="ttdef"><b>Definition:</b> IDisplay.hpp:27</div></div>
+<div class="ttc" id="anamespacearc_html_a01c608597f730acc019fee545a1666e8aaf744414b02b1ff3a6ea5356113b6b62"><div class="ttname"><a href="namespacearc.html#a01c608597f730acc019fee545a1666e8aaf744414b02b1ff3a6ea5356113b6b62">arc::DISPLAY</a></div><div class="ttdeci">@ DISPLAY</div><div class="ttdef"><b>Definition:</b> arcade.hpp:46</div></div>
+<div class="ttc" id="anamespacearc_html"><div class="ttname"><a href="namespacearc.html">arc</a></div><div class="ttdef"><b>Definition:</b> Core.hpp:22</div></div>
+<div class="ttc" id="aDLManager_8hpp_html"><div class="ttname"><a href="DLManager_8hpp.html">DLManager.hpp</a></div></div>
 <div class="ttc" id="aclassarc_1_1Core_html_af4458e3777e79616b54e680241d8f047"><div class="ttname"><a href="classarc_1_1Core.html#af4458e3777e79616b54e680241d8f047">arc::Core::~Core</a></div><div class="ttdeci">virtual ~Core(void)</div><div class="ttdoc">Destroy the Core object.</div><div class="ttdef"><b>Definition:</b> Core.hpp:47</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
